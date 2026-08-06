@@ -1,21 +1,22 @@
 @import "tailwindcss";
 
 /* ==================================================================
- * Nodum Design System
+ * Nodum Design System — modo "tech"
  * ------------------------------------------------------------------
- * Tokens portados de Nodum_Design_System/tokens/*.css.
- * Paleta: carvão (ink) + verde jade. Nenhum outro matiz.
- * Fundos são cor chapada — sem gradiente, sem textura, sem foto.
- * As fontes vêm do next/font (app/layout.tsx), não de um @import
- * remoto: o Tailwind v4 resolve @import em build e um remoto trava o
- * compilador — além de bloquear a hidratação se o Google Fonts demorar.
+ * A paleta e as fontes são as da marca (carvão + jade, Poppins/
+ * Manrope/JetBrains Mono). O que muda em relação ao guia original é
+ * o terreno: em vez de superfícies claras e chapadas, o site inteiro
+ * roda sobre o painel carvão que a marca já reservava para abertura
+ * e fechamento, e o jade passa a funcionar como luz.
  * ================================================================== */
 
 @theme {
   /* --- escalas de marca --- */
+  --color-ink-950: #121110;
   --color-ink-900: #1c1b1a;
-  --color-ink-800: #2c2c2a;
-  --color-ink-700: #3a3937;
+  --color-ink-800: #23221f;
+  --color-ink-700: #2c2c2a;
+  --color-ink-600: #3a3937;
 
   --color-jade-500: #1d9e75;
   --color-jade-400: #4fb893;
@@ -25,7 +26,6 @@
   --color-forest-500: #146b52;
   --color-forest-400: #5fcb9e;
   --color-forest-300: #c8eedf;
-  --color-forest-100: #ecfaf3;
 
   --color-neutral-50: #f7f7f6;
   --color-neutral-100: #ededec;
@@ -36,56 +36,51 @@
   --color-neutral-600: #504f4c;
   --color-neutral-700: #3a3937;
   --color-neutral-800: #262523;
-  --color-neutral-900: #1c1b1a;
 
   /* --- semânticos --- */
-  --color-canvas: #f7f7f6;
-  --color-page: #ffffff;
-  --color-ink: #1c1b1a;
-  --color-body: #504f4c;
+  --color-surface: #121110;
+  --color-panel: #1c1b1a;
+  --color-panel-alt: #23221f;
+  --color-ink: #f7f7f6;
+  --color-body: #bebdba;
   --color-muted: #94938f;
-  --color-line: #dbdad8;
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
   --color-brand: #1d9e75;
-  --color-brand-hover: #146b52;
+  --color-brand-lit: #5fcb9e;
 
-  /* --- tipografia (auto-hospedada via next/font em app/layout.tsx) --- */
+  /* --- tipografia (auto-hospedada via next/font) --- */
   --font-display: var(--font-poppins), system-ui, sans-serif;
   --font-body: var(--font-manrope), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
-  --text-display-xl: 4rem; /* 64px */
-  --text-display-lg: 3rem; /* 48px */
-  --text-display-md: 2.25rem; /* 36px */
+  --text-display-xl: 4.5rem;
+  --text-display-lg: 3.25rem;
+  --text-display-md: 2.25rem;
 
-  /* --- raios (6–24px; pill só em badge/switch) --- */
   --radius-control: 10px;
   --radius-card: 16px;
   --radius-panel: 24px;
 
-  /* --- sombras: rasas, usadas com parcimônia --- */
-  --shadow-sm: 0 1px 2px rgba(28, 27, 26, 0.05), 0 1px 3px rgba(28, 27, 26, 0.04);
-  --shadow-md: 0 2px 6px rgba(28, 27, 26, 0.06), 0 6px 16px rgba(28, 27, 26, 0.06);
-  --shadow-lg: 0 8px 24px rgba(28, 27, 26, 0.08), 0 20px 48px rgba(28, 27, 26, 0.08);
+  /* --- brilhos: a "sombra" deste terreno é luz jade, não preto --- */
+  --shadow-glow: 0 0 0 1px rgba(29, 158, 117, 0.25), 0 8px 40px -8px rgba(29, 158, 117, 0.35);
+  --shadow-lift: 0 24px 60px -20px rgba(0, 0, 0, 0.8);
 }
 
 @layer base {
-  * {
-    border-color: var(--color-line);
-  }
-
   html {
     scroll-behavior: smooth;
-    /* compensa o header fixo ao pular por âncora */
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6rem;
+    background-color: var(--color-surface);
   }
 
   body {
-    background-color: var(--color-page);
+    background-color: var(--color-surface);
     color: var(--color-ink);
     font-family: var(--font-body);
-    font-weight: 400;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   h1,
@@ -94,34 +89,47 @@
   h4 {
     font-family: var(--font-display);
     font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
-    color: var(--color-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    text-wrap: balance;
   }
 
   ::selection {
-    background-color: var(--color-jade-300);
-    color: var(--color-ink-900);
+    background-color: var(--color-jade-500);
+    color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-jade-400);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-brand-lit);
+    outline-offset: 3px;
     border-radius: 4px;
+  }
+
+  /* Barra de rolagem alinhada ao terreno escuro. */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2f2e2b;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-forest-500);
   }
 }
 
 @layer components {
-  /* Rótulo sobrescrito em mono — o motivo de "eyebrow" dos decks. */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
   }
 
-  /* Numeração 01/02/03 — o sistema não tem ícones por definição. */
   .numeral {
     font-family: var(--font-mono);
     font-weight: 600;
@@ -129,18 +137,20 @@
   }
 
   .section {
-    padding-block: 5rem;
+    position: relative;
+    padding-block: 6rem;
   }
 
   @media (min-width: 768px) {
     .section {
-      padding-block: 6rem;
+      padding-block: 8rem;
     }
   }
 
   .shell {
+    position: relative;
     width: 100%;
-    max-width: 76rem;
+    max-width: 78rem;
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
@@ -150,9 +160,129 @@
       padding-inline: 2rem;
     }
   }
+
+  /* Texto com o jade "aceso" — usado só no que precisa saltar. */
+  .lit {
+    background: linear-gradient(180deg, #9fe1cb 0%, #1d9e75 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Cartão base do terreno escuro: vidro fino sobre o carvão. */
+  .card {
+    position: relative;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-line);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+    backdrop-filter: blur(2px);
+  }
+
+  /* Borda que "acende" no hover, desenhada em ::after para não empurrar
+     o layout nem brigar com o border do .card. */
+  .card-lit::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgba(95, 203, 158, 0.7), rgba(29, 158, 117, 0) 45%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .card-lit:hover::after {
+    opacity: 1;
+  }
+
+  /* Régua fina com um pulso de luz correndo — separador de seção. */
+  .rule {
+    position: relative;
+    height: 1px;
+    background: var(--color-line);
+    overflow: hidden;
+  }
+
+  .rule::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    width: 30%;
+    background: linear-gradient(90deg, transparent, var(--color-brand-lit), transparent);
+    animation: rule-sweep 5s linear infinite;
+  }
 }
 
-/* Respeita quem pediu menos movimento: a animação vira estado final. */
+@layer utilities {
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 76px 76px;
+  }
+
+  /* Esmaece as bordas de faixas que correm (marquee, trilhos). */
+  .fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+}
+
+@keyframes rule-sweep {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(420%);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Movimento é enfeite: quem pediu menos, recebe a página parada. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { ArrowRight, Mail, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Reveal } from "@/components/ui/motion";
+import { Aurora, Magnetic, Reveal, ScrambleText, SplitText } from "@/components/ui/fx";
+import { NodeField } from "@/components/ui/node-field";
 import { contato, site } from "@/lib/content";
 
 const campos = [
@@ -14,7 +15,7 @@ const campos = [
 ] as const;
 
 const estiloCampo =
-  "h-11 w-full rounded-[var(--radius-control)] border border-white/15 bg-ink-800 px-4 text-white placeholder:text-neutral-500 transition-colors duration-150 focus:border-forest-400 focus:outline-none";
+  "h-12 w-full rounded-[var(--radius-control)] border border-line bg-ink-950/60 px-4 text-white placeholder:text-neutral-600 transition-all duration-200 focus:border-brand focus:bg-ink-950 focus:shadow-[0_0_0_3px_rgba(29,158,117,0.15)] focus:outline-none";
 
 export function Contato() {
   const [dados, setDados] = useState({
@@ -26,8 +27,8 @@ export function Contato() {
   });
 
   // Sem backend: o formulário monta um e-mail pré-preenchido e entrega
-  // para o cliente de e-mail do visitante. Nada é enviado por aqui — o
-  // dia que existir uma API, é só trocar este handler.
+  // para o app de e-mail do visitante. Nada é enviado por aqui — o dia
+  // que existir uma API, é só trocar este handler.
   function enviar(e: React.FormEvent) {
     e.preventDefault();
     const assunto = `Contato pelo site — ${dados.empresa || dados.nome}`;
@@ -45,47 +46,54 @@ export function Contato() {
   }
 
   return (
-    // Painel de fechamento em ink — o espelho do hero, como nos decks.
-    <section id="contato" className="bg-ink-900 py-20 text-white md:py-28">
-      <div className="shell grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
-        <Reveal>
-          <p className="eyebrow text-forest-400">{contato.eyebrow}</p>
-          <h2 className="mt-4 text-display-md text-white md:text-display-lg">{contato.titulo}</h2>
-          <p className="mt-5 max-w-md text-lg text-neutral-300">{contato.texto}</p>
+    <section id="contato" className="relative overflow-hidden bg-surface py-24 md:py-32">
+      <div aria-hidden className="absolute inset-0 grid-lines opacity-60" />
+      <Aurora />
+      <NodeField className="opacity-70" densidade={0.00007} maxNos={70} />
 
-          <div className="mt-10 space-y-3">
-            <a
-              href={`mailto:${site.email}`}
-              className="flex items-center gap-3 rounded-[var(--radius-control)] border border-white/12 px-5 py-4 transition-colors duration-150 hover:border-forest-400"
-            >
-              <Mail className="h-5 w-5 text-forest-400" />
-              <span className="font-medium">{site.email}</span>
-            </a>
-            <a
-              href={`https://wa.me/${site.whatsapp}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-[var(--radius-control)] border border-white/12 px-5 py-4 transition-colors duration-150 hover:border-forest-400"
-            >
-              <MessageCircle className="h-5 w-5 text-forest-400" />
-              <span className="font-medium">Falar no WhatsApp</span>
-            </a>
-          </div>
+      <div className="shell relative grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
+        <div>
+          <ScrambleText text={contato.eyebrow} className="eyebrow text-forest-400" />
 
-          <p className="mt-10 font-display text-lg text-forest-400">{site.fechamento}</p>
-        </Reveal>
+          <h2 className="mt-5 text-display-md md:text-display-lg">
+            <SplitText text="Vamos" animateOnView className="text-white" />{" "}
+            <SplitText text="conversar?" animateOnView delay={0.1} className="lit" />
+          </h2>
 
-        <Reveal delay={0.1}>
-          <form
-            onSubmit={enviar}
-            className="rounded-[var(--radius-panel)] border border-white/10 bg-ink-800/60 p-7 md:p-9"
-          >
+          <Reveal delay={0.1}>
+            <p className="mt-6 max-w-md text-lg text-body">{contato.texto}</p>
+
+            <div className="mt-10 space-y-3">
+              <a
+                href={`mailto:${site.email}`}
+                className="group flex items-center gap-4 rounded-[var(--radius-control)] border border-line px-5 py-4 transition-all duration-200 hover:border-brand hover:bg-brand/5"
+              >
+                <Mail className="h-5 w-5 text-forest-400" />
+                <span className="font-medium text-white">{site.email}</span>
+                <ArrowRight className="ml-auto h-4 w-4 -translate-x-2 text-forest-400 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+              </a>
+              <a
+                href={`https://wa.me/${site.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 rounded-[var(--radius-control)] border border-line px-5 py-4 transition-all duration-200 hover:border-brand hover:bg-brand/5"
+              >
+                <MessageCircle className="h-5 w-5 text-forest-400" />
+                <span className="font-medium text-white">Falar no WhatsApp</span>
+                <ArrowRight className="ml-auto h-4 w-4 -translate-x-2 text-forest-400 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+              </a>
+            </div>
+
+            <p className="mt-12 font-display text-xl lit">{site.fechamento}</p>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.15}>
+          <form onSubmit={enviar} className="card rounded-[var(--radius-panel)] p-7 md:p-10">
             <div className="grid gap-5 sm:grid-cols-2">
               {campos.map((campo) => (
                 <label key={campo.name} className="block">
-                  <span className="mb-2 block text-sm font-semibold text-white">
-                    {campo.label}
-                  </span>
+                  <span className="mb-2 block text-sm font-semibold text-white">{campo.label}</span>
                   <input
                     type={campo.type}
                     name={campo.name}
@@ -109,15 +117,18 @@ export function Contato() {
                 placeholder="Conte em poucas linhas o momento da empresa."
                 value={dados.mensagem}
                 onChange={(e) => setDados({ ...dados, mensagem: e.target.value })}
-                className={`${estiloCampo} h-auto resize-none py-3`}
+                className={`${estiloCampo} h-auto resize-none py-3.5`}
               />
             </label>
 
-            <Button type="submit" size="lg" className="mt-7 w-full">
-              Enviar mensagem
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-            <p className="mt-3 text-center text-xs text-neutral-500">
+            <Magnetic forca={0.15} className="mt-8 block w-full">
+              <Button type="submit" size="lg" className="w-full">
+                Enviar mensagem
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
+              </Button>
+            </Magnetic>
+
+            <p className="mt-4 text-center text-xs text-muted">
               Abre o seu app de e-mail com a mensagem pronta. Respondemos em até 1 dia útil.
             </p>
           </form>

@@ -1,33 +1,30 @@
+"use client";
+
 /**
- * Marca Nodum, redesenhada inline para acompanhar o contexto (claro
- * ou escuro) sem trocar de arquivo.
+ * Marca Nodum.
  *
- * Wordmark: "nod" em carvão + "um" em jade no claro; "nod" em branco +
- * "um" em menta no escuro — exatamente o split de duas cores definido
- * pela marca. O símbolo de dois nós ligados representa "conexões".
+ * Wordmark "nod" (branco) + "um" (menta) sobre o terreno escuro — o
+ * split de duas cores definido pela marca. O símbolo são dois nós
+ * ligados: aqui o nó de acento pulsa devagar e a ligação acende no
+ * hover, transformando o logo na versão mínima do efeito de fundo.
  *
  * Fonte: Nodum_Design_System/assets/logo-wordmark*.svg
  */
 
 import { cn } from "@/lib/utils";
 
-export function NodumMark({
-  className,
-  tone = "light",
-}: {
-  className?: string;
-  tone?: "light" | "dark";
-}) {
-  const noPrincipal = tone === "dark" ? "#FFFFFF" : "#1C1B1A";
-  const noAcento = tone === "dark" ? "#5FCB9E" : "#1D9E75";
-
+export function NodumMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" className={cn("h-6 w-6", className)} aria-hidden focusable="false">
-      <circle cx="10" cy="14" r="6" fill={noPrincipal} />
-      <circle cx="30" cy="26" r="6" fill={noAcento} />
+      <circle cx="30" cy="26" r="10" fill="#5FCB9E" opacity="0.18">
+        <animate attributeName="r" values="7;12;7" dur="3.2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.22;0;0.22" dur="3.2s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="10" cy="14" r="6" fill="#FFFFFF" />
+      <circle cx="30" cy="26" r="6" fill="#5FCB9E" />
       <path
         d="M13.5 17.5 L26.5 22.5"
-        stroke={noAcento}
+        stroke="#5FCB9E"
         strokeWidth="3"
         strokeLinecap="round"
         opacity="0.75"
@@ -36,24 +33,13 @@ export function NodumMark({
   );
 }
 
-export function NodumLogo({
-  className,
-  tone = "light",
-}: {
-  className?: string;
-  tone?: "light" | "dark";
-}) {
+export function NodumLogo({ className }: { className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
-      <NodumMark tone={tone} className="h-6 w-6" />
-      <span
-        className={cn(
-          "font-display text-lg font-bold leading-none tracking-tight",
-          tone === "dark" ? "text-white" : "text-ink"
-        )}
-      >
+    <span className={cn("group inline-flex items-center gap-2.5", className)}>
+      <NodumMark className="h-6 w-6 transition-transform duration-300 group-hover:rotate-[-12deg]" />
+      <span className="font-display text-lg font-bold leading-none tracking-tight text-white">
         nod
-        <span className={tone === "dark" ? "text-forest-400" : "text-brand"}>um</span>
+        <span className="text-forest-400">um</span>
       </span>
       <span className="sr-only">Nodum Soluções Integradas</span>
     </span>

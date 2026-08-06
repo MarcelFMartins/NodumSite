@@ -3,6 +3,7 @@ import { JetBrains_Mono, Manrope, Poppins } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
+import { GlowCursor, ScrollProgress } from "@/components/ui/fx";
 import { site } from "@/lib/content";
 
 /* Fontes da marca auto-hospedadas pelo next/font: sem requisição a um
@@ -72,6 +73,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Pular para o conteúdo
         </a>
+        <ScrollProgress />
+        <GlowCursor />
         <Header />
         <main id="conteudo">{children}</main>
         <Footer />
