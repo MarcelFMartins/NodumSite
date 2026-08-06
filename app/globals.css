@@ -72,6 +72,21 @@
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     background-color: var(--color-surface);
+    /* Impede o iOS de inflar o corpo do texto ao girar o aparelho. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* `clip` corta o estouro horizontal sem criar um contexto de rolagem
+       — com `hidden` aqui, o Safari do iPhone continuaria arrastando a
+       página para o lado e o `position: fixed` do header quebraria. */
+    overflow-x: clip;
+    /* Mata o "puxar para recarregar" e o efeito de borracha vertical: é
+       o que fazia aparecer a faixa cinza padrão do navegador no topo em
+       vez do carvão do site. */
+    overscroll-behavior-y: none;
+    /* Diz ao navegador que a página é escura: os controles nativos, a
+       barra de rolagem e as áreas pintadas fora da caixa da página param
+       de sair no cinza claro padrão. */
+    color-scheme: dark;
   }
 
   body {
@@ -80,7 +95,14 @@
     font-family: var(--font-body);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
+    /* O flash cinza no toque briga com o terreno carvão; o estado de
+       :active de cada controle já dá o retorno. */
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+    /* `touch-action` sem `pinch-zoom` reforça o bloqueio de zoom no iOS,
+       onde `user-scalable=no` sozinho é ignorado desde o iOS 10. */
+    touch-action: pan-x pan-y;
   }
 
   h1,
@@ -138,7 +160,13 @@
 
   .section {
     position: relative;
-    padding-block: 6rem;
+    padding-block: 4.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .section {
+      padding-block: 6rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -225,6 +253,14 @@
       linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
     background-size: 76px 76px;
+  }
+
+  /* Numa tela de 390px, a malha de 76px vira quatro colunas largas e
+     perde a leitura de "grade técnica". */
+  @media (max-width: 639px) {
+    .grid-lines {
+      background-size: 44px 44px;
+    }
   }
 
   /* Esmaece as bordas de faixas que correm (marquee, trilhos). */

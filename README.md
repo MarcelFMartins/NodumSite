@@ -90,6 +90,44 @@ Padrões inspirados em [reactbits.dev](https://reactbits.dev),
 **reimplementados do zero** com os tokens da Nodum — nenhuma dependência de UI
 de terceiros além do `lucide-react`.
 
+## O que muda no celular
+
+O desktop é o que sempre foi. O mobile roda a mesma página com os efeitos
+caros desligados — a decisão é sempre a mesma: se o efeito existe para
+responder ao cursor, num aparelho de toque ele só cobra bateria.
+
+`lib/hooks.ts` expõe `useToque()` e `useTelaPequena()` (media queries via
+`useSyncExternalStore`, com snapshot `false` no servidor — o HTML entregue
+continua sendo o mesmo).
+
+| No toque | Vira |
+| --- | --- |
+| `TiltCard` | cartão chapado, sem wrapper 3D nem springs |
+| `Magnetic` | `div` comum |
+| `GlowCursor` | não monta (já era assim) |
+| `Aurora` | manchas menores e **paradas** |
+| `NodeField` | teto de 26 nós, DPR 1,5, sem interação e sem o `hypot` por nó dentro do laço O(n²) |
+| cartões de prova do herói | sem o `float-slow` em loop |
+| segunda faixa do marquee | escondida |
+
+A rede de nós também só liga o primeiro quadro no `requestIdleCallback`:
+o LCP do celular é o título do herói e não tem por que esperar um canvas
+decorativo terminar de desenhar.
+
+No layout: alvos de toque de 44px nas abas do produto, CTAs do herói em
+largura cheia, respiros e paddings menores abaixo de `sm`, `autoComplete`
+e `inputMode` no formulário (o teclado já abre certo), e a malha de fundo
+em 44px para não virar quatro colunas gordas numa tela de 390px.
+
+Zoom travado (`maximum-scale=1`, `user-scalable=no` + `touch-action` sem
+pinça) e `overscroll-behavior-y: none` com `color-scheme: dark` — é o que
+tira a faixa cinza do navegador quando se puxa a página para baixo.
+
+> O zoom travado é uma escolha do cliente, não um padrão: usuários com
+> baixa visão perdem a pinça para ampliar. Para reverter, apague
+> `maximumScale`/`userScalable` de `app/layout.tsx` e o `touch-action` do
+> `body` em `app/globals.css`.
+
 ## Nodum Barbearia
 
 A seção `#produtos` mostra o sistema que já está em operação, com telas reais do

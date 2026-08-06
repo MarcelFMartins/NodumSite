@@ -96,7 +96,7 @@ export function Header() {
           onClick={() => setAberto((v) => !v)}
           aria-label={aberto ? "Fechar menu" : "Abrir menu"}
           aria-expanded={aberto}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-control)] border border-line text-white transition-colors hover:border-brand lg:hidden"
+          className="-mr-1 inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-control)] border border-line text-white transition-colors hover:border-brand active:bg-white/5 lg:hidden"
         >
           {aberto ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -111,7 +111,9 @@ export function Header() {
             transition={{ duration: 0.25, ease: [0.22, 0.61, 0.36, 1] }}
             className="overflow-hidden border-t border-line bg-surface/95 backdrop-blur-xl lg:hidden"
           >
-            <nav className="shell flex flex-col gap-1 py-5">
+            {/* Em aparelho baixo (ou paisagem) a lista passa da tela: o menu
+                rola por dentro em vez de esconder o último item. */}
+            <nav className="shell flex max-h-[calc(100svh-5rem)] flex-col gap-1 overflow-y-auto py-5">
               {nav.map((item, i) => (
                 <motion.div
                   key={item.href}

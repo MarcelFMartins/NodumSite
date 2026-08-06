@@ -20,7 +20,7 @@ export function Servicos() {
         <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {servicos.map((servico, i) => (
             <StaggerItem key={servico.titulo} className="h-full">
-              <TiltCard intensidade={6} className="flex h-full flex-col p-7">
+              <TiltCard intensidade={6} className="flex h-full flex-col p-6 sm:p-7">
                 <div className="flex items-start justify-between">
                   <span className="numeral text-sm text-muted transition-colors duration-300 group-hover:text-forest-400">
                     {String(i + 1).padStart(2, "0")}

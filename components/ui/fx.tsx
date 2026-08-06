@@ -30,6 +30,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useTelaPequena, useToque } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -242,6 +243,7 @@ export function TiltCard({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const toque = useToque();
 
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
@@ -273,7 +275,11 @@ export function TiltCard({
     luzOp.set(0);
   }, [luzOp, mx, my]);
 
-  if (reduced) {
+  // No toque não há cursor para inclinar o cartão em direção a nada, e o
+  // wrapper 3D ainda cobraria caro: cada cartão vira um contexto de
+  // empilhamento com `transform-gpu` e dois springs vivos. O cartão
+  // chapado é o mesmo visual e não custa nada.
+  if (reduced || toque) {
     return <div className={cn("card", className)}>{children}</div>;
   }
 
@@ -327,8 +333,9 @@ export function Magnetic({
   const reduced = useReducedMotion();
   const x = useSpring(0, { stiffness: 260, damping: 18, mass: 0.3 });
   const y = useSpring(0, { stiffness: 260, damping: 18, mass: 0.3 });
+  const toque = useToque();
 
-  if (reduced) return <div className={className}>{children}</div>;
+  if (reduced || toque) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
@@ -444,20 +451,27 @@ export function GlowCursor() {
 /* ================================================================== */
 
 export function Aurora({ className }: { className?: string }) {
+  // Duas manchas de 30rem+ com `blur-3xl` animadas em loop são o efeito
+  // mais caro da página para uma GPU de celular: cada quadro repinta uma
+  // área maior que a tela inteira. No mobile elas ficam paradas — a luz
+  // continua lá, o custo por quadro vai a zero.
+  const pequena = useTelaPequena();
+  const flutuar = (css: string) => (pequena ? undefined : css);
+
   return (
     <div aria-hidden className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}>
       <div
-        className="absolute -left-40 -top-40 h-[36rem] w-[36rem] rounded-full opacity-60 blur-3xl"
+        className="absolute -left-40 -top-40 h-[22rem] w-[22rem] rounded-full opacity-60 blur-3xl md:h-[36rem] md:w-[36rem]"
         style={{
           background: "radial-gradient(circle, rgba(29,158,117,0.22) 0%, rgba(29,158,117,0) 65%)",
-          animation: "float-slow 14s ease-in-out infinite",
+          animation: flutuar("float-slow 14s ease-in-out infinite"),
         }}
       />
       <div
-        className="absolute -right-32 top-1/3 h-[30rem] w-[30rem] rounded-full opacity-50 blur-3xl"
+        className="absolute -right-32 top-1/3 h-[18rem] w-[18rem] rounded-full opacity-50 blur-3xl md:h-[30rem] md:w-[30rem]"
         style={{
           background: "radial-gradient(circle, rgba(95,203,158,0.18) 0%, rgba(95,203,158,0) 65%)",
-          animation: "float-slow 18s ease-in-out infinite reverse",
+          animation: flutuar("float-slow 18s ease-in-out infinite reverse"),
         }}
       />
     </div>

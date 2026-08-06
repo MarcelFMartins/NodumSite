@@ -38,7 +38,7 @@ export function Produtos() {
         <Reveal delay={0.1}>
           <div className="card mt-14 overflow-hidden rounded-[var(--radius-panel)]">
             <div className="grid lg:grid-cols-[1fr_1.15fr]">
-              <div className="p-8 md:p-12">
+              <div className="p-6 sm:p-8 md:p-12">
                 <span className="inline-flex items-center gap-2.5 rounded-full border border-brand/40 bg-brand/10 px-4 py-1.5">
                   <span className="relative flex h-2 w-2">
                     <span
@@ -80,7 +80,7 @@ export function Produtos() {
                 </Magnetic>
               </div>
 
-              <div className="border-t border-line bg-ink-950/60 p-8 md:p-12 lg:border-l lg:border-t-0">
+              <div className="border-t border-line bg-ink-950/60 p-6 sm:p-8 md:p-12 lg:border-l lg:border-t-0">
                 <TiltCard intensidade={7} brilho={false} className="overflow-hidden p-2">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-ink-950">
                     <AnimatePresence mode="wait">
@@ -96,7 +96,7 @@ export function Produtos() {
                           src={tela.src}
                           alt={`Nodum Barbearia — ${tela.legenda}`}
                           fill
-                          sizes="(max-width: 1024px) 100vw, 55vw"
+                          sizes="(max-width: 640px) 88vw, (max-width: 1024px) 92vw, 55vw"
                           className="object-cover object-top"
                         />
                       </motion.div>
@@ -112,7 +112,10 @@ export function Produtos() {
                       onClick={() => setAtiva(i)}
                       aria-pressed={i === ativa}
                       className={cn(
-                        "relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
+                        "relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
+                        // Alvo de 44px no toque: com py-2 a pílula tem 36px de
+                        // altura e escapa do polegar.
+                        "max-lg:min-h-11 max-lg:px-5",
                         i === ativa ? "text-white" : "text-muted hover:text-white"
                       )}
                     >

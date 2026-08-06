@@ -7,11 +7,40 @@ import { Aurora, Magnetic, Reveal, ScrambleText, SplitText } from "@/components/
 import { NodeField } from "@/components/ui/node-field";
 import { contato, site } from "@/lib/content";
 
+/* `autoComplete` e `inputMode` são o que faz a diferença no celular: o
+   sistema oferece o preenchimento automático e o teclado já abre no
+   layout certo (arroba no e-mail, numérico no telefone). */
 const campos = [
-  { name: "nome", label: "Seu nome", type: "text", placeholder: "Como podemos te chamar" },
-  { name: "empresa", label: "Empresa", type: "text", placeholder: "Nome do negócio" },
-  { name: "email", label: "E-mail", type: "email", placeholder: "voce@empresa.com.br" },
-  { name: "telefone", label: "Telefone", type: "tel", placeholder: "(11) 99999-9999" },
+  {
+    name: "nome",
+    label: "Seu nome",
+    type: "text",
+    placeholder: "Como podemos te chamar",
+    autoComplete: "name",
+  },
+  {
+    name: "empresa",
+    label: "Empresa",
+    type: "text",
+    placeholder: "Nome do negócio",
+    autoComplete: "organization",
+  },
+  {
+    name: "email",
+    label: "E-mail",
+    type: "email",
+    placeholder: "voce@empresa.com.br",
+    autoComplete: "email",
+    inputMode: "email",
+  },
+  {
+    name: "telefone",
+    label: "Telefone",
+    type: "tel",
+    placeholder: "(11) 99999-9999",
+    autoComplete: "tel",
+    inputMode: "tel",
+  },
 ] as const;
 
 const estiloCampo =
@@ -46,12 +75,12 @@ export function Contato() {
   }
 
   return (
-    <section id="contato" className="relative overflow-hidden bg-surface py-24 md:py-32">
+    <section id="contato" className="relative overflow-hidden bg-surface py-20 sm:py-24 md:py-32">
       <div aria-hidden className="absolute inset-0 grid-lines opacity-60" />
       <Aurora />
       <NodeField className="opacity-70" densidade={0.00007} maxNos={70} />
 
-      <div className="shell relative grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
+      <div className="shell relative grid gap-12 sm:gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
         <div>
           <ScrambleText text={contato.eyebrow} className="eyebrow text-forest-400" />
 
@@ -89,7 +118,7 @@ export function Contato() {
         </div>
 
         <Reveal delay={0.15}>
-          <form onSubmit={enviar} className="card rounded-[var(--radius-panel)] p-7 md:p-10">
+          <form onSubmit={enviar} className="card rounded-[var(--radius-panel)] p-6 sm:p-7 md:p-10">
             <div className="grid gap-5 sm:grid-cols-2">
               {campos.map((campo) => (
                 <label key={campo.name} className="block">
@@ -99,6 +128,8 @@ export function Contato() {
                     name={campo.name}
                     required={campo.name === "nome" || campo.name === "email"}
                     placeholder={campo.placeholder}
+                    autoComplete={campo.autoComplete}
+                    inputMode={"inputMode" in campo ? campo.inputMode : undefined}
                     value={dados[campo.name]}
                     onChange={(e) => setDados({ ...dados, [campo.name]: e.target.value })}
                     className={estiloCampo}
