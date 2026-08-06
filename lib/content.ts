@@ -171,17 +171,16 @@ export const produto = {
   texto:
     "Agenda, clientes, equipe, estoque, vendas, cobranças e relatórios em um só lugar. É o exemplo prático do que a gente faz: nasceu de um problema real de operação e virou produto.",
   destaques: [
-    "Agenda e comandas",
+    "Agenda e horários",
     "Clientes e histórico",
     "Estoque e vendas",
     "Financeiro e cobranças",
     "Relatórios gerenciais",
     "Multiunidade",
   ],
-  cta: { label: "Conhecer o Nodum Barbearia", href: "https://barbearia.nodum.com.br" },
+  cta: { label: "Conhecer o Nodum Barbearia", href: "https://agenda.vogelassessoriacontabil.com" },
   telas: [
     { src: "/img/barbearia/dono-dashboard.webp", legenda: "Painel do dono" },
-    { src: "/img/barbearia/barbeiro-agenda.webp", legenda: "Agenda do barbeiro" },
     { src: "/img/barbearia/dono-relatorios.webp", legenda: "Relatórios" },
     { src: "/img/barbearia/dono-estoque.webp", legenda: "Estoque" },
   ],
