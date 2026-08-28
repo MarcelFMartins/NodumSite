@@ -41,7 +41,7 @@ export function Solucao() {
           <Stagger className="grid gap-5 md:grid-cols-2">
             {solucao.pilares.map((pilar) => (
               <StaggerItem key={pilar.numero} className="h-full">
-                <TiltCard className="h-full p-8 md:p-9">
+                <TiltCard className="h-full p-6 sm:p-8 md:p-9">
                   <div className="flex items-center justify-between">
                     <span className="numeral text-sm text-forest-400">{pilar.numero}</span>
                     <span className="h-px w-12 bg-line transition-all duration-500 group-hover:w-20 group-hover:bg-brand" />

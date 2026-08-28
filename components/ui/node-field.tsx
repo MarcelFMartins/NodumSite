@@ -41,14 +41,26 @@ export function NodeField({
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // Em tela de toque não há cursor: a interação inteira sai, e com ela
+    // o `hypot` por nó e por ligação dentro do laço O(n²). O teto de nós
+    // também cai, e o DPR é limitado a 1,5 — num celular a diferença
+    // entre 2x e 1,5x nesses pontos de 1px não se vê, mas são ~40% menos
+    // pixels para pintar a cada quadro.
+    const toque = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    const puxaCursor = interativo && !toque;
+    const tetoNos = toque ? Math.min(maxNos, 26) : maxNos;
+    const tetoDpr = toque ? 1.5 : 2;
+
     let nos: No[] = [];
     let largura = 0;
     let altura = 0;
     let frame = 0;
     let visivel = true;
+    let pronto = false;
+    let ocioso = 0;
     const mouse = { x: -9999, y: -9999 };
 
-    const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = () => Math.min(window.devicePixelRatio || 1, tetoDpr);
 
     function dimensionar() {
       if (!canvas || !ctx) return;
@@ -59,7 +71,7 @@ export function NodeField({
       canvas.height = altura * dpr();
       ctx.setTransform(dpr(), 0, 0, dpr(), 0, 0);
 
-      const alvo = Math.min(Math.round(largura * altura * densidade), maxNos);
+      const alvo = Math.min(Math.round(largura * altura * densidade), tetoNos);
       nos = Array.from({ length: alvo }, () => ({
         x: Math.random() * largura,
         y: Math.random() * altura,
@@ -82,7 +94,7 @@ export function NodeField({
         if (no.x < 0 || no.x > largura) no.vx *= -1;
         if (no.y < 0 || no.y > altura) no.vy *= -1;
 
-        if (interativo) {
+        if (puxaCursor) {
           const dx = mouse.x - no.x;
           const dy = mouse.y - no.y;
           const d = Math.hypot(dx, dy);
@@ -104,7 +116,7 @@ export function NodeField({
 
           const forca = 1 - d / distancia;
           const pertoDoMouse =
-            interativo &&
+            puxaCursor &&
             Math.min(Math.hypot(a.x - mouse.x, a.y - mouse.y), Math.hypot(b.x - mouse.x, b.y - mouse.y)) <
               170;
 
@@ -120,7 +132,7 @@ export function NodeField({
       }
 
       for (const no of nos) {
-        const perto = interativo && Math.hypot(no.x - mouse.x, no.y - mouse.y) < 170;
+        const perto = puxaCursor && Math.hypot(no.x - mouse.x, no.y - mouse.y) < 170;
         ctx.beginPath();
         ctx.arc(no.x, no.y, no.r, 0, Math.PI * 2);
         ctx.fillStyle = perto ? "rgba(159, 225, 203, 0.95)" : "rgba(79, 184, 147, 0.55)";
@@ -142,10 +154,24 @@ export function NodeField({
       mouse.y = -9999;
     }
 
-    dimensionar();
-    frame = requestAnimationFrame(desenhar);
+    function iniciar() {
+      pronto = true;
+      dimensionar();
+      if (visivel && !document.hidden) frame = requestAnimationFrame(desenhar);
+    }
 
-    const ro = new ResizeObserver(dimensionar);
+    // No celular a rede não disputa a hidratação: o primeiro quadro sai
+    // depois que a linha principal esvazia. O texto do herói é o LCP e
+    // não tem por que esperar um canvas de enfeite.
+    if (toque && typeof window.requestIdleCallback === "function") {
+      ocioso = window.requestIdleCallback(iniciar, { timeout: 1200 });
+    } else {
+      iniciar();
+    }
+
+    const ro = new ResizeObserver(() => {
+      if (pronto) dimensionar();
+    });
     ro.observe(canvas);
 
     // Congela quando ninguém está olhando — aba oculta ou fora da tela.
@@ -153,7 +179,7 @@ export function NodeField({
       ([entrada]) => {
         visivel = entrada.isIntersecting;
         cancelAnimationFrame(frame);
-        if (visivel && !document.hidden) frame = requestAnimationFrame(desenhar);
+        if (pronto && visivel && !document.hidden) frame = requestAnimationFrame(desenhar);
       },
       { threshold: 0 }
     );
@@ -161,17 +187,18 @@ export function NodeField({
 
     function onVisibilidade() {
       cancelAnimationFrame(frame);
-      if (!document.hidden && visivel) frame = requestAnimationFrame(desenhar);
+      if (pronto && !document.hidden && visivel) frame = requestAnimationFrame(desenhar);
     }
 
     document.addEventListener("visibilitychange", onVisibilidade);
-    if (interativo) {
+    if (puxaCursor) {
       window.addEventListener("mousemove", onMouse, { passive: true });
       window.addEventListener("mouseout", onLeave);
     }
 
     return () => {
       cancelAnimationFrame(frame);
+      if (ocioso) window.cancelIdleCallback?.(ocioso);
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibilidade);

@@ -7,9 +7,11 @@ import { ButtonLink } from "@/components/ui/button";
 import { Aurora, Magnetic, ScrambleText, SplitText } from "@/components/ui/fx";
 import { NodeField } from "@/components/ui/node-field";
 import { hero, site } from "@/lib/content";
+import { useTelaPequena } from "@/lib/hooks";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const pequena = useTelaPequena();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
   // O conteúdo sobe e desaparece enquanto a malha de fundo fica — dá a
@@ -20,7 +22,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] items-center overflow-hidden bg-surface pt-32 pb-24"
+      className="relative flex min-h-[100svh] items-center overflow-hidden bg-surface pt-28 pb-20 md:pt-32 md:pb-24"
     >
       <div aria-hidden className="absolute inset-0 grid-lines opacity-70" />
       <Aurora />
@@ -68,16 +70,16 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.85 }}
-          className="mt-11 flex flex-col gap-4 sm:flex-row sm:items-center"
+          className="mt-10 flex flex-col gap-3 sm:mt-11 sm:flex-row sm:items-center sm:gap-4"
         >
-          <Magnetic>
-            <ButtonLink href={hero.ctaPrimario.href} size="lg">
+          <Magnetic className="w-full sm:w-auto">
+            <ButtonLink href={hero.ctaPrimario.href} size="lg" className="w-full sm:w-auto">
               {hero.ctaPrimario.label}
               <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
             </ButtonLink>
           </Magnetic>
-          <Magnetic forca={0.2}>
-            <ButtonLink href={hero.ctaSecundario.href} size="lg" variant="outline">
+          <Magnetic forca={0.2} className="w-full sm:w-auto">
+            <ButtonLink href={hero.ctaSecundario.href} size="lg" variant="outline" className="w-full sm:w-auto">
               {hero.ctaSecundario.label}
             </ButtonLink>
           </Magnetic>
@@ -87,15 +89,20 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mt-20 grid max-w-4xl gap-4 sm:grid-cols-3"
+          className="mt-12 grid max-w-4xl gap-3 sm:mt-20 sm:grid-cols-3 sm:gap-4"
         >
           {hero.provas.map((prova, i) => (
             <motion.div
               key={prova.rotulo}
               whileHover={{ y: -6 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="card card-lit p-6"
-              style={{ animation: `float-slow ${9 + i * 2}s ease-in-out ${i * 0.6}s infinite` }}
+              className="card card-lit p-5 sm:p-6"
+              // Três cartões flutuando em loop mantêm a composição viva no
+              // desktop; no celular seriam três animações eternas disputando
+              // a mesma GPU que já desenha a rede de nós atrás deles.
+              style={
+                pequena ? undefined : { animation: `float-slow ${9 + i * 2}s ease-in-out ${i * 0.6}s infinite` }
+              }
             >
               <dt className="font-display text-2xl font-bold text-forest-400">{prova.valor}</dt>
               <dd className="mt-1.5 text-sm font-semibold text-white">{prova.rotulo}</dd>
@@ -112,7 +119,9 @@ export function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
         style={{ opacity: opacidade }}
-        className="absolute inset-x-0 bottom-8 z-10 mx-auto flex w-fit flex-col items-center gap-2 text-muted transition-colors hover:text-forest-400"
+        // No celular o conteúdo do herói já passa da dobra: a seta ficaria
+        // sobreposta aos cartões de prova em vez de convidar a rolar.
+        className="absolute inset-x-0 bottom-8 z-10 mx-auto hidden w-fit flex-col items-center gap-2 text-muted transition-colors hover:text-forest-400 sm:flex"
       >
         <span className="eyebrow text-[10px]">{site.tagline}</span>
         <motion.span

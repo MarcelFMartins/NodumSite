@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Manrope, Poppins } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/sections/header";
-import { Footer } from "@/components/sections/footer";
 import { GlowCursor, ScrollProgress } from "@/components/ui/fx";
 import { site } from "@/lib/content";
 
@@ -18,7 +16,9 @@ const poppins = Poppins({
 
 const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  // 800 saiu: nenhum texto do site usa extrabold no corpo — era um
+  // arquivo de fonte baixado à toa em toda primeira visita.
+  weight: ["400", "500", "600", "700"],
   variable: "--font-manrope",
   display: "swap",
 });
@@ -57,7 +57,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1C1B1A",
+  /* Mesmo carvão do `--color-surface`: a barra do navegador e as áreas
+     que o sistema pinta fora da página emendam com o site. */
+  themeColor: "#121110",
+  width: "device-width",
+  initialScale: 1,
+  // Zoom travado a pedido: o layout já entrega tudo legível no celular
+  // e o gesto de pinça só desalinhava as seções de tela cheia.
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -75,9 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ScrollProgress />
         <GlowCursor />
-        <Header />
-        <main id="conteudo">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

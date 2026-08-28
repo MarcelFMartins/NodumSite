@@ -72,6 +72,21 @@
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     background-color: var(--color-surface);
+    /* Impede o iOS de inflar o corpo do texto ao girar o aparelho. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* `clip` corta o estouro horizontal sem criar um contexto de rolagem
+       — com `hidden` aqui, o Safari do iPhone continuaria arrastando a
+       página para o lado e o `position: fixed` do header quebraria. */
+    overflow-x: clip;
+    /* Mata o "puxar para recarregar" e o efeito de borracha vertical: é
+       o que fazia aparecer a faixa cinza padrão do navegador no topo em
+       vez do carvão do site. */
+    overscroll-behavior-y: none;
+    /* Diz ao navegador que a página é escura: os controles nativos, a
+       barra de rolagem e as áreas pintadas fora da caixa da página param
+       de sair no cinza claro padrão. */
+    color-scheme: dark;
   }
 
   body {
@@ -80,7 +95,14 @@
     font-family: var(--font-body);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
+    /* O flash cinza no toque briga com o terreno carvão; o estado de
+       :active de cada controle já dá o retorno. */
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+    /* `touch-action` sem `pinch-zoom` reforça o bloqueio de zoom no iOS,
+       onde `user-scalable=no` sozinho é ignorado desde o iOS 10. */
+    touch-action: pan-x pan-y;
   }
 
   h1,
@@ -138,7 +160,13 @@
 
   .section {
     position: relative;
-    padding-block: 6rem;
+    padding-block: 4.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .section {
+      padding-block: 6rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -217,6 +245,60 @@
     background: linear-gradient(90deg, transparent, var(--color-brand-lit), transparent);
     animation: rule-sweep 5s linear infinite;
   }
+
+  /* Controle deslizante da calculadora de comissões. O range nativo não
+     herda nada do tema, então trilho e polegar são desenhados à mão nos
+     dois motores (WebKit e Gecko). */
+  .faixa {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3rem;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .faixa::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-line-strong);
+  }
+
+  .faixa::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-line-strong);
+  }
+
+  .faixa::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -9px;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: var(--color-jade-500);
+    border: 3px solid #121110;
+    box-shadow: 0 0 0 1px rgba(29, 158, 117, 0.6), 0 0 22px -4px rgba(29, 158, 117, 0.9);
+    transition: transform 0.15s ease;
+  }
+
+  .faixa::-moz-range-thumb {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: var(--color-jade-500);
+    border: 3px solid #121110;
+    box-shadow: 0 0 0 1px rgba(29, 158, 117, 0.6), 0 0 22px -4px rgba(29, 158, 117, 0.9);
+  }
+
+  .faixa:active::-webkit-slider-thumb {
+    transform: scale(1.12);
+  }
+
+  .faixa:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 4px rgba(29, 158, 117, 0.35), 0 0 22px -4px rgba(29, 158, 117, 0.9);
+  }
 }
 
 @layer utilities {
@@ -225,6 +307,14 @@
       linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
     background-size: 76px 76px;
+  }
+
+  /* Numa tela de 390px, a malha de 76px vira quatro colunas largas e
+     perde a leitura de "grade técnica". */
+  @media (max-width: 639px) {
+    .grid-lines {
+      background-size: 44px 44px;
+    }
   }
 
   /* Esmaece as bordas de faixas que correm (marquee, trilhos). */

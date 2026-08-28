@@ -67,7 +67,13 @@ export function Sobre() {
 
         <Reveal delay={0.1} className="mt-10">
           <Marquee items={publico.segmentos} />
-          <Marquee items={[...publico.segmentos].reverse()} duracao={42} className="mt-3" />
+          {/* A segunda faixa é contraponto visual; no celular ela só dobraria
+              o custo de composição contínua sem acrescentar informação. */}
+          <Marquee
+            items={[...publico.segmentos].reverse()}
+            duracao={42}
+            className="mt-3 hidden sm:flex"
+          />
         </Reveal>
       </div>
     </section>
