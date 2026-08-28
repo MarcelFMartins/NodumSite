@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Manrope, Poppins } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/sections/header";
-import { Footer } from "@/components/sections/footer";
 import { GlowCursor, ScrollProgress } from "@/components/ui/fx";
 import { site } from "@/lib/content";
 
@@ -85,9 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ScrollProgress />
         <GlowCursor />
-        <Header />
-        <main id="conteudo">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

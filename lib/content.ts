@@ -165,7 +165,7 @@ export const servicos = [
 
 export const produto = {
   eyebrow: "Já está de pé",
-  titulo: "Nodum Barbearia",
+  titulo: "NodumBarber",
   chamada:
     "Sistema completo de gestão para barbearias — já em operação, com site e planos próprios.",
   texto:
@@ -178,7 +178,7 @@ export const produto = {
     "Relatórios gerenciais",
     "Multiunidade",
   ],
-  cta: { label: "Conhecer o Nodum Barbearia", href: "https://agenda.vogelassessoriacontabil.com/" },
+  cta: { label: "Conhecer o NodumBarber", href: "/nodumbarber" },
   telas: [
     { src: "/img/barbearia/dono-dashboard.webp", legenda: "Painel do dono" },
     { src: "/img/barbearia/dono-relatorios.webp", legenda: "Relatórios" },

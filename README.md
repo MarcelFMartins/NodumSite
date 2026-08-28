@@ -24,21 +24,28 @@ npm start
 ```
 app/
   globals.css        tokens do design system (cores, tipografia, raios, sombras)
-  layout.tsx         fontes, metadata/SEO, header e footer
-  page.tsx           ordem das seções
+  layout.tsx         fontes, metadata/SEO, casca comum às duas páginas
+  (site)/            o site institucional  →  /
+  nodumbarber/       a landing do produto  →  /nodumbarber
 components/
   brand/logo.tsx     wordmark "nod" + "um" e o símbolo de dois nós
-  ui/motion.tsx      Reveal, Stagger, SplitText, CountUp, SpotlightCard, Marquee
+  ui/fx.tsx          Reveal, Stagger, SplitText, TiltCard, Magnetic, Marquee…
+  ui/node-field.tsx  a rede de nós em canvas
   ui/button.tsx      botão da marca (hover que preenche de baixo, press 0.98)
-  sections/          uma seção por arquivo
+  sections/          seções do site institucional
+  barber/            seções da landing do NodumBarber
 lib/
-  content.ts         TODO o texto do site — copy editável sem tocar em componente
+  content.ts         TODO o texto do site institucional
+  barber.ts          TODA a copy da landing + os destinos do sistema
+  hooks.ts           media queries (useToque, useTelaPequena)
 public/
   brand/             logos exportados do design system
-  img/barbearia/     telas reais do Nodum Barbearia
+  img/barbearia/     telas usadas na vitrine do site
+  img/barber/        telas reais usadas na landing do produto
 ```
 
-Para mudar qualquer texto do site, mexa só em `lib/content.ts`.
+Para mudar texto, mexa só em `lib/content.ts` (site) ou `lib/barber.ts`
+(landing do produto). Nenhum componente carrega string.
 
 ## Relação com o design system
 
@@ -128,19 +135,71 @@ tira a faixa cinza do navegador quando se puxa a página para baixo.
 > `maximumScale`/`userScalable` de `app/layout.tsx` e o `touch-action` do
 > `body` em `app/globals.css`.
 
-## Nodum Barbearia
+## NodumBarber — a landing do produto
 
-A seção `#produtos` mostra o sistema que já está em operação, com telas reais do
-produto. É de propósito curta: o Barbearia tem landing page própria, então aqui
-a função é só provar que existe entrega feita e mandar o visitante para lá.
-O link fica em `lib/content.ts` → `produto.cta.href`.
+A landing do NodumBarber mora **dentro deste projeto**, em `/nodumbarber`. Era
+uma página separada em `agenda.vogelassessoriacontabil.com`; agora as duas
+coisas dividem o mesmo design system, o mesmo build e o mesmo domínio.
+
+```
+app/
+  (site)/          o site institucional (header + footer da Nodum)
+  nodumbarber/     a landing do produto (header + footer próprios)
+components/barber/ uma seção por arquivo
+lib/barber.ts      TODA a copy da landing + os destinos do sistema
+public/img/barber/ telas reais do NodumBarber
+```
+
+O grupo `(site)` existe só para separar as duas cascas: quem chega em
+`/nodumbarber` por anúncio precisa ver o produto, não o menu da consultoria.
+O vínculo com a Nodum fica no lockup da marca e no rodapé.
+
+### Integração com o sistema
+
+Todo botão de ação da landing aponta para o sistema em produção. O endereço
+está declarado **uma única vez**, no topo de `lib/barber.ts`:
+
+```ts
+const APP = "https://agenda.vogelassessoriacontabil.com";
+```
+
+Trocar essa linha reaponta a página inteira — entrar, cadastro, termos,
+privacidade, contrato e rodapé. O WhatsApp segue a mesma ideia: o número mora
+numa constante e as mensagens pré-preenchidas saem de `zap()`.
+
+| Destino | Onde aparece |
+| --- | --- |
+| `/cadastro` | todos os CTAs primários, os três planos e a barra fixa |
+| `/login` | header, rodapé e a linha "já tem conta?" |
+| `/termos`, `/privacidade`, `/contrato` | rodapé |
+| `wa.me/…` | suporte, fechamento e a linha do preço |
+
+### A copy veio da Memória Descritiva
+
+O texto **não** foi copiado da página de vendas antiga: ela ficou para trás em
+várias frentes. A fonte é a Memória Descritiva do sistema (27/08/2026), que
+trouxe papel de Gerente, importação de clientes por planilha, cliente fixo
+recorrente, plano combo com saldo por serviço, comissão por produto, pagamento
+dividido entre formas e aviso de agendamento em aberto — nada disso existia na
+LP anterior, que ainda falava em "três chaves" e em pedir a lista de clientes
+para o suporte.
+
+Duas telas estão prontas mas **ainda em homologação** (Projeção e desconto no
+checkout). Em vez de escondê-las ou vendê-las como se já estivessem no ar, elas
+ganharam a seção "Em validação", com selo próprio. O print da Projeção teve o
+aviso interno de ambiente removido antes de virar `webp`; o mockup 3D dessa
+mesma tela ficou de fora porque o aviso aparecia em perspectiva e o retoque
+apareceria. Quando as duas subirem para produção, apague a seção `Validacao` e
+mova as telas para `pordentro`.
+
+## Nodum Barbearia — vitrine no site
 
 ## Pendências para o cliente
 
 - `lib/content.ts` → `site`: e-mail, WhatsApp e redes sociais estão com valores
   de exemplo (`contato@nodum.com.br`, `5511999999999`) — substituir pelos reais.
-- `produto.cta.href` aponta para `barbearia.nodum.com.br`; ajustar para o domínio
-  real da LP do Barbearia.
+- `lib/barber.ts` → `APP` aponta para `agenda.vogelassessoriacontabil.com`, o
+  domínio provisório do sistema. Trocar quando o definitivo subir.
 - O formulário de contato não tem backend: ele monta um e-mail pré-preenchido e
   abre o app de e-mail do visitante. Para receber os leads direto, trocar o
   handler `enviar()` em `components/sections/contato.tsx` por um POST para uma

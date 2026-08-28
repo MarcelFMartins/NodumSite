@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Magnetic, Reveal, ScrambleText, SplitText, TiltCard } from "@/components/ui/fx";
 import { NodeField } from "@/components/ui/node-field";
@@ -11,11 +11,11 @@ import { produto } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 /**
- * Vitrine do Nodum Barbearia.
+ * Vitrine do NodumBarber.
  *
- * De propósito é curta: o produto tem landing page própria, então aqui
- * a função é provar que já existe entrega feita e mandar o visitante
- * para lá. As telas são capturas reais do sistema em operação.
+ * De propósito é curta: o produto tem landing própria em /nodumbarber,
+ * então aqui a função é só provar que existe entrega feita e mandar o
+ * visitante para lá. As telas são capturas reais do sistema.
  */
 export function Produtos() {
   const [ativa, setAtiva] = useState(0);
@@ -51,7 +51,7 @@ export function Produtos() {
                 </span>
 
                 <h3 className="mt-7 font-display text-3xl font-bold text-white md:text-4xl">
-                  Nodum <span className="lit">Barbearia</span>
+                  Nodum<span className="lit">Barber</span>
                 </h3>
                 <p className="mt-4 text-lg text-body">{produto.chamada}</p>
                 <p className="mt-4 text-muted">{produto.texto}</p>
@@ -68,14 +68,9 @@ export function Produtos() {
                 </ul>
 
                 <Magnetic className="mt-10">
-                  <ButtonLink
-                    href={produto.cta.href}
-                    size="lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <ButtonLink href={produto.cta.href} size="lg">
                     {produto.cta.label}
-                    <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
                   </ButtonLink>
                 </Magnetic>
               </div>
@@ -94,7 +89,7 @@ export function Produtos() {
                       >
                         <Image
                           src={tela.src}
-                          alt={`Nodum Barbearia — ${tela.legenda}`}
+                          alt={`NodumBarber — ${tela.legenda}`}
                           fill
                           sizes="(max-width: 640px) 88vw, (max-width: 1024px) 92vw, 55vw"
                           className="object-cover object-top"
