@@ -179,10 +179,15 @@ export const produto = {
     "Multiunidade",
   ],
   cta: { label: "Conhecer o NodumBarber", href: "/nodumbarber" },
+  // Mesmas telas de /img/barber que alimentam a landing do produto —
+  // uma única fonte de imagem para as duas vitrines, sem duplicar
+  // arquivo nem correr o risco de uma ficar desatualizada em relação
+  // à outra.
   telas: [
-    { src: "/img/barbearia/dono-dashboard.webp", legenda: "Painel do dono" },
-    { src: "/img/barbearia/dono-relatorios.webp", legenda: "Relatórios" },
-    { src: "/img/barbearia/dono-estoque.webp", legenda: "Estoque" },
+    { src: "/img/barber/dashboard.webp", legenda: "Painel do dono" },
+    { src: "/img/barber/agenda.webp", legenda: "Agenda" },
+    { src: "/img/barber/clientes.webp", legenda: "Clientes" },
+    { src: "/img/barber/relatorios.webp", legenda: "Relatórios" },
   ],
 };
 

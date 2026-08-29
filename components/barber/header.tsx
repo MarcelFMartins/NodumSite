@@ -54,7 +54,7 @@ export function HeaderBarber() {
           <ButtonLink href={sistema.entrar} variant="outline" target="_blank" rel="noopener">
             Entrar
           </ButtonLink>
-          <ButtonLink href={sistema.cadastro} target="_blank" rel="noopener">
+          <ButtonLink href={sistema.cadastro}>
             Testar 14 dias grátis
           </ButtonLink>
         </div>
@@ -94,8 +94,6 @@ export function HeaderBarber() {
                 <ButtonLink
                   href={sistema.cadastro}
                   size="lg"
-                  target="_blank"
-                  rel="noopener"
                   className="w-full"
                 >
                   Testar 14 dias grátis

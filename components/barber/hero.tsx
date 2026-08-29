@@ -76,8 +76,6 @@ export function HeroBarber() {
             <ButtonLink
               href={sistema.cadastro}
               size="lg"
-              target="_blank"
-              rel="noopener"
               className="w-full sm:w-auto"
             >
               Começar agora — 14 dias grátis

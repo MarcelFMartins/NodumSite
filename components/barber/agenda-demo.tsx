@@ -73,8 +73,6 @@ export function AgendaDemo() {
             <ButtonLink
               href={sistema.cadastro}
               size="lg"
-              target="_blank"
-              rel="noopener"
               className="mt-9"
             >
               {agenda.cta}

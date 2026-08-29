@@ -69,8 +69,6 @@ export function Preco() {
                   <ButtonLink
                     href={sistema.cadastro}
                     size="lg"
-                    target="_blank"
-                    rel="noopener"
                     variant={plano.destaque ? "primary" : "outline"}
                     className="w-full"
                   >
