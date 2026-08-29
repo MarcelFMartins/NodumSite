@@ -37,21 +37,26 @@ export function FooterBarber() {
 
         <div className="flex flex-col gap-2.5">
           <p className="eyebrow mb-1 text-muted">Legal e suporte</p>
+          <a
+            href={sistema.whatsappSuporte}
+            target="_blank"
+            rel="noopener"
+            className="text-sm text-muted transition-colors duration-200 hover:text-forest-400"
+          >
+            Suporte no WhatsApp
+          </a>
           {[
-            { label: "Suporte no WhatsApp", href: sistema.whatsappSuporte },
             { label: "Termos de Uso", href: sistema.termos },
             { label: "Política de Privacidade", href: sistema.privacidade },
             { label: "Contrato de Assinatura", href: sistema.contrato },
           ].map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
-              target="_blank"
-              rel="noopener"
               className="text-sm text-muted transition-colors duration-200 hover:text-forest-400"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
