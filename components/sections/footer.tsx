@@ -31,6 +31,13 @@ export function Footer() {
           >
             {site.email}
           </a>
+          <Link
+            href="/legal"
+            className="mt-4 block text-muted transition-colors hover:text-forest-400"
+          >
+            Termos, privacidade e contrato
+          </Link>
+
           <div className="mt-4 flex gap-5">
             <a
               href={site.linkedin}

@@ -29,9 +29,12 @@ export const sistema = {
   base: APP,
   entrar: `${APP}/login`,
   cadastro: `${APP}/cadastro`,
-  termos: `${APP}/termos`,
-  privacidade: `${APP}/privacidade`,
-  contrato: `${APP}/contrato`,
+  /* Os três documentos legais foram centralizados no site, em /legal.
+     São rotas internas de propósito: quem lê os termos não deve ser
+     jogado para outro domínio no meio da decisão de compra. */
+  termos: "/legal/termos",
+  privacidade: "/legal/privacidade",
+  contrato: "/legal/contrato",
   whatsapp: `https://wa.me/${WHATSAPP}`,
   whatsappTeste: zap("Quero testar o NodumBarber na minha barbearia"),
   whatsappSuporte: zap("Olá! Tenho uma dúvida sobre o NodumBarber."),
