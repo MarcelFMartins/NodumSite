@@ -27,8 +27,15 @@ const zap = (texto: string) => `https://wa.me/${WHATSAPP}?text=${encodeURICompon
 
 export const sistema = {
   base: APP,
+  // O login continua no sistema — é lá que a sessão realmente
+  // existe. O cadastro agora é uma página local: o formulário mora
+  // aqui, só a chamada final (fetch com credentials) cruza para o
+  // domínio do sistema. Ver app/nodumbarber/cadastro/page.tsx.
   entrar: `${APP}/login`,
-  cadastro: `${APP}/cadastro`,
+  cadastro: "/nodumbarber/cadastro",
+  /** O endpoint que o formulário local chama de verdade. */
+  apiSignup: `${APP}/api/signup`,
+  dashboard: `${APP}/dashboard`,
   /* Os três documentos legais foram centralizados no site, em /legal.
      São rotas internas de propósito: quem lê os termos não deve ser
      jogado para outro domínio no meio da decisão de compra. */

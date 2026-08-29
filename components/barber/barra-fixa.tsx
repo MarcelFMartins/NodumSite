@@ -56,7 +56,7 @@ export function BarraFixa() {
                 Escolha o plano pelo tamanho da equipe · {barber.teste}
               </p>
             </div>
-            <ButtonLink href={sistema.cadastro} target="_blank" rel="noopener" className="shrink-0">
+            <ButtonLink href={sistema.cadastro} className="shrink-0">
               Testar grátis
             </ButtonLink>
           </div>

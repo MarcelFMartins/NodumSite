@@ -156,23 +156,97 @@ O vínculo com a Nodum fica no lockup da marca e no rodapé.
 
 ### Integração com o sistema
 
-Todo botão de ação da landing aponta para o sistema em produção. O endereço
-está declarado **uma única vez**, no topo de `lib/barber.ts`:
+O endereço do sistema está declarado **uma única vez**, no topo de
+`lib/barber.ts`:
 
 ```ts
 const APP = "https://agenda.vogelassessoriacontabil.com";
 ```
 
-Trocar essa linha reaponta a página inteira — entrar, cadastro, termos,
-privacidade, contrato e rodapé. O WhatsApp segue a mesma ideia: o número mora
-numa constante e as mensagens pré-preenchidas saem de `zap()`.
+Trocar essa linha reaponta tudo que ainda é externo. O WhatsApp segue a mesma
+ideia: o número mora numa constante e as mensagens pré-preenchidas saem de
+`zap()`.
 
-| Destino | Onde aparece |
-| --- | --- |
-| `/cadastro` | todos os CTAs primários, os três planos e a barra fixa |
-| `/login` | header, rodapé e a linha "já tem conta?" |
-| `/termos`, `/privacidade`, `/contrato` | rodapé |
-| `wa.me/…` | suporte, fechamento e a linha do preço |
+| Destino | Onde vive | Onde aparece |
+| --- | --- | --- |
+| `sistema.cadastro` | **interno** — `/nodumbarber/cadastro` | todos os CTAs primários, os três planos, a barra fixa |
+| `sistema.entrar` | externo — `${APP}/login` | header, rodapé, "já tem conta?" |
+| `sistema.termos/privacidade/contrato` | **interno** — `/legal/*` | rodapé da landing e do formulário de cadastro |
+| `sistema.whatsapp*` | externo | suporte, fechamento, linha do preço |
+
+O login continua no sistema de propósito: é lá que a sessão realmente existe,
+e replicar tela de login é superfície de ataque sem ganho nenhum. O
+**cadastro** é o único fluxo que passou a ser tratado como transação
+completa: o formulário mora no site, mas a conta continua nascendo no banco
+do sistema — ver a seção seguinte.
+
+### Cadastro embutido — como funciona e o que falta no back-end
+
+`components/barber/form-cadastro.tsx` é um formulário controlado que faz
+`fetch(sistema.apiSignup, { credentials: "include" })` direto para
+`POST ${APP}/api/signup`, com os mesmos campos que `signupSchema` exige no
+back-end (`shopName`, `ownerName`, `ownerEmail`, `ownerPassword`, `aceite`,
+`honeypot`). Em caso de sucesso, o navegador é redirecionado para
+`sistema.dashboard` — a pessoa entra na conta sem passar pela tela de login,
+porque o cookie de sessão que a API devolve já fica gravado no domínio do
+sistema (é para lá que o `fetch` foi).
+
+Isso só funciona quando o navegador aceita mandar e receber cookies numa
+chamada entre domínios diferentes — e hoje **o back-end não libera isso**. A
+API só lê corpo JSON (nunca formulário nativo, que resolveria sem CORS) e não
+declara nenhum cabeçalho `Access-Control-Allow-*`. Testado localmente: o
+formulário valida, mostra erro por campo e trata 409/422/429 corretamente,
+mas a chamada real cai num erro de rede tratado (mensagem amigável, sem
+travar a página) até o CORS ser liberado.
+
+**Não tenho como aplicar essa mudança**: o backend (`prototipo-agenda`) não
+está neste repositório nem em nenhum Git que eu tenha acesso — é implantado
+por SSH/PM2 direto no servidor, conforme `docs/DEPLOY.md` daquele projeto.
+Quem publica o patch abaixo é quem tem acesso à VPS.
+
+O patch é pequeno e cirúrgico: libera CORS **só** na rota de cadastro, com
+origem explícita (nunca `*`, porque `credentials: true` exige domínio exato)
+e não muda a política de cookies (`SameSite=Lax` continua valendo — o
+handshake final é uma navegação normal a `${APP}/dashboard`, mesma origem do
+cookie).
+
+```ts
+// app/api/signup/route.ts — adicionar no topo do arquivo
+
+const ORIGENS_PERMITIDAS = [
+  "https://nodum-site.vercel.app",
+  // troque/adicione aqui quando o domínio definitivo do site existir
+];
+
+function corsHeaders(origin: string | null) {
+  if (!origin || !ORIGENS_PERMITIDAS.includes(origin)) return {};
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
+
+// responde o preflight que o navegador manda antes do POST com JSON
+export async function OPTIONS(request: Request) {
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders(request.headers.get("origin")),
+  });
+}
+```
+
+E, no `export const POST = withErrorHandler(...)` existente, acrescentar os
+mesmos `corsHeaders(request.headers.get("origin"))` em toda resposta —
+sucesso e erro. O jeito mais simples é envolver o retorno de `json()` (ou o
+helper que a rota já usa) somando esses cabeçalhos, sem tocar na lógica de
+negócio.
+
+Enquanto o patch não for aplicado, `sistema.cadastro` continua funcionando
+como formulário (a UI está pronta e publicada), só a chamada final falha com
+uma mensagem de erro tratada — nada quebra, ninguém vê tela em branco nem
+stack trace.
 
 ### A copy veio da Memória Descritiva
 
@@ -200,6 +274,8 @@ mova as telas para `pordentro`.
   de exemplo (`contato@nodum.com.br`, `5511999999999`) — substituir pelos reais.
 - `lib/barber.ts` → `APP` aponta para `agenda.vogelassessoriacontabil.com`, o
   domínio provisório do sistema. Trocar quando o definitivo subir.
+- O cadastro embutido em `/nodumbarber/cadastro` depende do patch de CORS
+  acima. Sem ele, o formulário mostra erro de rede em vez de criar a conta.
 - O formulário de contato não tem backend: ele monta um e-mail pré-preenchido e
   abre o app de e-mail do visitante. Para receber os leads direto, trocar o
   handler `enviar()` em `components/sections/contato.tsx` por um POST para uma
