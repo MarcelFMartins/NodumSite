@@ -268,6 +268,45 @@ mova as telas para `pordentro`.
 
 ## Nodum Barbearia — vitrine no site
 
+## Nodum BI — segundo produto na vitrine
+
+Landing própria em `/nodumbi`, no mesmo padrão do NodumBarber: casca própria
+(`components/bi/header.tsx`, `footer.tsx`), copy centralizada em `lib/bi.ts`,
+telas reais em `public/img/bi`.
+
+Diferença estrutural importante: o Nodum BI **não tem cadastro público nem
+plano publicado** — é implantado por escritório, não vendido por assinatura
+self-service. Por isso todo CTA da página chama uma conversa (`zapBi()`, no
+WhatsApp da própria Nodum, o mesmo de `lib/content.ts` → `site.whatsapp`), não
+"criar conta". Não existe `sistema.entrar` nem `sistema.cadastro` aqui.
+
+O rodapé do BI não linka para `/legal`: os três documentos ali são escopados
+explicitamente ao NodumBarber ("Aplica-se a: NodumBarber", contrato citando
+"o sistema NodumBarber") — linkar como se regessem o BI também seria
+impreciso. Quando o BI tiver contrato próprio, ele entra como um quarto
+documento em `lib/legal.ts`.
+
+Os `kpis` da seção "O painel" (`lib/bi.ts` → `painelBi.kpis`) guardam
+`direcao` (a seta, de onde o número realmente foi) e `tom` (a cor, se essa
+direção é boa ou ruim) como campos separados — os cinco indicadores da
+captura de tela **caíram todos**, mas CMV caindo é boa notícia (verde) e
+Receita caindo é má notícia (vermelho), com a mesma seta para baixo nos
+dois. Conflacionar as duas coisas num campo só (como uma primeira versão
+fez) dava seta para cima num número que na tela real aponta para baixo.
+
+### Vitrine do site: cuidado com `object-cover`
+
+`components/sections/produtos.tsx` usa `object-cover` nas capturas — correto
+para as telas do NodumBarber, que já nascem perto de 16:10. As telas do BI
+têm proporções bem mais variadas (o carrossel de KPIs é ~6,6:1, a evolução
+mensal ~2,9:1); usar essas na vitrine faz o corte agressivo do `object-cover`
+ampliar um ícone isolado em vez de mostrar o gráfico. Por isso
+`produtosVitrine[1].telas` usa só as quatro imagens do BI que já são
+~16:10 (`waterfall`, `custos`, `comparativo`, `margens`) — as demais (KPIs,
+evolução, velocímetros, comparação de períodos, detalhamento) aparecem só na
+landing própria, em `/nodumbi`, que usa `object-contain` e não corre esse
+risco com nenhuma proporção.
+
 ## Pendências para o cliente
 
 - `lib/content.ts` → `site`: e-mail, WhatsApp e redes sociais estão com valores

@@ -163,33 +163,71 @@ export const servicos = [
   },
 ];
 
-export const produto = {
-  eyebrow: "Já está de pé",
-  titulo: "NodumBarber",
-  chamada:
-    "Sistema completo de gestão para barbearias — já em operação, com site e planos próprios.",
-  texto:
-    "Agenda, clientes, equipe, estoque, vendas, cobranças e relatórios em um só lugar. É o exemplo prático do que a gente faz: nasceu de um problema real de operação e virou produto.",
-  destaques: [
-    "Agenda e horários",
-    "Clientes e histórico",
-    "Estoque e vendas",
-    "Financeiro e cobranças",
-    "Relatórios gerenciais",
-    "Multiunidade",
-  ],
-  cta: { label: "Conhecer o NodumBarber", href: "/nodumbarber" },
-  // Mesmas telas de /img/barber que alimentam a landing do produto —
-  // uma única fonte de imagem para as duas vitrines, sem duplicar
-  // arquivo nem correr o risco de uma ficar desatualizada em relação
-  // à outra.
-  telas: [
-    { src: "/img/barber/dashboard.webp", legenda: "Painel do dono" },
-    { src: "/img/barber/agenda.webp", legenda: "Agenda" },
-    { src: "/img/barber/clientes.webp", legenda: "Clientes" },
-    { src: "/img/barber/relatorios.webp", legenda: "Relatórios" },
-  ],
-};
+/**
+ * Vitrine de produtos do site institucional.
+ *
+ * Cada item tem landing própria (NodumBarber em /nodumbarber, Nodum BI
+ * em /nodumbi); aqui a função é só provar que existe entrega feita e
+ * mandar o visitante para lá. As telas são as mesmas que alimentam a
+ * landing de cada produto — uma única fonte de imagem, sem correr o
+ * risco de as duas vitrines divergirem com o tempo.
+ */
+export const produtosVitrine = [
+  {
+    eyebrow: "Já está de pé",
+    titulo: "NodumBarber",
+    selo: "Em operação",
+    chamada:
+      "Sistema completo de gestão para barbearias — já em operação, com site e planos próprios.",
+    texto:
+      "Agenda, clientes, equipe, estoque, vendas, cobranças e relatórios em um só lugar. É o exemplo prático do que a gente faz: nasceu de um problema real de operação e virou produto.",
+    destaques: [
+      "Agenda e horários",
+      "Clientes e histórico",
+      "Estoque e vendas",
+      "Financeiro e cobranças",
+      "Relatórios gerenciais",
+      "Multiunidade",
+    ],
+    cta: { label: "Conhecer o NodumBarber", href: "/nodumbarber" },
+    telas: [
+      { src: "/img/barber/dashboard.webp", legenda: "Painel do dono" },
+      { src: "/img/barber/agenda.webp", legenda: "Agenda" },
+      { src: "/img/barber/clientes.webp", legenda: "Clientes" },
+      { src: "/img/barber/relatorios.webp", legenda: "Relatórios" },
+    ],
+  },
+  {
+    eyebrow: "Também já está de pé",
+    titulo: "Nodum BI",
+    selo: "Em operação",
+    chamada:
+      "Painel de indicadores financeiros para consolidar e comparar as DREs de várias empresas — feito para escritórios de contabilidade e consultoria.",
+    texto:
+      "Cinco indicadores principais, evolução mensal, fluxo do resultado, composição de custos e comparação automática de período. Nasceu para quem acompanha muitos clientes ao mesmo tempo.",
+    destaques: [
+      "Indicadores com variação automática",
+      "Comparação de período",
+      "Fluxo do resultado (DRE visual)",
+      "Acesso segmentado por cliente",
+      "Importa Excel e PDF do Domínio",
+      "Multiempresa",
+    ],
+    cta: { label: "Conhecer o Nodum BI", href: "/nodumbi" },
+    // Só as telas próximas de 16:10 entram aqui: a vitrine usa
+    // object-cover (como as do NodumBarber), e uma imagem bem mais
+    // larga que isso — os KPIs, a evolução mensal — cortaria feio,
+    // ampliando um ícone isolado em vez de mostrar o gráfico inteiro.
+    // Essas quatro (e as demais) aparecem sem esse risco na landing
+    // própria, em /nodumbi, que usa object-contain.
+    telas: [
+      { src: "/img/bi/waterfall.webp", legenda: "Fluxo do resultado" },
+      { src: "/img/bi/custos.webp", legenda: "Custos e despesas" },
+      { src: "/img/bi/comparativo.webp", legenda: "Comparativo" },
+      { src: "/img/bi/margens.webp", legenda: "Margens" },
+    ],
+  },
+];
 
 export const processo = {
   eyebrow: "Como funciona",
