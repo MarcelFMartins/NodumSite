@@ -227,6 +227,35 @@ export const produtosVitrine = [
       { src: "/img/bi/margens.webp", legenda: "Margens" },
     ],
   },
+  {
+    eyebrow: "Já roda de verdade",
+    titulo: "Agenda Interna Nodum",
+    selo: "Em operação",
+    chamada:
+      "Gestão de tarefas e CRM num sistema só, multiempresa — feito para organizar o trabalho do dia a dia e o relacionamento com clientes ao mesmo tempo.",
+    texto:
+      "Quadro kanban, tabela e gráficos para as tarefas; funil de vendas, contatos e automações de WhatsApp para o comercial — com ponte direta entre negócio ganho e tarefa de execução. Já usado pela própria Nodum e pela Vogel Assessoria Contábil.",
+    destaques: [
+      "Kanban, tabela e gráficos de tarefas",
+      "Funil de vendas configurável",
+      "WhatsApp integrado por QR code",
+      "Multiempresa, dados isolados",
+      "Recorrência automática de tarefas",
+      "Negócio ganho vira tarefa com 1 clique",
+    ],
+    cta: { label: "Conhecer a Agenda Interna", href: "/agendainterna" },
+    // As telas da Agenda Interna nascem ~1,68:1 — perto o bastante de
+    // 16:10 para o object-cover da vitrine não cortar feio, diferente
+    // do que acontecia com as telas mais largas do BI. A tela de
+    // Clientes/Empresas fica só na landing própria, onde o texto deixa
+    // claro que é recurso hoje exclusivo da Vogel.
+    telas: [
+      { src: "/img/agenda/painel.webp", legenda: "Painel" },
+      { src: "/img/agenda/quadro.webp", legenda: "Quadro" },
+      { src: "/img/agenda/funil.webp", legenda: "Funil" },
+      { src: "/img/agenda/equipe.webp", legenda: "Equipe" },
+    ],
+  },
 ];
 
 export const processo = {

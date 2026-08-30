@@ -356,6 +356,46 @@ evolução, velocímetros, comparação de períodos, detalhamento) aparecem só
 landing própria, em `/nodumbi`, que usa `object-contain` e não corre esse
 risco com nenhuma proporção.
 
+## Agenda Interna Nodum — terceiro produto na vitrine
+
+Landing própria em `/agendainterna`, no mesmo padrão do Nodum BI: casca
+própria (`components/agenda/`), copy centralizada em `lib/agenda.ts`, sem
+cadastro público nem plano publicado. É sistema multiempresa personalizado —
+hoje usado pela própria Nodum e pela Vogel Assessoria Contábil — e todo CTA
+chama uma conversa (`zapAgenda()`), não "criar conta".
+
+### As telas são reais, com dado sensível retocado antes de publicar
+
+Diferente do NodumBarber (que tem uma barbearia de demonstração documentada
+na própria Memória Descritiva) e do Nodum BI (empresas fictícias), as
+capturas da Agenda Interna vieram da conta de produção real da Vogel — e eu
+parei antes de usá-las: perguntei ao cliente se era demo ou dado real. Era
+real. Duas coisas precisavam de retoque antes de qualquer publicação:
+
+1. **`clientes-empresas.webp`** tinha uma coluna com o cabeçalho literal
+   "SENHA DO CERTIFICADO", com valores em texto plano, ao lado de CPF de
+   sócio. Isso foi coberto com um retoque no estilo "dado oculto" — pílula
+   cinza, texto centralizado — antes da imagem virar `.webp`.
+2. O nome da sócia ("Ana Vogel") aparecia repetido em `painel`, `tabela`,
+   `prazos` e `equipe`, inclusive na saudação "Olá, Ana." — trocado por um
+   cumprimento genérico ("Olá!") e por pílulas "•••" nas linhas de tabela
+   repetidas. O nome do administrador (o próprio cliente, dono do produto)
+   ficou como estava — usar o próprio nome na página do próprio produto não
+   é o mesmo problema.
+
+Os arquivos de origem, antes e depois do retoque, ficam fora deste
+repositório (processados numa pasta de trabalho, não versionados) — o que
+entra em `public/img/agenda` já é só a versão publicável.
+
+### Vitrine do site
+
+As oito telas da Agenda Interna nascem em ~1,68:1 — perto o bastante de
+16:10 para o `object-cover` da vitrine não cortar feio (diferente do que
+acontecia com o BI). A vitrine usa quatro (Painel, Quadro, Funil, Equipe);
+a tela de Clientes/Empresas fica só na landing própria, onde o texto deixa
+claro que é recurso hoje exclusivo da Vogel — não é algo que qualquer
+empresa que contrate o produto ganha de cara.
+
 ## Pendências para o cliente
 
 - `lib/content.ts` → `site`: e-mail, WhatsApp e redes sociais estão com valores
