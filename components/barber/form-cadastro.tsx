@@ -196,7 +196,7 @@ export function FormCadastro() {
             Política de Privacidade
           </Link>{" "}
           e o{" "}
-          <Link href="/legal/contrato" target="_blank" className="text-forest-400 underline decoration-brand/40 underline-offset-4 hover:decoration-forest-400">
+          <Link href="/legal/contrato-nodumbarber" target="_blank" className="text-forest-400 underline decoration-brand/40 underline-offset-4 hover:decoration-forest-400">
             Contrato de Assinatura
           </Link>
           .

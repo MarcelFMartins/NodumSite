@@ -25,6 +25,16 @@ export function zapBi(whatsapp: string) {
   return `https://wa.me/${whatsapp}?text=${encodeURIComponent(texto)}`;
 }
 
+/**
+ * Termos e privacidade são gerais (regem todos os produtos Nodum);
+ * o contrato é específico do BI. Ver lib/legal.ts.
+ */
+export const legalBi = {
+  termos: "/legal/termos",
+  privacidade: "/legal/privacidade",
+  contrato: "/legal/contrato-nodumbi",
+};
+
 export const navBi = [
   { label: "O problema", href: "#problema" },
   { label: "O painel", href: "#painel" },

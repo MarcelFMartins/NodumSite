@@ -171,7 +171,8 @@ ideia: o número mora numa constante e as mensagens pré-preenchidas saem de
 | --- | --- | --- |
 | `sistema.cadastro` | **interno** — `/nodumbarber/cadastro` | todos os CTAs primários, os três planos, a barra fixa |
 | `sistema.entrar` | externo — `${APP}/login` | header, rodapé, "já tem conta?" |
-| `sistema.termos/privacidade/contrato` | **interno** — `/legal/*` | rodapé da landing e do formulário de cadastro |
+| `sistema.termos/privacidade` | **interno** — `/legal/termos`, `/legal/privacidade` (gerais) | rodapé da landing e do formulário de cadastro |
+| `sistema.contrato` | **interno** — `/legal/contrato-nodumbarber` (específico do produto) | idem |
 | `sistema.whatsapp*` | externo | suporte, fechamento, linha do preço |
 
 O login continua no sistema de propósito: é lá que a sessão realmente existe,
@@ -268,6 +269,53 @@ mova as telas para `pordentro`.
 
 ## Nodum Barbearia — vitrine no site
 
+## Documentos legais: gerais vs. contrato por produto
+
+`lib/legal.ts` tem dois níveis, e a distinção é o ponto principal da
+estrutura:
+
+- **Termos de Uso** e **Política de Privacidade** são **gerais** — regem a
+  relação com a Nodum e valem para qualquer produto (`grupo: "geral"`). Não
+  citam preço nem prazo de teste de nenhum produto específico.
+- **Cada produto tem o próprio contrato**, com `grupo` igual ao slug do
+  produto (`"nodumbarber"`, `"nodumbi"`). É lá que moram preço, forma de
+  pagamento, régua de bloqueio, backup — o que é comercial e específico.
+
+Rotas: `/legal/termos`, `/legal/privacidade`, `/legal/contrato-nodumbarber`,
+`/legal/contrato-nodumbi`. O slug antigo `/legal/contrato` não existe mais —
+virou `contrato-nodumbarber` porque, com dois produtos, "o contrato" deixou
+de fazer sentido sem dizer de qual.
+
+`components/legal/casca.tsx` usa o campo `grupo` para decidir o que cada
+página cross-linka no rodapé: nos dois documentos gerais (e no índice
+`/legal`), aparecem todos os outros — contratos inclusive. Já a partir do
+contrato de um produto, só os dois documentos gerais aparecem: o contrato do
+outro produto não tem nada a ver com quem está lendo o do NodumBarber, por
+exemplo.
+
+### O contrato do Nodum BI não inventa preço
+
+O BI não é vendido em prateleira — é implantado por proposta comercial, sem
+plano publicado (ver a seção do BI, abaixo). Um contrato no molde do
+NodumBarber, com um preço fixo inventado, seria a única coisa pior do que não
+ter contrato nenhum: uma cláusula falsa que ninguém assinou de verdade.
+
+Por isso `contratoNodumBi` tem a mesma armação jurídica de um contrato B2B
+comum (partes, objeto, dados, confidencialidade, propriedade, limite de
+responsabilidade, foro) mas deixa os números comerciais — valor, forma de
+pagamento, quantidade de empresas incluídas, prazo — para a proposta
+comercial assinada com cada contratante, que o próprio texto declara integrar
+o contrato. Isso é honesto com o modelo de venda real, não uma lacuna.
+
+### Fidelidade do que já existia
+
+Nada do texto vigente do NodumBarber mudou de conteúdo ao ser dividido em
+"geral" + "contrato do produto" — só de lugar. Conferi de novo, frase a
+frase, o contrato reorganizado contra o texto publicado original: zero
+divergência. A cláusula de backup (2×/dia, 14 dias, 12 semanas), por
+exemplo, saiu da seção 6 dos Termos antigos e virou uma seção própria no
+contrato — o texto é o mesmo, só o documento que a hospeda mudou.
+
 ## Nodum BI — segundo produto na vitrine
 
 Landing própria em `/nodumbi`, no mesmo padrão do NodumBarber: casca própria
@@ -280,11 +328,12 @@ self-service. Por isso todo CTA da página chama uma conversa (`zapBi()`, no
 WhatsApp da própria Nodum, o mesmo de `lib/content.ts` → `site.whatsapp`), não
 "criar conta". Não existe `sistema.entrar` nem `sistema.cadastro` aqui.
 
-O rodapé do BI não linka para `/legal`: os três documentos ali são escopados
-explicitamente ao NodumBarber ("Aplica-se a: NodumBarber", contrato citando
-"o sistema NodumBarber") — linkar como se regessem o BI também seria
-impreciso. Quando o BI tiver contrato próprio, ele entra como um quarto
-documento em `lib/legal.ts`.
+Na época em que esta seção foi escrita pela primeira vez, o rodapé do BI não
+linkava para `/legal`: os três documentos de então eram escopados
+explicitamente ao NodumBarber. Isso mudou — ver "Documentos legais: gerais
+vs. contrato por produto", acima. Hoje o BI linka os dois documentos gerais
+(Termos, Privacidade) e o próprio Contrato de Prestação de Serviço, em
+`/legal/contrato-nodumbi`.
 
 Os `kpis` da seção "O painel" (`lib/bi.ts` → `painelBi.kpis`) guardam
 `direcao` (a seta, de onde o número realmente foi) e `tom` (a cor, se essa

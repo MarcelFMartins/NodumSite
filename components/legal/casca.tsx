@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { NodumLogo } from "@/components/brand/logo";
-import { documentos } from "@/lib/legal";
+import { documentos, type GrupoDocumento } from "@/lib/legal";
 
 /**
  * Cabeçalho e rodapé próprios da área legal.
  *
  * Não reaproveitam os do site porque a navegação de lá é toda por
  * âncora (#problema, #contato) e não existe fora da home. Aqui o que
- * importa é voltar para onde o leitor estava e alcançar os outros dois
- * documentos.
+ * importa é voltar para onde o leitor estava e alcançar os outros
+ * documentos que fazem sentido a partir de onde se está.
  */
 
 export function HeaderLegal() {
@@ -20,11 +20,11 @@ export function HeaderLegal() {
           <NodumLogo />
         </Link>
         <Link
-          href="/nodumbarber"
+          href="/"
           className="inline-flex items-center gap-2 text-sm text-body transition-colors hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
-          Voltar ao NodumBarber
+          Voltar ao site
         </Link>
       </div>
     </header>
@@ -32,7 +32,18 @@ export function HeaderLegal() {
 }
 
 export function FooterLegal({ atual }: { atual?: string }) {
-  const outros = documentos.filter((d) => d.slug !== atual);
+  const grupoAtual: GrupoDocumento | undefined = documentos.find((d) => d.slug === atual)?.grupo;
+
+  // Numa página geral (Termos, Privacidade — ou no índice /legal, sem
+  // `atual`), todos os outros documentos fazem sentido, contratos
+  // inclusive. Já a partir do contrato de UM produto, só os dois
+  // documentos gerais são relevantes — o contrato do outro produto não
+  // tem nada a ver com quem está lendo o do NodumBarber, por exemplo.
+  const outros = documentos.filter((d) => {
+    if (d.slug === atual) return false;
+    if (!grupoAtual || grupoAtual === "geral") return true;
+    return d.grupo === "geral";
+  });
 
   return (
     <footer className="border-t border-line bg-ink-950">
