@@ -41,7 +41,7 @@ export const sistema = {
      jogado para outro domínio no meio da decisão de compra. */
   termos: "/legal/termos",
   privacidade: "/legal/privacidade",
-  contrato: "/legal/contrato",
+  contrato: "/legal/contrato-nodumbarber",
   whatsapp: `https://wa.me/${WHATSAPP}`,
   whatsappTeste: zap("Quero testar o NodumBarber na minha barbearia"),
   whatsappSuporte: zap("Olá! Tenho uma dúvida sobre o NodumBarber."),

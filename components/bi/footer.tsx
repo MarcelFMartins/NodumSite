@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { BiLogo } from "@/components/bi/logo";
-import { navBi, zapBi } from "@/lib/bi";
+import { navBi, zapBi, legalBi } from "@/lib/bi";
 import { site } from "@/lib/content";
 
 export function FooterBi() {
   return (
     <footer className="relative overflow-hidden border-t border-line bg-ink-950">
-      <div className="shell grid gap-10 py-14 md:grid-cols-[1.3fr_1fr]">
+      <div className="shell grid gap-10 py-14 md:grid-cols-[1.2fr_1fr_1fr]">
         <div className="max-w-xs">
           <BiLogo />
           <p className="mt-5 text-sm text-body">
@@ -36,6 +36,27 @@ export function FooterBi() {
           ))}
         </nav>
 
+        <div className="flex flex-col gap-2.5">
+          <p className="eyebrow mb-1 text-muted">Legal</p>
+          <Link
+            href={legalBi.termos}
+            className="text-sm text-muted transition-colors duration-200 hover:text-forest-400"
+          >
+            Termos de Uso
+          </Link>
+          <Link
+            href={legalBi.privacidade}
+            className="text-sm text-muted transition-colors duration-200 hover:text-forest-400"
+          >
+            Política de Privacidade
+          </Link>
+          <Link
+            href={legalBi.contrato}
+            className="text-sm text-muted transition-colors duration-200 hover:text-forest-400"
+          >
+            Contrato de Prestação de Serviço
+          </Link>
+        </div>
       </div>
 
       <div className="border-t border-line">

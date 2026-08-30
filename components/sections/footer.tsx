@@ -35,7 +35,7 @@ export function Footer() {
             href="/legal"
             className="mt-4 block text-muted transition-colors hover:text-forest-400"
           >
-            Termos, privacidade e contrato
+            Termos, privacidade e contratos
           </Link>
 
           <div className="mt-4 flex gap-5">
