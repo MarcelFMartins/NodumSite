@@ -22,6 +22,7 @@ export function zapAgenda(whatsapp: string) {
 export const legalAgenda = {
   termos: "/legal/termos",
   privacidade: "/legal/privacidade",
+  contrato: "/legal/contrato-agendainterna",
 };
 
 export const navAgenda = [

@@ -1,8 +1,35 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Documento } from "@/lib/legal";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink } from "@/components/ui/button";
+import { Magnetic } from "@/components/ui/fx";
+import type { CtaDocumento, Documento } from "@/lib/legal";
 import { cn } from "@/lib/utils";
+
+/**
+ * A chamada para pedir proposta, nos contratos vendidos sob orçamento
+ * (Nodum BI, Agenda Interna). Fica de fora do corpo do documento — é
+ * texto comercial, não cláusula — mas precisa aparecer onde quem lê
+ * até aqui ainda está decidindo: logo no topo, e de novo ao final,
+ * para quem leu o contrato inteiro antes de decidir.
+ */
+function CtaProposta({ cta }: { cta: CtaDocumento }) {
+  return (
+    <div className="card flex flex-col items-start gap-5 rounded-[var(--radius-panel)] border-brand/40 bg-brand/[0.06] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+      <div>
+        <h3 className="font-display text-lg font-bold text-white md:text-xl">{cta.titulo}</h3>
+        <p className="mt-2 max-w-xl text-sm leading-relaxed text-body">{cta.texto}</p>
+      </div>
+      <Magnetic forca={0.15} className="w-full shrink-0 sm:w-auto">
+        <ButtonLink href={cta.href} target="_blank" rel="noopener" size="lg" className="w-full sm:w-auto">
+          {cta.label}
+          <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
+        </ButtonLink>
+      </Magnetic>
+    </div>
+  );
+}
 
 /**
  * Renderiza um documento legal.
@@ -58,6 +85,12 @@ export function DocumentoLegal({ doc }: { doc: Documento }) {
             </div>
           ))}
         </dl>
+
+        {doc.cta && (
+          <div className="mt-8">
+            <CtaProposta cta={doc.cta} />
+          </div>
+        )}
       </header>
 
       <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-16">
@@ -132,6 +165,12 @@ export function DocumentoLegal({ doc }: { doc: Documento }) {
               </div>
             </section>
           ))}
+
+          {doc.cta && (
+            <div className="mt-9">
+              <CtaProposta cta={doc.cta} />
+            </div>
+          )}
         </div>
       </div>
     </article>

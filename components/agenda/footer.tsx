@@ -50,6 +50,12 @@ export function FooterAgenda() {
           >
             Política de Privacidade
           </Link>
+          <Link
+            href={legalAgenda.contrato}
+            className="text-sm text-muted transition-colors duration-200 hover:text-forest-400"
+          >
+            Contrato de Prestação de Serviço
+          </Link>
         </div>
       </div>
 

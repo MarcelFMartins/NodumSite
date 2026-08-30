@@ -396,6 +396,65 @@ a tela de Clientes/Empresas fica só na landing própria, onde o texto deixa
 claro que é recurso hoje exclusivo da Vogel — não é algo que qualquer
 empresa que contrate o produto ganha de cara.
 
+## Agenda Interna em destaque, primeiro na vitrine
+
+Pedido do cliente: a Agenda Interna passou a ser o primeiro card de
+`produtosVitrine` (`lib/content.ts`), não mais o terceiro, com um campo novo
+`destaque: true` que os outros dois produtos não têm.
+
+`CartaoProduto`, em `components/sections/produtos.tsx`, lê esse campo opcional
+(`"destaque" in produto && produto.destaque`) e, quando verdadeiro:
+
+- desenha uma faixa `bg-brand` no topo do card, com ícone `Sparkles` e o texto
+  "Destaque da Nodum" — antes de qualquer outro conteúdo do card;
+- troca a borda/sombra padrão do `.card` por `border-brand/50 shadow-glow`
+  (o token `--shadow-glow` já existia no `@theme` do design system, mas não
+  tinha uso até agora);
+- aumenta o título de `text-3xl md:text-4xl` para `text-3xl md:text-5xl`.
+
+Nada disso é um componente novo: é o mesmo `CartaoProduto` de sempre, só
+ramificado por um booleano. Um quarto produto que não seja destaque continua
+renderizando exatamente como NodumBarber e Nodum BI hoje.
+
+## Contrato da Agenda Interna, no molde do BI — e uma chamada para pedir proposta
+
+O cliente pediu explicitamente "faça o contrato igual ao BI" para a Agenda
+Interna: mesma lógica de venda por orçamento, sem tabela pública, porque cada
+empresa usa o sistema de um jeito (número de pessoas, personalizações, volume
+no funil). `contratoAgendaInterna`, em `lib/legal.ts`, segue a mesma armação
+de `contratoNodumBi` — partes, objeto, dados cadastrados, WhatsApp integrado,
+pagamento deferido à proposta comercial, suspensão não é exclusão de dados,
+cancelamento, confidencialidade, propriedade, limite de responsabilidade,
+disposições finais — com `grupo: "agendainterna"` e slug
+`contrato-agendainterna`.
+
+O pedido tinha uma segunda parte: "tem que chamar pra comprar". Um contrato
+lido até o fim por alguém decidindo se compra e que termina sem nenhum
+convite para agir é uma oportunidade perdida — por isso `Documento` ganhou um
+campo opcional `cta?: CtaDocumento` (`{ titulo, texto, label, href }`), e
+`contratoNodumBi` — que já existia sem isso — ganhou o dele também, junto com
+o da Agenda Interna. `href` é um link de WhatsApp pré-preenchido
+(`https://wa.me/${site.whatsapp}?text=...`) pedindo proposta para aquele
+produto especificamente.
+
+`components/legal/documento.tsx` renderiza um novo componente `CtaProposta`
+duas vezes quando `doc.cta` existe: logo abaixo do bloco de metadados
+(versão/vigência/aplica-se-a), para quem só bateu o olho, e de novo depois da
+última seção, para quem leu o contrato inteiro antes de decidir. É
+deliberadamente separado do corpo jurídico — texto comercial, não cláusula —
+com um `card` levemente tingido de `brand` para não se confundir com uma
+seção numerada.
+
+`app/legal/page.tsx` também mudou: a grade de "Contrato de cada produto" foi
+de `sm:grid-cols-2` para `sm:grid-cols-2 lg:grid-cols-3`, porque agora são
+três contratos, não dois — dois por linha em telas grandes deixaria um
+sozinho na última.
+
+`lib/agenda.ts` (`legalAgenda.contrato`) e `components/agenda/footer.tsx`
+foram atualizados para linkar `/legal/contrato-agendainterna` em vez do
+placeholder anterior (`/legal/contrato`, que nunca existiu para este
+produto).
+
 ## Pendências para o cliente
 
 - `lib/content.ts` → `site`: e-mail, WhatsApp e redes sociais estão com valores
