@@ -21,6 +21,8 @@
  * termos exigem (30 dias de antecedência para alteração relevante).
  */
 
+import { site } from "./content";
+
 /* ------------------------------------------------------------------ */
 /* Dados da empresa e contato                                          */
 /* ------------------------------------------------------------------ */
@@ -51,7 +53,15 @@ export type Bloco =
 export type Secao = { n: string; titulo: string; blocos: Bloco[] };
 
 /** "geral" rege todos os produtos; os demais são o contrato daquele produto só. */
-export type GrupoDocumento = "geral" | "nodumbarber" | "nodumbi";
+export type GrupoDocumento = "geral" | "nodumbarber" | "nodumbi" | "agendainterna";
+
+/**
+ * Chamada para ação de um contrato vendido sob proposta (BI e Agenda
+ * Interna): não tem preço fixo para "aceitar" — o próximo passo real é
+ * pedir a proposta. Fica de fora do corpo do documento de propósito: é
+ * texto comercial, não cláusula, e a página é quem decide onde mostrar.
+ */
+export type CtaDocumento = { titulo: string; texto: string; label: string; href: string };
 
 export type Documento = {
   slug: string;
@@ -63,6 +73,7 @@ export type Documento = {
   vigencia: string;
   aplica: string;
   secoes: Secao[];
+  cta?: CtaDocumento;
 };
 
 /* ------------------------------------------------------------------ */
@@ -723,6 +734,15 @@ const contratoNodumBi: Documento = {
   versao: "1.0",
   vigencia: "30 de agosto de 2026",
   aplica: "Nodum BI",
+  cta: {
+    titulo: "Este contrato é o ponto de partida, não o preço",
+    texto:
+      "O Nodum BI não tem tabela pública porque cada carteira de clientes pede um número diferente. Fale com a gente para receber uma proposta com o valor certo para o tamanho do seu escritório.",
+    label: "Pedir uma proposta",
+    href: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(
+      "Quero uma proposta para o Nodum BI."
+    )}`,
+  },
   secoes: [
     {
       n: "1",
@@ -905,8 +925,224 @@ const contratoNodumBi: Documento = {
 };
 
 /* ------------------------------------------------------------------ */
+/* Contrato de Prestação de Serviço — Agenda Interna Nodum              */
+/* ------------------------------------------------------------------ */
 
-export const documentos: Documento[] = [termos, privacidade, contratoNodumBarber, contratoNodumBi];
+const contratoAgendaInterna: Documento = {
+  slug: "contrato-agendainterna",
+  grupo: "agendainterna",
+  titulo: "Contrato de Prestação de Serviço",
+  subtitulo: "Condições da Agenda Interna Nodum",
+  resumo:
+    "A Agenda Interna não é vendida em prateleira: é sistema multiempresa personalizado, e cada contratação nasce de uma conversa com a empresa interessada. Este documento traz a estrutura que vale para todo cliente; os números — valor, prazo, quantidade de usuários incluídos — vêm da proposta comercial assinada com cada contratante. Complementa os Termos de Uso e a Política de Privacidade gerais da Nodum.",
+  versao: "1.0",
+  vigencia: "30 de agosto de 2026",
+  aplica: "Agenda Interna Nodum",
+  cta: {
+    titulo: "Este contrato é o ponto de partida, não o preço",
+    texto:
+      "A Agenda Interna não tem tabela pública porque cada empresa usa o sistema de um jeito — número de pessoas, personalizações, volume de negócios no funil. Fale com a gente para receber uma proposta com o valor certo para o tamanho da sua operação.",
+    label: "Pedir uma proposta",
+    href: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(
+      "Quero uma proposta para a Agenda Interna Nodum."
+    )}`,
+  },
+  secoes: [
+    {
+      n: "1",
+      titulo: "Partes",
+      blocos: [
+        {
+          tipo: "defs",
+          itens: [
+            {
+              termo: "Contratada",
+              texto: `${empresa.razao}, CNPJ ${empresa.cnpj}, com sede em ${empresa.endereco}.`,
+            },
+            {
+              termo: "Contratante",
+              texto:
+                "a empresa identificada na proposta comercial, responsável pela conta e pelos dados de tarefas, equipe e CRM nela cadastrados.",
+            },
+          ],
+        },
+        {
+          tipo: "p",
+          texto:
+            "Este contrato passa a valer na assinatura da proposta comercial que o acompanha, ou no primeiro pagamento — o que ocorrer primeiro. As condições comerciais específicas (valor, forma de pagamento, quantidade de usuários incluídos, personalizações contratadas, prazo de vigência) são as definidas nessa proposta, que integra este contrato para todos os efeitos.",
+        },
+      ],
+    },
+    {
+      n: "2",
+      titulo: "Objeto",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "Licença de uso, não exclusiva e intransferível, da Agenda Interna Nodum, na modalidade de software como serviço, para gestão de tarefas e relacionamento com clientes (CRM) da empresa contratante, pelo prazo definido na proposta comercial.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "O sistema é multiempresa: outras empresas podem usar a mesma instância, cada uma com equipe, tarefas, clientes e funil isolados dos demais. Nenhuma empresa contratante enxerga os dados de outra.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "O número de pessoas com acesso consta na proposta comercial. Personalizações específicas para a operação do contratante — como um cadastro próprio de clientes, etapas de funil sob medida ou uma integração particular — quando existirem, também constam na proposta e passam a integrar o objeto deste contrato.",
+        },
+      ],
+    },
+    {
+      n: "3",
+      titulo: "Dados cadastrados pelo contratante",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "O contratante cadastra as próprias tarefas, projetos, equipe e o CRM — contatos, negócios e conversas. Para esses dados, o contratante é o controlador perante a LGPD: decide o que cadastrar, por quanto tempo manter e quem, dentro da própria equipe, tem acesso a cada informação.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "A Nodum atua como operadora desses dados: trata-os apenas para prestar o serviço, seguindo as instruções do contratante, e não os usa para nenhuma finalidade própria — conforme detalhado na Política de Privacidade geral.",
+        },
+      ],
+    },
+    {
+      n: "4",
+      titulo: "WhatsApp integrado",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "A conexão de WhatsApp é feita pelo próprio contratante, por QR code, com o número que ele escolher. As conversas e mensagens agendadas ficam guardadas dentro do sistema, como qualquer outro dado cadastrado pelo contratante.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "A responsabilidade pelo conteúdo enviado e pelo consentimento dos destinatários é do contratante, na condição de controlador desses dados.",
+        },
+      ],
+    },
+    {
+      n: "5",
+      titulo: "Pagamento",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "O valor, a periodicidade e a forma de pagamento são os definidos na proposta comercial. Na ausência de disposição diversa na proposta, o pagamento é mensal e antecipado.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "Atraso no pagamento pode levar à suspensão do acesso, com aviso prévio por e-mail, nos prazos definidos na proposta comercial ou, na falta destes, em prazo razoável não inferior a 5 dias corridos após o vencimento.",
+        },
+      ],
+    },
+    {
+      n: "6",
+      titulo: "Suspensão não é exclusão de dados",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "Suspensão de acesso por atraso não apaga os dados cadastrados. Tarefas, equipe, contatos e conversas continuam guardados durante o período de suspensão e voltam a ficar acessíveis assim que o pagamento for regularizado.",
+        },
+      ],
+    },
+    {
+      n: "7",
+      titulo: "Cancelamento",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "O prazo e a forma de cancelamento são os definidos na proposta comercial. Na ausência de disposição diversa, qualquer parte pode encerrar a prestação de serviço mediante aviso por escrito com 30 dias de antecedência, sem multa, respeitado o período mínimo eventualmente pactuado.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "Antes do encerramento, o contratante deve exportar os dados que quiser manter. Após o encerramento, os dados ficam guardados por até 12 meses e depois são apagados definitivamente, salvo pedido de apagamento antecipado pelo contratante.",
+        },
+      ],
+    },
+    {
+      n: "8",
+      titulo: "Confidencialidade",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "Cada parte se compromete a manter em sigilo as informações confidenciais da outra às quais tiver acesso em razão deste contrato — incluindo os dados de clientes, negócios e equipe do contratante — e a usá-las apenas para os fins deste contrato.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "Essa obrigação continua valendo depois do fim do contrato, pelo tempo necessário para proteger a natureza confidencial da informação.",
+        },
+      ],
+    },
+    {
+      n: "9",
+      titulo: "Propriedade",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "A Agenda Interna Nodum, o código e os elementos visuais são da Nodum. A contratação dá ao contratante o direito de usar o sistema enquanto este contrato estiver em vigor, e nada além disso.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "Os dados cadastrados pelo contratante continuam sendo do contratante, a qualquer momento. Personalizações desenvolvidas especificamente para o contratante e pagas por ele, quando descritas como tal na proposta comercial, seguem as condições de propriedade nela definidas.",
+        },
+      ],
+    },
+    {
+      n: "10",
+      titulo: "Limite de responsabilidade",
+      blocos: [
+        {
+          tipo: "p",
+          texto:
+            "A Agenda Interna é uma ferramenta de apoio à organização do trabalho e ao relacionamento comercial. As decisões tomadas a partir dela e o cumprimento das obrigações do contratante perante os próprios clientes são de responsabilidade do contratante.",
+        },
+        {
+          tipo: "p",
+          texto:
+            "A responsabilidade da Nodum, em qualquer hipótese, fica limitada ao valor pago pelo contratante nos 12 meses anteriores ao evento. Não respondemos por lucros cessantes, perda de oportunidade ou danos indiretos.",
+        },
+      ],
+    },
+    {
+      n: "11",
+      titulo: "Disposições finais",
+      blocos: [
+        {
+          tipo: "p",
+          texto: `As comunicações entre as partes são válidas quando enviadas para o e-mail indicado na proposta comercial e para ${contatoLegal}.`,
+        },
+        {
+          tipo: "p",
+          texto: `Fica eleito o foro da comarca de ${empresa.comarca}, salvo se a lei determinar foro diverso.`,
+        },
+      ],
+    },
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+
+export const documentos: Documento[] = [
+  termos,
+  privacidade,
+  contratoNodumBarber,
+  contratoNodumBi,
+  contratoAgendaInterna,
+];
 
 export const porSlug = (slug: string) => documentos.find((d) => d.slug === slug);
 

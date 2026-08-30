@@ -53,7 +53,7 @@ export default function LegalPage() {
         </div>
 
         <p className="eyebrow mt-12 text-muted">Contrato de cada produto</p>
-        <div className="mt-6 grid gap-5 sm:grid-cols-2">
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {contratos.map((d) => (
             <Cartao key={d.slug} d={d} />
           ))}

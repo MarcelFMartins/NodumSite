@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Magnetic, Reveal, ScrambleText, SplitText, TiltCard } from "@/components/ui/fx";
 import { NodeField } from "@/components/ui/node-field";
@@ -23,8 +23,27 @@ function CartaoProduto({ produto, invertido }: { produto: Produto; invertido: bo
   const [ativa, setAtiva] = useState(0);
   const tela = produto.telas[ativa];
 
+  const destaque = "destaque" in produto && produto.destaque;
+
   return (
-    <div className="card overflow-hidden rounded-[var(--radius-panel)]">
+    <div
+      className={cn(
+        "card overflow-hidden rounded-[var(--radius-panel)]",
+        // O produto em destaque ganha moldura e brilho próprios — o
+        // mesmo token --shadow-glow que o design system já reserva
+        // para isso, aqui usado pela primeira vez.
+        destaque && "border-brand/50 shadow-glow"
+      )}
+    >
+      {destaque && (
+        <div className="flex items-center justify-center gap-2 bg-brand py-2.5">
+          <Sparkles className="h-3.5 w-3.5 text-white" />
+          <span className="font-mono text-xs font-semibold uppercase tracking-widest text-white">
+            Destaque da Nodum
+          </span>
+        </div>
+      )}
+
       <div className="grid lg:grid-cols-[1fr_1.15fr]">
         <div className={cn("p-6 sm:p-8 md:p-12", invertido && "lg:order-2")}>
           <span className="inline-flex items-center gap-2.5 rounded-full border border-brand/40 bg-brand/10 px-4 py-1.5">
@@ -38,7 +57,12 @@ function CartaoProduto({ produto, invertido }: { produto: Produto; invertido: bo
             <span className="eyebrow text-forest-400">{produto.selo}</span>
           </span>
 
-          <h3 className="mt-7 font-display text-3xl font-bold text-white md:text-4xl">
+          <h3
+            className={cn(
+              "mt-7 font-display font-bold text-white",
+              destaque ? "text-3xl md:text-5xl" : "text-3xl md:text-4xl"
+            )}
+          >
             {produto.titulo}
           </h3>
           <p className="mt-4 text-lg text-body">{produto.chamada}</p>
