@@ -31,7 +31,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nodum.com.br"),
+  metadataBase: new URL("https://nodumsolucoes.com"),
   title: {
     default: `${site.nome} — ${site.tagline}`,
     template: `%s | Nodum`,
