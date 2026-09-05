@@ -39,7 +39,7 @@ export const empresa = {
  * contato formal dos contratos. Está num só lugar de propósito: trocar
  * aqui atualiza todos os documentos de uma vez.
  */
-export const contatoLegal = "martinsmarcel544@gmail.com";
+export const contatoLegal = "contato@nodumsolucoes.com";
 
 /* ------------------------------------------------------------------ */
 /* Estrutura                                                           */

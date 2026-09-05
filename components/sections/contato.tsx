@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Mail, MessageCircle } from "lucide-react";
+import { ArrowRight, Check, Mail, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Aurora, Magnetic, Reveal, ScrambleText, SplitText } from "@/components/ui/fx";
 import { NodeField } from "@/components/ui/node-field";
@@ -54,24 +54,32 @@ export function Contato() {
     telefone: "",
     mensagem: "",
   });
+  const [estado, setEstado] = useState<"ocioso" | "enviando" | "enviado" | "erro">("ocioso");
+  const [erro, setErro] = useState("");
 
-  // Sem backend: o formulário monta um e-mail pré-preenchido e entrega
-  // para o app de e-mail do visitante. Nada é enviado por aqui — o dia
-  // que existir uma API, é só trocar este handler.
-  function enviar(e: React.FormEvent) {
+  // Envia por dentro do site, via Resend (rota /api/contato) — não abre
+  // mais o app de e-mail do visitante nem depende dele ter um
+  // configurado no aparelho.
+  async function enviar(e: React.FormEvent) {
     e.preventDefault();
-    const assunto = `Contato pelo site — ${dados.empresa || dados.nome}`;
-    const corpo = [
-      `Nome: ${dados.nome}`,
-      `Empresa: ${dados.empresa}`,
-      `E-mail: ${dados.email}`,
-      `Telefone: ${dados.telefone}`,
-      "",
-      dados.mensagem,
-    ].join("\n");
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-      assunto
-    )}&body=${encodeURIComponent(corpo)}`;
+    setEstado("enviando");
+    setErro("");
+    try {
+      const resposta = await fetch("/api/contato", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados),
+      });
+      const corpo = await resposta.json().catch(() => ({}));
+      if (!resposta.ok) {
+        throw new Error(corpo.erro || "Não foi possível enviar sua mensagem.");
+      }
+      setEstado("enviado");
+      setDados({ nome: "", empresa: "", email: "", telefone: "", mensagem: "" });
+    } catch (err) {
+      setEstado("erro");
+      setErro(err instanceof Error ? err.message : "Não foi possível enviar sua mensagem.");
+    }
   }
 
   return (
@@ -153,15 +161,38 @@ export function Contato() {
             </label>
 
             <Magnetic forca={0.15} className="mt-8 block w-full">
-              <Button type="submit" size="lg" className="w-full">
-                Enviar mensagem
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
+              <Button type="submit" size="lg" className="w-full" disabled={estado === "enviando"}>
+                {estado === "enviado" ? (
+                  <>
+                    Mensagem enviada
+                    <Check className="h-4 w-4" />
+                  </>
+                ) : (
+                  <>
+                    {estado === "enviando" ? "Enviando…" : "Enviar mensagem"}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
+                  </>
+                )}
               </Button>
             </Magnetic>
 
-            <p className="mt-4 text-center text-xs text-muted">
-              Abre o seu app de e-mail com a mensagem pronta. Respondemos em até 1 dia útil.
-            </p>
+            {estado === "erro" ? (
+              <p className="mt-4 text-center text-xs text-red-400">
+                {erro} Se persistir, escreva direto para{" "}
+                <a href={`mailto:${site.email}`} className="underline decoration-red-400/40 underline-offset-4">
+                  {site.email}
+                </a>
+                .
+              </p>
+            ) : estado === "enviado" ? (
+              <p className="mt-4 text-center text-xs text-forest-400">
+                Recebemos sua mensagem. Respondemos em até 1 dia útil.
+              </p>
+            ) : (
+              <p className="mt-4 text-center text-xs text-muted">
+                Enviado direto para a Nodum. Respondemos em até 1 dia útil.
+              </p>
+            )}
           </form>
         </Reveal>
       </div>

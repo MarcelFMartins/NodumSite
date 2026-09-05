@@ -455,8 +455,43 @@ foram atualizados para linkar `/legal/contrato-agendainterna` em vez do
 placeholder anterior (`/legal/contrato`, que nunca existiu para este
 produto).
 
+## Formulário de contato: envio por dentro do site, via Resend
+
+O formulário de `#contato` (`components/sections/contato.tsx`) não abre mais
+o app de e-mail do visitante — ele faz `POST` para `app/api/contato/route.ts`,
+uma rota de servidor (`ƒ`, dinâmica, não estática) que envia o e-mail direto
+pela API da [Resend](https://resend.com).
+
+- `to` é sempre `contatoLegal` (`lib/legal.ts`), o mesmo endereço usado como
+  contato do encarregado de dados nos documentos legais — um só lugar
+  concentra para onde vai tanto lead comercial quanto pedido de LGPD.
+- `replyTo` é o e-mail que o visitante preencheu, então responder o e-mail
+  recebido já responde direto para quem escreveu — sem copiar e colar nada.
+- Validação no servidor (nome e e-mail obrigatórios, formato de e-mail,
+  limite de 2000 caracteres por campo) além da validação do próprio
+  `<input type="email" required>` no cliente — a rota não confia no que o
+  formulário manda.
+- Estado do botão (`ocioso` / `enviando` / `enviado` / `erro`) e mensagem de
+  status ficam no próprio componente. Em erro, a mensagem convida a escrever
+  direto para `site.email` como saída manual — o formulário nunca falha
+  silenciosamente.
+
+**Variáveis de ambiente exigidas na Vercel** (não são segredo de código, mas
+precisam existir no projeto para o envio funcionar):
+
+- `RESEND_API_KEY` — chave da conta Resend. Sem ela, a rota responde
+  `500` e loga o motivo no servidor, sem derrubar o build nem o site.
+- `RESEND_FROM` (opcional) — remetente verificado no domínio
+  `nodumsolucoes.com` (ex. `"Nodum <contato@nodumsolucoes.com>"`). Até o
+  domínio estar verificado na Resend, o remetente de teste padrão
+  (`onboarding@resend.dev`) é usado automaticamente — funciona, mas chega
+  como "via resend.dev" na caixa de entrada.
+
 ## Pendências para o cliente
 
+- Configurar `RESEND_API_KEY` (e, depois de verificar o domínio na Resend,
+  `RESEND_FROM`) nas variáveis de ambiente da Vercel — ver seção acima. Sem
+  isso, o formulário de contato não envia e-mail nenhum.
 - `lib/content.ts` → `site`: e-mail (`contato@nodumsolucoes.com`) e domínio
   (`nodumsolucoes.com`) já são os reais. WhatsApp e redes sociais continuam
   com valor de exemplo (`5511999999999`) — substituir pelos reais.
@@ -464,9 +499,5 @@ produto).
   domínio provisório do sistema. Trocar quando o definitivo subir.
 - O cadastro embutido em `/nodumbarber/cadastro` depende do patch de CORS
   acima. Sem ele, o formulário mostra erro de rede em vez de criar a conta.
-- O formulário de contato não tem backend: ele monta um e-mail pré-preenchido e
-  abre o app de e-mail do visitante. Para receber os leads direto, trocar o
-  handler `enviar()` em `components/sections/contato.tsx` por um POST para uma
-  API/serviço de formulário.
 - Sem foto e sem logo de cliente reais — o design system pede flat, mas se a
   Nodum tiver imagens de operação ou uma parede de logos, dá para incorporar.
