@@ -9,7 +9,7 @@ export const site = {
   tagline: "Conexões que transformam negócios.",
   fechamento: "Conectados para crescer.",
   email: "contato@nodumsolucoes.com",
-  whatsapp: "5511999999999",
+  whatsapp: "5549988128385",
   linkedin: "https://www.linkedin.com/company/nodum",
   instagram: "https://www.instagram.com/nodum",
 };

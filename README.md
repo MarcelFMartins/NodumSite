@@ -492,9 +492,9 @@ precisam existir no projeto para o envio funcionar):
 - Configurar `RESEND_API_KEY` (e, depois de verificar o domínio na Resend,
   `RESEND_FROM`) nas variáveis de ambiente da Vercel — ver seção acima. Sem
   isso, o formulário de contato não envia e-mail nenhum.
-- `lib/content.ts` → `site`: e-mail (`contato@nodumsolucoes.com`) e domínio
-  (`nodumsolucoes.com`) já são os reais. WhatsApp e redes sociais continuam
-  com valor de exemplo (`5511999999999`) — substituir pelos reais.
+- `lib/content.ts` → `site`: e-mail (`contato@nodumsolucoes.com`), domínio
+  (`nodumsolucoes.com`) e WhatsApp (`5549988128385`) já são os reais. Só
+  LinkedIn/Instagram continuam com valor de exemplo — substituir pelos reais.
 - `lib/barber.ts` → `APP` aponta para `agenda.vogelassessoriacontabil.com`, o
   domínio provisório do sistema. Trocar quando o definitivo subir.
 - O cadastro embutido em `/nodumbarber/cadastro` depende do patch de CORS
