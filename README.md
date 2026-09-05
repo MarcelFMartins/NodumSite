@@ -215,7 +215,7 @@ cookie).
 // app/api/signup/route.ts — adicionar no topo do arquivo
 
 const ORIGENS_PERMITIDAS = [
-  "https://nodum-site.vercel.app",
+  "https://nodumsolucoes.com",
   // troque/adicione aqui quando o domínio definitivo do site existir
 ];
 
@@ -457,8 +457,9 @@ produto).
 
 ## Pendências para o cliente
 
-- `lib/content.ts` → `site`: e-mail, WhatsApp e redes sociais estão com valores
-  de exemplo (`contato@nodum.com.br`, `5511999999999`) — substituir pelos reais.
+- `lib/content.ts` → `site`: e-mail (`contato@nodumsolucoes.com`) e domínio
+  (`nodumsolucoes.com`) já são os reais. WhatsApp e redes sociais continuam
+  com valor de exemplo (`5511999999999`) — substituir pelos reais.
 - `lib/barber.ts` → `APP` aponta para `agenda.vogelassessoriacontabil.com`, o
   domínio provisório do sistema. Trocar quando o definitivo subir.
 - O cadastro embutido em `/nodumbarber/cadastro` depende do patch de CORS

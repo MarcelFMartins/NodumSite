@@ -8,7 +8,7 @@ export const site = {
   nome: "Nodum Soluções Integradas",
   tagline: "Conexões que transformam negócios.",
   fechamento: "Conectados para crescer.",
-  email: "contato@nodum.com.br",
+  email: "contato@nodumsolucoes.com",
   whatsapp: "5511999999999",
   linkedin: "https://www.linkedin.com/company/nodum",
   instagram: "https://www.instagram.com/nodum",

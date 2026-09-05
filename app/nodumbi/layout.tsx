@@ -38,7 +38,7 @@ export default function BiLayout({ children }: { children: React.ReactNode }) {
             name: "Nodum Business Intelligence",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
-            url: "https://nodum.com.br/nodumbi",
+            url: "https://nodumsolucoes.com/nodumbi",
             description:
               "Painel de indicadores financeiros para consolidar e comparar as DREs de várias empresas — feito para escritórios de contabilidade e consultoria.",
             inLanguage: "pt-BR",

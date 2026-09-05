@@ -47,7 +47,7 @@ export default function BarberLayout({ children }: { children: React.ReactNode }
             name: "NodumBarber",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
-            url: "https://nodum.com.br/nodumbarber",
+            url: "https://nodumsolucoes.com/nodumbarber",
             description:
               "Sistema de agenda e gestão para barbearias: agenda por barbeiro, clientes, comissões, planos com crédito, estoque e caixa.",
             inLanguage: "pt-BR",

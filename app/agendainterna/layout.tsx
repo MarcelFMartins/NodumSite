@@ -38,7 +38,7 @@ export default function AgendaLayout({ children }: { children: React.ReactNode }
             name: "Agenda Interna Nodum",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
-            url: "https://nodum.com.br/agendainterna",
+            url: "https://nodumsolucoes.com/agendainterna",
             description:
               "Sistema multiempresa de gestão de tarefas e CRM: quadro kanban, tabela, gráficos, funil de vendas, contatos e automações de WhatsApp, com dados isolados por empresa.",
             inLanguage: "pt-BR",
