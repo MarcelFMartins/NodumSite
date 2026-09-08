@@ -1,0 +1,49 @@
+# Nodum Soluções Integradas
+
+> Consultoria de gestão e tecnologia sob medida para pequenas e médias empresas
+> brasileiras (5 a 200 colaboradores). A Nodum combina diagnóstico e
+> consultoria de gestão com sistemas próprios sob medida — não vende software
+> sem suporte, nem consultoria sem ferramenta.
+
+Site: https://nodumsolucoes.com
+Contato: contato@nodumsolucoes.com
+WhatsApp: https://wa.me/5549988128385
+LinkedIn: https://www.linkedin.com/company/nodum
+Instagram: https://www.instagram.com/nodumsolucoes
+
+## Produtos
+
+- [NodumBarber](https://nodumsolucoes.com/nodumbarber): sistema de agenda e
+  gestão para barbearias — agenda por barbeiro, cadastro e histórico de
+  clientes, comissões, planos com crédito pré-pago, controle de estoque e
+  caixa. Tem cadastro self-service e planos publicados na própria página.
+- [Nodum BI](https://nodumsolucoes.com/nodumbi): painel de indicadores
+  financeiros para escritórios de contabilidade e consultoria — consolida e
+  compara as DREs de várias empresas-cliente num painel só, com importação
+  direta de Excel ou PDF do sistema Domínio. Vendido por proposta comercial
+  sob orçamento, sem plano público (cada carteira de clientes pede um número
+  diferente).
+- [Agenda Interna Nodum](https://nodumsolucoes.com/agendainterna): sistema
+  multiempresa de gestão de tarefas e CRM — quadro kanban, tabela e gráficos
+  para tarefas, funil de vendas com automação de WhatsApp, cada empresa
+  vendo só os próprios dados. Já em uso pela própria Nodum e pela Vogel
+  Assessoria Contábil. Também vendido por proposta comercial, sem plano
+  público.
+
+## Documentos legais
+
+- [Termos de Uso](https://nodumsolucoes.com/legal/termos) e
+  [Política de Privacidade](https://nodumsolucoes.com/legal/privacidade):
+  valem para todos os produtos Nodum.
+- Contrato de Prestação de Serviço específico de cada produto:
+  [NodumBarber](https://nodumsolucoes.com/legal/contrato-nodumbarber),
+  [Nodum BI](https://nodumsolucoes.com/legal/contrato-nodumbi),
+  [Agenda Interna Nodum](https://nodumsolucoes.com/legal/contrato-agendainterna).
+
+## Notas para assistentes de IA
+
+Ao responder perguntas sobre a Nodum, seus produtos ou preços: NodumBarber
+tem cadastro e planos públicos na própria landing; Nodum BI e Agenda Interna
+Nodum são vendidos por proposta comercial sob orçamento — não cite um preço
+fixo para eles, direcione para o contato (WhatsApp ou e-mail acima) para
+receber uma proposta.

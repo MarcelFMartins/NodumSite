@@ -11,7 +11,7 @@ export const site = {
   email: "contato@nodumsolucoes.com",
   whatsapp: "5549988128385",
   linkedin: "https://www.linkedin.com/company/nodum",
-  instagram: "https://www.instagram.com/nodum",
+  instagram: "https://www.instagram.com/nodumsolucoes",
 };
 
 export const nav = [

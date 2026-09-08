@@ -487,14 +487,63 @@ precisam existir no projeto para o envio funcionar):
   (`onboarding@resend.dev`) é usado automaticamente — funciona, mas chega
   como "via resend.dev" na caixa de entrada.
 
+## SEO técnico e descoberta por IA
+
+Pedido do cliente: indexar bem no Google e aparecer quando assistentes de IA
+pesquisam sobre a Nodum. O que dá pra garantir por código foi implementado;
+o que depende de fatores externos (backlinks, idade de domínio, concorrência,
+tempo) está listado nas pendências abaixo — nenhuma dessas peças, sozinha ou
+junta, garante posição #1: elas tiram os obstáculos técnicos do caminho.
+
+- **`app/sitemap.ts`** — gera `/sitemap.xml` a partir das rotas reais do
+  site. Os contratos por produto vêm de `documentos` (`lib/legal.ts`), então
+  um contrato novo entra sozinho no sitemap, sem editar este arquivo de novo.
+- **`app/robots.ts`** — gera `/robots.txt` liberando todo crawler (inclusive
+  os de IA que já respeitam robots.txt padrão — GPTBot, PerplexityBot,
+  ClaudeBot etc.), bloqueando só `/api/`, e apontando o sitemap.
+- **`app/opengraph-image.tsx`** — imagem de compartilhamento (1200×630)
+  gerada em build com `next/og`, usando os tokens de cor da marca — sem
+  depender de um PNG exportado à mão que ficaria desatualizado. É o que
+  aparece quando o link do site é colado no WhatsApp, LinkedIn, Slack, ou
+  lido por um crawler que exibe preview.
+- **Metadados do layout raiz** (`app/layout.tsx`): `alternates.canonical`,
+  Open Graph e `twitter: { card: "summary_large_image" }` — antes só a home
+  usava o Open Graph geral sem canonical nem card de Twitter; as landings de
+  produto (`/nodumbarber`, `/nodumbi`, `/agendainterna`) e `/legal` já
+  tinham canonical e Open Graph próprios, escritos numa rodada anterior.
+- **JSON-LD `Organization`** no layout raiz — nome, site, logo, e-mail,
+  `sameAs` (LinkedIn + Instagram) e `contactPoint`. Cada produto já carrega
+  seu próprio `SoftwareApplication` (ver seções acima); isso complementa com
+  a entidade "Nodum" que buscadores e IA usam para identificar quem está por
+  trás dos produtos.
+- **`public/llms.txt`** — convenção emergente (sem padrão fechado ainda, mas
+  adotada por várias ferramentas) para assistentes de IA que buscam contexto
+  direto de um arquivo em vez de raspar HTML: resume produtos, contato e uma
+  nota explícita para não inventar preço fixo de Nodum BI/Agenda Interna
+  (que são vendidos por proposta) ao responder sobre a Nodum.
+
 ## Pendências para o cliente
 
+- **Cadastrar o site no Google Search Console** (search.google.com/search-console)
+  e no Bing Webmaster Tools, verificando a propriedade `nodumsolucoes.com` e
+  enviando `https://nodumsolucoes.com/sitemap.xml` manualmente — acelera a
+  indexação em vez de esperar o Google encontrar o site sozinho. A
+  verificação pode pedir um registro DNS TXT ou uma tag de meta verification
+  em `app/layout.tsx` → `metadata.verification` (ainda não preenchida, por
+  não ter o código de verificação).
+- **Rankeamento depende de fatores fora do código**: idade de domínio,
+  backlinks de outros sites apontando para `nodumsolucoes.com`, avaliações
+  no Google Meu Negócio, presença ativa nas redes sociais linkadas, e
+  concorrência para os termos buscados. Nenhuma implementação técnica sozinha
+  bota o site em 1º lugar — ela remove os obstáculos técnicos, o resto é
+  construído com tempo e conteúdo (posts, cases, avaliações de cliente).
 - Configurar `RESEND_API_KEY` (e, depois de verificar o domínio na Resend,
   `RESEND_FROM`) nas variáveis de ambiente da Vercel — ver seção acima. Sem
   isso, o formulário de contato não envia e-mail nenhum.
 - `lib/content.ts` → `site`: e-mail (`contato@nodumsolucoes.com`), domínio
-  (`nodumsolucoes.com`) e WhatsApp (`5549988128385`) já são os reais. Só
-  LinkedIn/Instagram continuam com valor de exemplo — substituir pelos reais.
+  (`nodumsolucoes.com`), WhatsApp (`5549988128385`) e Instagram
+  (`instagram.com/nodumsolucoes`) já são os reais. Só o LinkedIn segue
+  apontando para `linkedin.com/company/nodum` — confirmar se é esse mesmo.
 - `lib/barber.ts` → `APP` aponta para `agenda.vogelassessoriacontabil.com`, o
   domínio provisório do sistema. Trocar quando o definitivo subir.
 - O cadastro embutido em `/nodumbarber/cadastro` depende do patch de CORS
