@@ -45,15 +45,28 @@ export const metadata: Metadata = {
     "gestão empresarial",
     "Nodum",
   ],
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "pt_BR",
+    url: "/",
     siteName: site.nome,
     title: `${site.nome} — ${site.tagline}`,
     description:
       "Gestão e tecnologia andam juntas. Consultoria e sistemas sob medida para PMEs de 5 a 200 colaboradores.",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.nome} — ${site.tagline}`,
+    description:
+      "Gestão e tecnologia andam juntas. Consultoria e sistemas sob medida para PMEs de 5 a 200 colaboradores.",
+  },
   icons: { icon: "/brand/logo-mark.svg" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 export const viewport: Viewport = {
@@ -75,6 +88,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${poppins.variable} ${manrope.variable} ${jetbrains.variable}`}
     >
       <body>
+        {/* Organization schema: ajuda buscadores e assistentes de IA a
+            identificar a Nodum como entidade — nome, site, contato e
+            perfis oficiais — em vez de inferir isso do texto solto da
+            página. Fica no layout raiz porque vale para o site inteiro,
+            não só para a home. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: site.nome,
+              url: "https://nodumsolucoes.com",
+              logo: "https://nodumsolucoes.com/brand/logo-mark.svg",
+              description:
+                "Consultoria de gestão e tecnologia sob medida para pequenas e médias empresas brasileiras.",
+              email: site.email,
+              sameAs: [site.linkedin, site.instagram],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer service",
+                email: site.email,
+                areaServed: "BR",
+                availableLanguage: "Portuguese",
+              },
+            }),
+          }}
+        />
         <a
           href="#conteudo"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-[var(--radius-control)] focus:bg-brand focus:px-4 focus:py-2 focus:text-white"
