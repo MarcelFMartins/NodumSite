@@ -19,8 +19,17 @@
  * Único lugar do projeto que sabe o endereço do sistema. Quando o
  * NodumBarber ganhar o domínio definitivo, troque esta linha: botões,
  * âncoras legais e rodapé acompanham sozinhos.
+ *
+ * Migrou da VPS antiga (agenda.vogelassessoriacontabil.com) para
+ * barber.nodumsolucoes.com — backend novo, grava direto no Supabase e
+ * libera CORS para https://nodumsolucoes.com. Login, cadastro e
+ * dashboard têm que apontar todos para o MESMO domínio: o cookie de
+ * sessão que `POST ${APP}/api/signup` devolve só é enviado de volta em
+ * chamadas para esse domínio — redirecionar para o domínio antigo
+ * depois do cadastro (como acontecia antes desta migração) manda a
+ * pessoa para uma página sem sessão nenhuma.
  */
-const APP = "https://agenda.vogelassessoriacontabil.com";
+const APP = "https://barber.nodumsolucoes.com";
 const WHATSAPP = "5549998097267";
 
 const zap = (texto: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
@@ -33,12 +42,8 @@ export const sistema = {
   // domínio do sistema. Ver app/nodumbarber/cadastro/page.tsx.
   entrar: `${APP}/login`,
   cadastro: "/nodumbarber/cadastro",
-  /** O endpoint que o formulário local chama de verdade. Migrou da VPS
-      antiga (agenda.vogelassessoriacontabil.com) para o domínio novo,
-      que já grava direto no Supabase e libera CORS para
-      nodumsolucoes.com — por isso não usa a constante `APP` acima,
-      que ainda serve o login e o dashboard na VPS antiga. */
-  apiSignup: "https://barber.nodumsolucoes.com/api/signup",
+  /** O endpoint que o formulário local chama de verdade. */
+  apiSignup: `${APP}/api/signup`,
   dashboard: `${APP}/dashboard`,
   /* Os três documentos legais foram centralizados no site, em /legal.
      São rotas internas de propósito: quem lê os termos não deve ser

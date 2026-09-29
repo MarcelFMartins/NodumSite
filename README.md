@@ -191,22 +191,26 @@ redirecionado para `sistema.dashboard` — a pessoa entra na conta sem passar
 pela tela de login, porque o cookie de sessão que a API devolve já fica
 gravado no domínio do sistema (é para lá que o `fetch` foi).
 
-O backend do NodumBarber migrou da VPS antiga
+O backend do NodumBarber migrou por inteiro da VPS antiga
 (`agenda.vogelassessoriacontabil.com`) para `barber.nodumsolucoes.com`, que
 grava direto no Supabase e já libera CORS para `https://nodumsolucoes.com`
-na própria rota `/api/signup` (`app/api/signup/route.ts:26` daquele
-projeto — fora deste repositório). Por isso `sistema.apiSignup`
-(`lib/barber.ts`) é uma URL fixa nesse domínio novo, independente da
-constante `APP` — que continua na VPS antiga porque login (`sistema.entrar`)
-e dashboard (`sistema.dashboard`) ainda moram lá. Quando o resto do sistema
-migrar também, troque `APP` e este comentário deixa de fazer sentido.
+na rota `/api/signup` (`app/api/signup/route.ts:26` daquele projeto — fora
+deste repositório). `APP` (`lib/barber.ts`) é essa URL nova — **login,
+cadastro e dashboard têm que apontar todos para o mesmo domínio**: o cookie
+de sessão que `POST ${APP}/api/signup` devolve só volta em chamadas para
+esse domínio. Numa primeira rodada desta migração, só `apiSignup` foi
+trocado e `sistema.dashboard` continuou na VPS antiga — o cadastro
+funcionava, mas o redirecionamento pós-cadastro caía numa página sem sessão
+nenhuma (cookie de domínio errado). Corrigido trocando a própria constante
+`APP`, que os três (`entrar`, `apiSignup`, `dashboard`) derivam.
 
-Antes dessa migração, a chamada apontava para `${APP}/api/signup` na VPS
+Antes da migração, a chamada apontava para `${APP}/api/signup` na VPS
 antiga, que não liberava CORS entre domínios — o preflight do navegador
 falhava e o formulário caía num erro de rede tratado (mensagem amigável, sem
 travar a página). Ficou registrado aqui porque, se o sintoma voltar (erro de
-CORS no console ao cadastrar), o primeiro lugar a checar é se
-`sistema.apiSignup` ainda aponta para o domínio certo.
+CORS no console, ou redirecionamento pós-cadastro numa página deslogada), o
+primeiro lugar a checar é se `APP` ainda aponta para um único domínio
+coerente com o que o backend realmente serve.
 
 ### A copy veio da Memória Descritiva
 
@@ -503,8 +507,9 @@ junta, garante posição #1: elas tiram os obstáculos técnicos do caminho.
   (`nodumsolucoes.com`), WhatsApp (`5549988128385`) e Instagram
   (`instagram.com/nodumsolucoes`) já são os reais. Só o LinkedIn segue
   apontando para `linkedin.com/company/nodum` — confirmar se é esse mesmo.
-- `lib/barber.ts` → `APP` ainda aponta para `agenda.vogelassessoriacontabil.com`
-  — só o login e o dashboard continuam lá (o cadastro já migrou, ver seção
-  acima). Trocar `APP` quando o resto do sistema for para o domínio novo.
+- `lib/barber.ts` → `APP` já aponta para `barber.nodumsolucoes.com` — confirmar
+  que login e dashboard realmente respondem nesse domínio (não só
+  `/api/signup`), já que os três precisam estar no mesmo domínio pro cookie
+  de sessão funcionar (ver seção "Cadastro embutido", acima).
 - Sem foto e sem logo de cliente reais — o design system pede flat, mas se a
   Nodum tiver imagens de operação ou uma parede de logos, dá para incorporar.
