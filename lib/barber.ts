@@ -33,8 +33,12 @@ export const sistema = {
   // domínio do sistema. Ver app/nodumbarber/cadastro/page.tsx.
   entrar: `${APP}/login`,
   cadastro: "/nodumbarber/cadastro",
-  /** O endpoint que o formulário local chama de verdade. */
-  apiSignup: `${APP}/api/signup`,
+  /** O endpoint que o formulário local chama de verdade. Migrou da VPS
+      antiga (agenda.vogelassessoriacontabil.com) para o domínio novo,
+      que já grava direto no Supabase e libera CORS para
+      nodumsolucoes.com — por isso não usa a constante `APP` acima,
+      que ainda serve o login e o dashboard na VPS antiga. */
+  apiSignup: "https://barber.nodumsolucoes.com/api/signup",
   dashboard: `${APP}/dashboard`,
   /* Os três documentos legais foram centralizados no site, em /legal.
      São rotas internas de propósito: quem lê os termos não deve ser
