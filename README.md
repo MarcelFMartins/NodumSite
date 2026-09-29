@@ -181,73 +181,32 @@ e replicar tela de login é superfície de ataque sem ganho nenhum. O
 completa: o formulário mora no site, mas a conta continua nascendo no banco
 do sistema — ver a seção seguinte.
 
-### Cadastro embutido — como funciona e o que falta no back-end
+### Cadastro embutido — como funciona
 
 `components/barber/form-cadastro.tsx` é um formulário controlado que faz
-`fetch(sistema.apiSignup, { credentials: "include" })` direto para
-`POST ${APP}/api/signup`, com os mesmos campos que `signupSchema` exige no
-back-end (`shopName`, `ownerName`, `ownerEmail`, `ownerPassword`, `aceite`,
-`honeypot`). Em caso de sucesso, o navegador é redirecionado para
-`sistema.dashboard` — a pessoa entra na conta sem passar pela tela de login,
-porque o cookie de sessão que a API devolve já fica gravado no domínio do
-sistema (é para lá que o `fetch` foi).
+`fetch(sistema.apiSignup, { credentials: "include" })`, com os mesmos campos
+que `signupSchema` exige no back-end (`shopName`, `ownerName`, `ownerEmail`,
+`ownerPassword`, `aceite`, `honeypot`). Em caso de sucesso, o navegador é
+redirecionado para `sistema.dashboard` — a pessoa entra na conta sem passar
+pela tela de login, porque o cookie de sessão que a API devolve já fica
+gravado no domínio do sistema (é para lá que o `fetch` foi).
 
-Isso só funciona quando o navegador aceita mandar e receber cookies numa
-chamada entre domínios diferentes — e hoje **o back-end não libera isso**. A
-API só lê corpo JSON (nunca formulário nativo, que resolveria sem CORS) e não
-declara nenhum cabeçalho `Access-Control-Allow-*`. Testado localmente: o
-formulário valida, mostra erro por campo e trata 409/422/429 corretamente,
-mas a chamada real cai num erro de rede tratado (mensagem amigável, sem
-travar a página) até o CORS ser liberado.
+O backend do NodumBarber migrou da VPS antiga
+(`agenda.vogelassessoriacontabil.com`) para `barber.nodumsolucoes.com`, que
+grava direto no Supabase e já libera CORS para `https://nodumsolucoes.com`
+na própria rota `/api/signup` (`app/api/signup/route.ts:26` daquele
+projeto — fora deste repositório). Por isso `sistema.apiSignup`
+(`lib/barber.ts`) é uma URL fixa nesse domínio novo, independente da
+constante `APP` — que continua na VPS antiga porque login (`sistema.entrar`)
+e dashboard (`sistema.dashboard`) ainda moram lá. Quando o resto do sistema
+migrar também, troque `APP` e este comentário deixa de fazer sentido.
 
-**Não tenho como aplicar essa mudança**: o backend (`prototipo-agenda`) não
-está neste repositório nem em nenhum Git que eu tenha acesso — é implantado
-por SSH/PM2 direto no servidor, conforme `docs/DEPLOY.md` daquele projeto.
-Quem publica o patch abaixo é quem tem acesso à VPS.
-
-O patch é pequeno e cirúrgico: libera CORS **só** na rota de cadastro, com
-origem explícita (nunca `*`, porque `credentials: true` exige domínio exato)
-e não muda a política de cookies (`SameSite=Lax` continua valendo — o
-handshake final é uma navegação normal a `${APP}/dashboard`, mesma origem do
-cookie).
-
-```ts
-// app/api/signup/route.ts — adicionar no topo do arquivo
-
-const ORIGENS_PERMITIDAS = [
-  "https://nodumsolucoes.com",
-  // troque/adicione aqui quando o domínio definitivo do site existir
-];
-
-function corsHeaders(origin: string | null) {
-  if (!origin || !ORIGENS_PERMITIDAS.includes(origin)) return {};
-  return {
-    "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Credentials": "true",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-  };
-}
-
-// responde o preflight que o navegador manda antes do POST com JSON
-export async function OPTIONS(request: Request) {
-  return new Response(null, {
-    status: 204,
-    headers: corsHeaders(request.headers.get("origin")),
-  });
-}
-```
-
-E, no `export const POST = withErrorHandler(...)` existente, acrescentar os
-mesmos `corsHeaders(request.headers.get("origin"))` em toda resposta —
-sucesso e erro. O jeito mais simples é envolver o retorno de `json()` (ou o
-helper que a rota já usa) somando esses cabeçalhos, sem tocar na lógica de
-negócio.
-
-Enquanto o patch não for aplicado, `sistema.cadastro` continua funcionando
-como formulário (a UI está pronta e publicada), só a chamada final falha com
-uma mensagem de erro tratada — nada quebra, ninguém vê tela em branco nem
-stack trace.
+Antes dessa migração, a chamada apontava para `${APP}/api/signup` na VPS
+antiga, que não liberava CORS entre domínios — o preflight do navegador
+falhava e o formulário caía num erro de rede tratado (mensagem amigável, sem
+travar a página). Ficou registrado aqui porque, se o sintoma voltar (erro de
+CORS no console ao cadastrar), o primeiro lugar a checar é se
+`sistema.apiSignup` ainda aponta para o domínio certo.
 
 ### A copy veio da Memória Descritiva
 
@@ -544,9 +503,8 @@ junta, garante posição #1: elas tiram os obstáculos técnicos do caminho.
   (`nodumsolucoes.com`), WhatsApp (`5549988128385`) e Instagram
   (`instagram.com/nodumsolucoes`) já são os reais. Só o LinkedIn segue
   apontando para `linkedin.com/company/nodum` — confirmar se é esse mesmo.
-- `lib/barber.ts` → `APP` aponta para `agenda.vogelassessoriacontabil.com`, o
-  domínio provisório do sistema. Trocar quando o definitivo subir.
-- O cadastro embutido em `/nodumbarber/cadastro` depende do patch de CORS
-  acima. Sem ele, o formulário mostra erro de rede em vez de criar a conta.
+- `lib/barber.ts` → `APP` ainda aponta para `agenda.vogelassessoriacontabil.com`
+  — só o login e o dashboard continuam lá (o cadastro já migrou, ver seção
+  acima). Trocar `APP` quando o resto do sistema for para o domínio novo.
 - Sem foto e sem logo de cliente reais — o design system pede flat, mas se a
   Nodum tiver imagens de operação ou uma parede de logos, dá para incorporar.
