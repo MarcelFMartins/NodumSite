@@ -303,7 +303,7 @@ export function TiltCard({
             translateX: "-50%",
             translateY: "-50%",
             background:
-              "radial-gradient(circle, rgba(95,203,158,0.16) 0%, rgba(29,158,117,0) 68%)",
+              "radial-gradient(circle, rgba(var(--glow-lit), 0.16) 0%, rgba(var(--glow), 0) 68%)",
           }}
         />
       )}
@@ -439,7 +439,7 @@ export function GlowCursor() {
       <div
         className="h-full w-full rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(29,158,117,0.13) 0%, rgba(29,158,117,0) 62%)",
+          background: "radial-gradient(circle, rgba(var(--glow), 0.13) 0%, rgba(var(--glow), 0) 62%)",
         }}
       />
     </motion.div>
@@ -463,14 +463,14 @@ export function Aurora({ className }: { className?: string }) {
       <div
         className="absolute -left-40 -top-40 h-[22rem] w-[22rem] rounded-full opacity-60 blur-3xl md:h-[36rem] md:w-[36rem]"
         style={{
-          background: "radial-gradient(circle, rgba(29,158,117,0.22) 0%, rgba(29,158,117,0) 65%)",
+          background: "radial-gradient(circle, rgba(var(--glow), 0.22) 0%, rgba(var(--glow), 0) 65%)",
           animation: flutuar("float-slow 14s ease-in-out infinite"),
         }}
       />
       <div
         className="absolute -right-32 top-1/3 h-[18rem] w-[18rem] rounded-full opacity-50 blur-3xl md:h-[30rem] md:w-[30rem]"
         style={{
-          background: "radial-gradient(circle, rgba(95,203,158,0.18) 0%, rgba(95,203,158,0) 65%)",
+          background: "radial-gradient(circle, rgba(var(--glow-lit), 0.18) 0%, rgba(var(--glow-lit), 0) 65%)",
           animation: flutuar("float-slow 18s ease-in-out infinite reverse"),
         }}
       />

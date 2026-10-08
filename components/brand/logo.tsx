@@ -16,15 +16,15 @@ import { cn } from "@/lib/utils";
 export function NodumMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" className={cn("h-6 w-6", className)} aria-hidden focusable="false">
-      <circle cx="30" cy="26" r="10" fill="#5FCB9E" opacity="0.18">
+      <circle cx="30" cy="26" r="10" style={{ fill: "var(--color-forest-400)" }} opacity="0.18">
         <animate attributeName="r" values="7;12;7" dur="3.2s" repeatCount="indefinite" />
         <animate attributeName="opacity" values="0.22;0;0.22" dur="3.2s" repeatCount="indefinite" />
       </circle>
       <circle cx="10" cy="14" r="6" fill="#FFFFFF" />
-      <circle cx="30" cy="26" r="6" fill="#5FCB9E" />
+      <circle cx="30" cy="26" r="6" style={{ fill: "var(--color-forest-400)" }} />
       <path
         d="M13.5 17.5 L26.5 22.5"
-        stroke="#5FCB9E"
+        style={{ stroke: "var(--color-forest-400)" }}
         strokeWidth="3"
         strokeLinecap="round"
         opacity="0.75"

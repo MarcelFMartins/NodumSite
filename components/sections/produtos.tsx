@@ -24,11 +24,13 @@ function CartaoProduto({ produto, invertido }: { produto: Produto; invertido: bo
   const tela = produto.telas[ativa];
 
   const destaque = "destaque" in produto && produto.destaque;
+  const tema = "tema" in produto ? produto.tema : undefined;
 
   return (
     <div
       className={cn(
         "card overflow-hidden rounded-[var(--radius-panel)]",
+        tema === "studio" && "tema-studio border-brand/40 bg-panel",
         // O produto em destaque ganha moldura e brilho próprios — o
         // mesmo token --shadow-glow que o design system já reserva
         // para isso, aqui usado pela primeira vez.

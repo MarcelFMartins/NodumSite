@@ -24,7 +24,7 @@ const base = cn(
 );
 
 const variantes: Record<Variante, string> = {
-  primary: "bg-brand text-white shadow-[0_0_28px_-8px_rgba(29,158,117,0.9)] hover:shadow-[0_0_44px_-6px_rgba(29,158,117,1)]",
+  primary: "bg-brand text-white shadow-[0_0_28px_-8px_rgba(var(--glow),0.9)] hover:shadow-[0_0_44px_-6px_rgba(var(--glow),1)]",
   outline: "border border-line-strong text-white hover:border-brand-lit hover:bg-white/5",
   ghost: "text-body hover:text-white",
 };

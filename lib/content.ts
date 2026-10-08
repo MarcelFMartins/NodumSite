@@ -202,6 +202,34 @@ export const produtosVitrine = [
     ],
   },
   {
+    // Vertente do NodumBarber para a beleza. `tema` pinta o cartão com
+    // a paleta do próprio sistema (rosé + ameixa) — ver .tema-studio
+    // em app/globals.css.
+    tema: "studio",
+    eyebrow: "Novo na família",
+    titulo: "NodumStudio",
+    selo: "Novo · da família NodumBarber",
+    chamada:
+      "A agenda e a gestão do NodumBarber, agora para estúdios de beleza: manicure, salão, sobrancelhas, estética, depilação, maquiagem e tatuagem.",
+    texto:
+      "Cada ramo com o próprio vocabulário e serviços de partida. Agenda por profissional, agendamento online, planos e pacotes com crédito, comissão automática, estoque com variações, condicional, venda a prazo e financeiro.",
+    destaques: [
+      "Sete ramos da beleza",
+      "Agendamento online 24h",
+      "Planos e pacotes com crédito",
+      "Comissão por profissional",
+      "Condicional e venda a prazo",
+      "Financeiro e projeção do mês",
+    ],
+    cta: { label: "Conhecer o NodumStudio", href: "/nodumstudio" },
+    telas: [
+      { src: "/img/studio/dashboard.webp", legenda: "Início" },
+      { src: "/img/studio/agenda.webp", legenda: "Agenda" },
+      { src: "/img/studio/planos.webp", legenda: "Planos" },
+      { src: "/img/studio/financeiro.webp", legenda: "Financeiro" },
+    ],
+  },
+  {
     eyebrow: "Já roda de verdade",
     titulo: "Nodum Tarefas",
     selo: "Em operação",
