@@ -67,6 +67,70 @@
   --shadow-lift: 0 24px 60px -20px rgba(0, 0, 0, 0.8);
 }
 
+/* Brilho dos efeitos (rede de nós, aurora, botões) em trio RGB, para
+   caber em rgba(var(--glow), alfa). Jade por padrão. */
+:root {
+  --glow: 29, 158, 117;
+  --glow-lit: 95, 203, 158;
+  --glow-pale: 159, 225, 203;
+  --glow-mid: 79, 184, 147;
+}
+
+/* ==================================================================
+ * Tema NodumStudio — a paleta do próprio sistema (rosé + ameixa,
+ * neutros quentes). Liga só quando a landing /nodumstudio está na
+ * tela (o layout dela monta #tema-studio); fora dali, nada muda.
+ * A classe .tema-studio aplica o mesmo tema só a um trecho — é o que
+ * pinta de rosé o cartão do NodumStudio na vitrine do site.
+ * ================================================================== */
+:root:has(#tema-studio),
+.tema-studio {
+  --glow: 178, 74, 110;
+  --glow-lit: 215, 122, 152;
+  --glow-pale: 240, 184, 202;
+  --glow-mid: 208, 112, 143;
+
+  --color-ink-950: #1d1619;
+  --color-ink-900: #2a2226;
+  --color-ink-800: #372d31;
+  --color-ink-700: #463a3e;
+  --color-ink-600: #54464b;
+
+  --color-jade-500: #b24a6e;
+  --color-jade-400: #d77a98;
+  --color-jade-300: #f0b8ca;
+  --color-jade-100: #fbe8ee;
+  --color-forest-500: #8a3456;
+  --color-forest-400: #e597b0;
+  --color-forest-300: #fbe8ee;
+
+  --color-surface: #1d1619;
+  --color-panel: #2a2226;
+  --color-panel-alt: #372d31;
+  --color-body: #d3c7c3;
+  --color-muted: #a3958f;
+  --color-brand: #b24a6e;
+  --color-brand-lit: #d77a98;
+
+  --shadow-glow: 0 0 0 1px rgba(178, 74, 110, 0.3), 0 8px 40px -8px rgba(178, 74, 110, 0.4);
+}
+
+:root:has(#tema-studio) .lit,
+.tema-studio .lit {
+  background: linear-gradient(180deg, #fbe8ee 0%, #d77a98 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+:root:has(#tema-studio) .card-lit::after,
+.tema-studio .card-lit::after {
+  background: linear-gradient(140deg, rgba(229, 151, 176, 0.75), rgba(178, 74, 110, 0) 45%);
+}
+
+:root:has(#tema-studio) ::selection {
+  background-color: #b24a6e;
+}
+
 @layer base {
   html {
     /* A rolagem suave agora é do Lenis (components/ui/smooth-scroll.tsx);

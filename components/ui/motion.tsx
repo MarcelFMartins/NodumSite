@@ -243,7 +243,7 @@ export function SpotlightCard({
           translateX: "-50%",
           translateY: "-50%",
           background:
-            "radial-gradient(circle, rgba(29,158,117,0.12) 0%, rgba(29,158,117,0) 70%)",
+            "radial-gradient(circle, rgba(var(--glow), 0.12) 0%, rgba(var(--glow), 0) 70%)",
         }}
       />
       {children}

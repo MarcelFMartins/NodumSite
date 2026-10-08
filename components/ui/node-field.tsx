@@ -37,6 +37,14 @@ export function NodeField({
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
+    // As cores vêm das variáveis --glow* (globals.css): a mesma rede
+    // acende em jade no site e em rosé na landing do NodumStudio.
+    const estilo = getComputedStyle(canvas);
+    const cor = (nome: string, padrao: string) => estilo.getPropertyValue(nome).trim() || padrao;
+    const glow = cor("--glow", "29, 158, 117");
+    const glowLit = cor("--glow-lit", "95, 203, 158");
+    const glowPale = cor("--glow-pale", "159, 225, 203");
+    const glowMid = cor("--glow-mid", "79, 184, 147");
     if (!ctx) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -124,8 +132,8 @@ export function NodeField({
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
           ctx.strokeStyle = pertoDoMouse
-            ? `rgba(95, 203, 158, ${forca * 0.55})`
-            : `rgba(29, 158, 117, ${forca * 0.22})`;
+            ? `rgba(${glowLit}, ${forca * 0.55})`
+            : `rgba(${glow}, ${forca * 0.22})`;
           ctx.lineWidth = pertoDoMouse ? 1 : 0.7;
           ctx.stroke();
         }
@@ -135,7 +143,7 @@ export function NodeField({
         const perto = puxaCursor && Math.hypot(no.x - mouse.x, no.y - mouse.y) < 170;
         ctx.beginPath();
         ctx.arc(no.x, no.y, no.r, 0, Math.PI * 2);
-        ctx.fillStyle = perto ? "rgba(159, 225, 203, 0.95)" : "rgba(79, 184, 147, 0.55)";
+        ctx.fillStyle = perto ? `rgba(${glowPale}, 0.95)` : `rgba(${glowMid}, 0.55)`;
         ctx.fill();
       }
 
