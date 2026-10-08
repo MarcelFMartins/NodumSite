@@ -62,7 +62,7 @@ export function FooterAgenda() {
       <div className="border-t border-line">
         <div className="shell flex flex-col gap-2 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} Agenda Interna Nodum. Um produto{" "}
+            © {new Date().getFullYear()} Nodum Tarefas. Um produto{" "}
             <Link href="/" className="font-semibold text-forest-400 hover:underline">
               Nodum Soluções Integradas
             </Link>

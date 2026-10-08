@@ -510,7 +510,7 @@ alertas, redesign).
   próprio repositório usa o nome real da sócia da Vogel, então não foi
   usado. Com isso as telas antigas — tiradas da conta de produção da Vogel
   e retocadas à mão — saíram do site.
-- Tudo em `public/img/barber/v2` e `public/img/agenda/v2`; os prints
+- Tudo em `public/img/barber/v3` e `public/img/agenda/v3`; os prints
   antigos que ficaram sem uso foram apagados.
 
 **NodumBarber (carro-chefe).** Ordem nova: herói → Novidades → Por que
@@ -542,6 +542,21 @@ alerta de atraso).
 **Vitrine do site.** O NodumBarber voltou a ser o primeiro card, com o
 selo de destaque, por ser o carro-chefe; a Agenda Interna vem em
 seguida, com a copy e as telas novas (incluindo o financeiro).
+
+## Agenda Interna vira "Nodum Tarefas" + fotos da vitrine com cache novo
+
+O produto passou a se chamar **Nodum Tarefas** em todo o site (landing,
+vitrine, contrato, metadata, JSON-LD, `llms.txt`). A rota continua
+`/agendainterna` e o contrato `/legal/contrato-agendainterna` — trocar a
+URL quebraria links já divulgados. Os prints mostram o próprio sistema,
+que ainda escreve "Agenda Interna" no menu lateral; isso só muda quando o
+nome for trocado no repositório do produto.
+
+As fotos refeitas sem avisos tinham o mesmo nome de arquivo das anteriores,
+e o otimizador de imagens da Vercel guarda o resultado pelo endereço — a
+vitrine continuava servindo a versão velha. As pastas viraram
+`public/img/barber/v3` e `public/img/agenda/v3`: endereço novo, cache novo.
+Ao refotografar no futuro, mude a pasta (v4…) em vez de sobrescrever.
 
 ## Pendências para o cliente
 

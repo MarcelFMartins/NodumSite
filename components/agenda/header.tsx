@@ -34,7 +34,7 @@ export function HeaderAgenda() {
       }`}
     >
       <div className="shell flex h-20 items-center justify-between gap-4">
-        <Link href="/agendainterna" aria-label="Agenda Interna Nodum, ir para o topo">
+        <Link href="/agendainterna" aria-label="Nodum Tarefas, ir para o topo">
           <AgendaLogo />
         </Link>
 

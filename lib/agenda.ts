@@ -1,5 +1,5 @@
 /**
- * Conteúdo da landing da Agenda Interna Nodum.
+ * Conteúdo da landing do Nodum Tarefas.
  *
  * Mesmo padrão do Nodum BI: sem cadastro público nem plano publicado.
  * É sistema multiempresa personalizado — cada empresa que usa (hoje, a
@@ -9,13 +9,13 @@
  */
 
 export const agendaInterna = {
-  nome: "Agenda Interna",
-  nomeCompleto: "Agenda Interna Nodum",
+  nome: "Nodum Tarefas",
+  nomeCompleto: "Nodum Tarefas",
   tagline: "Tarefas, CRM e financeiro da sua empresa, num sistema só",
 };
 
 export function zapAgenda(whatsapp: string) {
-  const texto = "Quero conhecer a Agenda Interna Nodum para a minha empresa.";
+  const texto = "Quero conhecer o Nodum Tarefas para a minha empresa.";
   return `https://wa.me/${whatsapp}?text=${encodeURIComponent(texto)}`;
 }
 
@@ -115,9 +115,9 @@ export const tarefasAgenda = {
     "Tela se atualiza sozinha quando um colega cria ou mexe numa tarefa",
   ],
   telas: [
-    { aba: "Quadro", src: "/img/agenda/v2/quadro.webp" },
-    { aba: "Tabela", src: "/img/agenda/v2/tarefas.webp" },
-    { aba: "Gráficos", src: "/img/agenda/v2/graficos.webp" },
+    { aba: "Quadro", src: "/img/agenda/v3/quadro.webp" },
+    { aba: "Tabela", src: "/img/agenda/v3/tarefas.webp" },
+    { aba: "Gráficos", src: "/img/agenda/v3/graficos.webp" },
   ],
 };
 
@@ -137,7 +137,7 @@ export const crmAgenda = {
     "Cria tarefa direto a partir de um negócio ganho",
     "Taxa de conversão e valor em jogo por etapa, à vista",
   ],
-  src: "/img/agenda/v2/funil.webp",
+  src: "/img/agenda/v3/funil.webp",
 };
 
 /* ------------------------------------------------------------------ */
@@ -157,13 +157,13 @@ export const financeiroAgenda = {
   telas: [
     {
       aba: "Painel financeiro",
-      src: "/img/agenda/v2/financeiro.webp",
+      src: "/img/agenda/v3/financeiro.webp",
       texto:
         "Saldo disponível, contas a pagar e a receber, saldo previsto, atrasados e liquidez — com filtro de período e gráficos por status.",
     },
     {
       aba: "Contas a pagar",
-      src: "/img/agenda/v2/contas-pagar.webp",
+      src: "/img/agenda/v3/contas-pagar.webp",
       texto:
         "Boleto, PIX ou cartão. Conta recorrente (aluguel, internet, sistema) gera a próxima sozinha quando a atual é paga.",
     },
@@ -190,49 +190,49 @@ export const pordentroAgenda = {
   telas: [
     {
       aba: "Painel",
-      src: "/img/agenda/v2/painel.webp",
+      src: "/img/agenda/v3/painel.webp",
       titulo: "Tudo que importa hoje, de cara",
       texto:
         "Saudação com o resumo do dia, contas em atraso, tarefas em aberto, atrasadas e vencendo, gráficos clicáveis, prioridades da semana, financeiro dos próximos 30 dias e o funil — numa página.",
     },
     {
       aba: "Quadro",
-      src: "/img/agenda/v2/quadro.webp",
+      src: "/img/agenda/v3/quadro.webp",
       titulo: "Arrasta e solta entre etapas",
       texto:
         "O quadro kanban do jeito que qualquer time já conhece, com prioridade, prazo, checklist e responsáveis visíveis em cada cartão.",
     },
     {
       aba: "Tabela",
-      src: "/img/agenda/v2/tarefas.webp",
+      src: "/img/agenda/v3/tarefas.webp",
       titulo: "A mesma lista, ordenável e filtrável",
       texto:
         "Responsável, status, prioridade, prazo e checklist numa tabela, com filtros combináveis por pessoa, projeto, status, prioridade, recorrência e período.",
     },
     {
       aba: "Prazos",
-      src: "/img/agenda/v2/prazos.webp",
+      src: "/img/agenda/v3/prazos.webp",
       titulo: "As tarefas mais urgentes, sempre à frente",
       texto:
         "Atrasadas, hoje, próximos 7 dias e depois — o que está atrasado aparece primeiro, sem caçar em nenhuma outra tela.",
     },
     {
       aba: "Funil",
-      src: "/img/agenda/v2/funil.webp",
+      src: "/img/agenda/v3/funil.webp",
       titulo: "Negócios em aberto, ganhos e perdidos",
       texto:
         "Valor em jogo por etapa, taxa de conversão e automações de WhatsApp — o funil comercial inteiro numa tela.",
     },
     {
       aba: "Financeiro",
-      src: "/img/agenda/v2/financeiro.webp",
+      src: "/img/agenda/v3/financeiro.webp",
       titulo: "Saldo previsto sem planilha",
       texto:
         "Contas a pagar e a receber consolidadas, com o que está atrasado no topo e a liquidez dos próximos 7 dias.",
     },
     {
       aba: "Equipe",
-      src: "/img/agenda/v2/equipe.webp",
+      src: "/img/agenda/v3/equipe.webp",
       titulo: "Quem é quem, e a carga de cada um",
       texto: "Tarefas em aberto, atrasadas e concluídas por pessoa — para redistribuir antes que vire atraso.",
     },
@@ -322,5 +322,5 @@ export const fechamentoAgenda = {
   eyebrow: "Ver funcionando",
   titulo: ["Mostramos o sistema", "com o seu fluxo de trabalho."],
   texto:
-    "Uma conversa para entender como sua empresa organiza tarefas, clientes e contas hoje, e mostrar como ficaria dentro da Agenda Interna Nodum.",
+    "Uma conversa para entender como sua empresa organiza tarefas, clientes e contas hoje, e mostrar como ficaria dentro do Nodum Tarefas.",
 };

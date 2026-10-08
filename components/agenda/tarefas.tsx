@@ -63,11 +63,11 @@ export function TarefasAgenda() {
             ))}
           </div>
           <TiltCard intensidade={3} brilho={false} className="mt-6 p-0">
-            <JanelaNavegador endereco="Agenda Interna Nodum · Todas as tarefas">
+            <JanelaNavegador endereco="Nodum Tarefas · Todas as tarefas">
               <div className="relative aspect-[16/10] bg-ink-950">
                 <AnimatePresence mode="wait">
                   <motion.div key={tela.src} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="absolute inset-0">
-                    <Image src={tela.src} alt={`Agenda Interna Nodum — tarefas em ${tela.aba}`} fill sizes="(max-width: 1280px) 94vw, 1200px" className="object-cover object-top" />
+                    <Image src={tela.src} alt={`Nodum Tarefas — tarefas em ${tela.aba}`} fill sizes="(max-width: 1280px) 94vw, 1200px" className="object-cover object-top" />
                   </motion.div>
                 </AnimatePresence>
               </div>

@@ -68,7 +68,7 @@ export function PorDentroAgenda() {
                   >
                     <Image
                       src={tela.src}
-                      alt={`Agenda Interna Nodum — ${tela.titulo}`}
+                      alt={`Nodum Tarefas — ${tela.titulo}`}
                       fill
                       sizes="(max-width: 640px) 92vw, (max-width: 1024px) 94vw, 62vw"
                       className="object-cover object-top"

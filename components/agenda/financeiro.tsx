@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 const brl = (v: number) => `R$ ${v.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-/** O módulo mais novo da Agenda Interna: contas, cartão e o painel. */
+/** O módulo mais novo do Nodum Tarefas: contas, cartão e o painel. */
 export function FinanceiroAgenda() {
   const [ativa, setAtiva] = useState(0);
   const tela = financeiroAgenda.telas[ativa];
@@ -76,7 +76,7 @@ export function FinanceiroAgenda() {
               <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-ink-950">
                 <AnimatePresence mode="wait">
                   <motion.div key={tela.src} initial={{ opacity: 0, scale: 1.02 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="absolute inset-0">
-                    <Image src={tela.src} alt={`Agenda Interna Nodum — ${tela.aba}`} fill sizes="(max-width: 1024px) 94vw, 60vw" className="object-cover object-top" />
+                    <Image src={tela.src} alt={`Nodum Tarefas — ${tela.aba}`} fill sizes="(max-width: 1024px) 94vw, 60vw" className="object-cover object-top" />
                   </motion.div>
                 </AnimatePresence>
               </div>

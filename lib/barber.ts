@@ -213,21 +213,21 @@ export const online = {
       titulo: "Já é cliente ou é a primeira vez?",
       texto:
         "Pelo WhatsApp o sistema reconhece quem já é da casa e preenche nome e e-mail sozinho. Cliente novo vira cadastro no momento do agendamento.",
-      src: "/img/barber/v2/agendar-topo.webp",
+      src: "/img/barber/v3/agendar-topo.webp",
     },
     {
       n: "2",
       titulo: "Escolhe os serviços — e a quantidade",
       texto:
         "Corte + barba no mesmo horário, ou três cortes para o pai e os dois filhos. O total e o tempo aparecem antes de confirmar.",
-      src: "/img/barber/v2/agendar-servicos.webp",
+      src: "/img/barber/v3/agendar-servicos.webp",
     },
     {
       n: "3",
       titulo: "Profissional, dia e um horário que cabe",
       texto:
         "Só aparecem horários em que a duração somada dos serviços cabe de verdade — respeitando expediente, almoço, folga e quem já está marcado.",
-      src: "/img/barber/v2/agendar-horario.webp",
+      src: "/img/barber/v3/agendar-horario.webp",
     },
   ],
   extras: [
@@ -295,7 +295,7 @@ export const caixa = {
   titulo: ["Fechar a conta leva", "dez segundos."],
   intro:
     "“Concluir atendimento” junta tudo que acontece na cadeira: os serviços que foram feitos, o produto que saiu, o desconto, a gorjeta e a forma de pagamento — dividida, se o cliente quiser. A comissão já sai certa, sobre o valor que de fato entrou.",
-  src: "/img/barber/v2/concluir.webp",
+  src: "/img/barber/v3/concluir.webp",
   pontos: [
     {
       titulo: "Vários serviços, com quantidade",
@@ -468,49 +468,49 @@ export const pordentro = {
   telas: [
     {
       aba: "Início",
-      src: "/img/barber/v2/dashboard.webp",
+      src: "/img/barber/v3/dashboard.webp",
       titulo: "O dono abre e vê o dia inteiro",
       texto:
         "Faturamento de hoje, da semana e do mês, cortes, barbas, ticket médio, planos vendidos e comissão a pagar. Agendamento em aberto aparece no topo para resolver na hora.",
     },
     {
       aba: "Agenda",
-      src: "/img/barber/v2/agenda.webp",
+      src: "/img/barber/v3/agenda.webp",
       titulo: "Uma coluna por barbeiro, o dia inteiro na tela",
       texto:
         "Almoço e folga bloqueados, linha do horário atual e cartões que você arrasta para remarcar. Quando um cliente marca pelo link, a grade se atualiza sozinha.",
     },
     {
       aba: "Agendamento Online",
-      src: "/img/barber/v2/agendamento-online.webp",
+      src: "/img/barber/v3/agendamento-online.webp",
       titulo: "O link da barbearia e quem marcou por ele",
       texto:
         "Liga e desliga com uma chave, copia o link e vê os pedidos pendentes — cada um com o selo de que veio pela internet.",
     },
     {
       aba: "Relatórios",
-      src: "/img/barber/v2/relatorios.webp",
+      src: "/img/barber/v3/relatorios.webp",
       titulo: "Faturamento, desconto, comissão, gorjeta, a receber",
       texto:
         "Cada número com uma frase dizendo o que entra nele. Por serviço, por produto e por plano, com total no fim de toda tabela — e exportação em PDF ou Excel.",
     },
     {
       aba: "Planos",
-      src: "/img/barber/v2/planos.webp",
+      src: "/img/barber/v3/planos.webp",
       titulo: "Quem comprou plano e quanto ainda tem",
       texto:
         "Saldo por serviço, validade e o extrato de cada uso. O sistema avisa quando acaba e não deixa vender um plano em cima de outro ativo.",
     },
     {
       aba: "Projeção",
-      src: "/img/barber/v2/projecao.webp",
+      src: "/img/barber/v3/projecao.webp",
       titulo: "O mês fechado antes de fechar",
       texto:
         "Média de corte e barba por dia, receita por tipo de serviço e o acumulado real contra a projeção no gráfico.",
     },
     {
       aba: "Assinatura",
-      src: "/img/barber/v2/assinatura.webp",
+      src: "/img/barber/v3/assinatura.webp",
       titulo: "Você paga como preferir",
       texto:
         "PIX sem taxa ou cartão com renovação automática, por mês, trimestre, semestre ou ano — quanto mais longo, maior o desconto.",

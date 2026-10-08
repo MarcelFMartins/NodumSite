@@ -195,15 +195,15 @@ export const produtosVitrine = [
     ],
     cta: { label: "Conhecer o NodumBarber", href: "/nodumbarber" },
     telas: [
-      { src: "/img/barber/v2/dashboard.webp", legenda: "Painel do dono" },
-      { src: "/img/barber/v2/agenda.webp", legenda: "Agenda" },
-      { src: "/img/barber/v2/agendamento-online.webp", legenda: "Agendamento online" },
-      { src: "/img/barber/v2/relatorios.webp", legenda: "Relatórios" },
+      { src: "/img/barber/v3/dashboard.webp", legenda: "Painel do dono" },
+      { src: "/img/barber/v3/agenda.webp", legenda: "Agenda" },
+      { src: "/img/barber/v3/agendamento-online.webp", legenda: "Agendamento online" },
+      { src: "/img/barber/v3/relatorios.webp", legenda: "Relatórios" },
     ],
   },
   {
     eyebrow: "Já roda de verdade",
-    titulo: "Agenda Interna Nodum",
+    titulo: "Nodum Tarefas",
     selo: "Em operação",
     chamada:
       "Tarefas, CRM e financeiro num sistema só, multiempresa — o dia a dia, o comercial e as contas da empresa no mesmo lugar.",
@@ -217,12 +217,12 @@ export const produtosVitrine = [
       "Alertas com som de prazo e atraso",
       "Multiempresa, dados isolados",
     ],
-    cta: { label: "Conhecer a Agenda Interna", href: "/agendainterna" },
+    cta: { label: "Conhecer o Nodum Tarefas", href: "/agendainterna" },
     telas: [
-      { src: "/img/agenda/v2/painel.webp", legenda: "Painel" },
-      { src: "/img/agenda/v2/financeiro.webp", legenda: "Financeiro" },
-      { src: "/img/agenda/v2/quadro.webp", legenda: "Quadro" },
-      { src: "/img/agenda/v2/funil.webp", legenda: "Funil" },
+      { src: "/img/agenda/v3/painel.webp", legenda: "Painel" },
+      { src: "/img/agenda/v3/financeiro.webp", legenda: "Financeiro" },
+      { src: "/img/agenda/v3/quadro.webp", legenda: "Quadro" },
+      { src: "/img/agenda/v3/funil.webp", legenda: "Funil" },
     ],
   },
   {

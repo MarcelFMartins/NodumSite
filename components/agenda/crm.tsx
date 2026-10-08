@@ -43,8 +43,8 @@ export function CrmAgenda() {
       <div className="shell relative mt-14">
         <Reveal>
           <TiltCard intensidade={3} brilho={false} className="p-0">
-            <JanelaNavegador endereco="Agenda Interna Nodum · Funil">
-              <Image src={crmAgenda.src} alt="Funil de vendas da Agenda Interna Nodum: negócios em aberto, ganhos, perdidos e taxa de conversão" width={1600} height={1000} sizes="(max-width: 1280px) 94vw, 1200px" className="w-full" />
+            <JanelaNavegador endereco="Nodum Tarefas · Funil">
+              <Image src={crmAgenda.src} alt="Funil de vendas do Nodum Tarefas: negócios em aberto, ganhos, perdidos e taxa de conversão" width={1600} height={1000} sizes="(max-width: 1280px) 94vw, 1200px" className="w-full" />
             </JanelaNavegador>
           </TiltCard>
         </Reveal>

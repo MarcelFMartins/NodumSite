@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * A chamada para pedir proposta, nos contratos vendidos sob orçamento
- * (Nodum BI, Agenda Interna). Fica de fora do corpo do documento — é
+ * (Nodum BI, Nodum Tarefas). Fica de fora do corpo do documento — é
  * texto comercial, não cláusula — mas precisa aparecer onde quem lê
  * até aqui ainda está decidindo: logo no topo, e de novo ao final,
  * para quem leu o contrato inteiro antes de decidir.
