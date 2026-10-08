@@ -69,7 +69,8 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* A rolagem suave agora é do Lenis (components/ui/smooth-scroll.tsx);
+       scroll-behavior: smooth junto com ele faria as duas brigarem. */
     scroll-padding-top: 6rem;
     background-color: var(--color-surface);
     /* Impede o iOS de inflar o corpo do texto ao girar o aparelho. */

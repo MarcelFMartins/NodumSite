@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Manrope, Poppins } from "next/font/google";
 import "./globals.css";
 import { GlowCursor, ScrollProgress } from "@/components/ui/fx";
+import { SmoothScroll } from "@/components/ui/smooth-scroll";
 import { site } from "@/lib/content";
 
 /* Fontes da marca auto-hospedadas pelo next/font: sem requisição a um
@@ -122,6 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Pular para o conteúdo
         </a>
+        <SmoothScroll />
         <ScrollProgress />
         <GlowCursor />
         {children}
