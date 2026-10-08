@@ -150,9 +150,9 @@ export const financeiroAgenda = {
   texto:
     "Contas a pagar e a receber, cartão de crédito com fatura que soma sozinha e um painel que mostra o saldo disponível, o que vence nos próximos dias e o saldo previsto. Conta atrasada aparece no Painel, com alerta, até alguém resolver.",
   numeros: [
-    { rotulo: "A pagar", valor: 4950.25, cor: "text-[#e5484d]" },
-    { rotulo: "A receber", valor: 10500, cor: "text-forest-400" },
-    { rotulo: "Saldo previsto", valor: 5549.75, cor: "text-white" },
+    { rotulo: "A pagar", valor: 4760.35, cor: "text-[#e5484d]" },
+    { rotulo: "A receber", valor: 7700, cor: "text-forest-400" },
+    { rotulo: "Saldo previsto", valor: 8649.75, cor: "text-white" },
   ],
   telas: [
     {
@@ -166,12 +166,6 @@ export const financeiroAgenda = {
       src: "/img/agenda/v2/contas-pagar.webp",
       texto:
         "Boleto, PIX ou cartão. Conta recorrente (aluguel, internet, sistema) gera a próxima sozinha quando a atual é paga.",
-    },
-    {
-      aba: "Alerta de atraso",
-      src: "/img/agenda/v2/alerta-contas.webp",
-      texto:
-        "Ao entrar no sistema, as contas vencidas sem pagamento aparecem num aviso — com a opção de não mostrar de novo.",
     },
   ],
   itens: [
