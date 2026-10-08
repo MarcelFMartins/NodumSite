@@ -329,6 +329,9 @@ chama uma conversa (`zapAgenda()`), não "criar conta".
 
 ### As telas são reais, com dado sensível retocado antes de publicar
 
+> Histórico: estas telas foram substituídas em out/2026 por prints de uma
+> empresa fictícia — ver "LPs reconstruídas", mais abaixo.
+
 Diferente do NodumBarber (que tem uma barbearia de demonstração documentada
 na própria Memória Descritiva) e do Nodum BI (empresas fictícias), as
 capturas da Agenda Interna vieram da conta de produção real da Vogel — e eu
@@ -484,6 +487,61 @@ junta, garante posição #1: elas tiram os obstáculos técnicos do caminho.
   direto de um arquivo em vez de raspar HTML: resume produtos, contato e uma
   nota explícita para não inventar preço fixo de Nodum BI/Agenda Interna
   (que são vendidos por proposta) ao responder sobre a Nodum.
+
+## LPs reconstruídas a partir dos sistemas atualizados (out/2026)
+
+As duas landings foram refeitas a partir do código dos próprios sistemas
+(`prototipo-agenda` = NodumBarber, `AgendaInterna` = Agenda Interna Nodum),
+não da página antiga: a fonte da copy do NodumBarber é a aba Atualizações
+do sistema (`lib/updates/changelog.ts`) e `docs/MEMORIA_DESCRITIVA.md`;
+preços e limites saem de `lib/billing/ciclos.ts` e
+`services/billing/subscription.service.ts`; a da Agenda Interna é o
+histórico de commits desde a última memória descritiva (financeiro,
+alertas, redesign).
+
+**Prints novos, todos reais.** Os dois sistemas foram rodados localmente
+(Postgres local) e fotografados com Playwright:
+- NodumBarber com `scripts/demo-vitrine.ts` (a "Barbearia Salles" de
+  demonstração), num horário de início de tarde (faketime) para a agenda
+  mostrar atendimentos pela frente. O fluxo de agendamento online foi
+  percorrido de verdade no celular (390px) e recortado em etapas.
+- Agenda Interna com uma empresa **fictícia** criada só para isso
+  ("Prisma Consultoria", equipe e clientes inventados). O seed de demo do
+  próprio repositório usa o nome real da sócia da Vogel, então não foi
+  usado. Com isso as telas antigas — tiradas da conta de produção da Vogel
+  e retocadas à mão — saíram do site.
+- Tudo em `public/img/barber/v2` e `public/img/agenda/v2`; os prints
+  antigos que ficaram sem uso foram apagados.
+
+**NodumBarber (carro-chefe).** Ordem nova: herói → Novidades → Por que
+existe → Agendamento online → Agenda (encaixe) → Caixa e planos →
+Calculadora → Recursos → Por dentro → Acessos → Segurança → Preço →
+Suporte → FAQ. O que mudou de verdade:
+- Herói com computador + celular (`components/ui/molduras.tsx`) e um
+  aviso que troca sozinho (`AvisoAoVivo`) com eventos reais do sistema.
+- `novidades.tsx`: as últimas levas publicadas, com data — prova de que o
+  produto evolui toda semana.
+- `online.tsx`: os três passos do agendamento online avançam sozinhos
+  enquanto a seção está na tela e param quando a pessoa toca num deles.
+- `caixa.tsx`: print real do "Concluir atendimento" + demonstração do
+  plano de cortes (cada toque gasta um crédito; quando acaba, as três
+  saídas que o sistema oferece).
+- Preço com seletor de período (mensal/trimestral/semestral/anual) e de
+  meio (PIX/cartão), calculado com a mesma regra de `ciclos.ts`.
+- Saiu a seção "Em validação": Projeção e desconto já estão em produção.
+- Corrigido: a FAQ dizia que o cliente não marca sozinho (agora marca) e
+  que a comissão era sobre o preço cheio com desconto (agora é sobre o
+  valor final). O WhatsApp de `lib/barber.ts` era um número à parte que
+  ficou de fora da troca geral — agora usa `site.whatsapp`.
+
+**Agenda Interna.** Herói, tarefas e CRM ganharam prints reais em moldura
+de navegador (tarefas com abas Quadro/Tabela/Gráficos) e entrou a seção
+nova `financeiro.tsx` (contas a pagar e a receber, cartão, painel e o
+alerta de atraso).
+
+**Vitrine do site.** O NodumBarber voltou a ser o primeiro card, com o
+selo de destaque, por ser o carro-chefe; a Agenda Interna vem em
+seguida, com a copy e as telas novas (incluindo o financeiro).
 
 ## Pendências para o cliente
 

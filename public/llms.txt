@@ -14,9 +14,12 @@ Instagram: https://www.instagram.com/nodumsolucoes
 ## Produtos
 
 - [NodumBarber](https://nodumsolucoes.com/nodumbarber): sistema de agenda e
-  gestão para barbearias — agenda por barbeiro, cadastro e histórico de
-  clientes, comissões, planos com crédito pré-pago, controle de estoque e
-  caixa. Tem cadastro self-service e planos publicados na própria página.
+  gestão para barbearias — agendamento online (link para o cliente marcar
+  sozinho), agenda por barbeiro, clientes, comissões, gorjeta, planos com
+  crédito pré-pago, estoque, caixa e relatórios em PDF. Cadastro
+  self-service com 14 dias grátis; planos Essencial (R$ 79,90/mês, até 5
+  barbeiros), Profissional (R$ 99,90, até 10) e Premium (R$ 149,90,
+  ilimitado), com desconto no trimestral, semestral e anual.
 - [Nodum BI](https://nodumsolucoes.com/nodumbi): painel de indicadores
   financeiros para escritórios de contabilidade e consultoria — consolida e
   compara as DREs de várias empresas-cliente num painel só, com importação
@@ -24,9 +27,10 @@ Instagram: https://www.instagram.com/nodumsolucoes
   sob orçamento, sem plano público (cada carteira de clientes pede um número
   diferente).
 - [Agenda Interna Nodum](https://nodumsolucoes.com/agendainterna): sistema
-  multiempresa de gestão de tarefas e CRM — quadro kanban, tabela e gráficos
-  para tarefas, funil de vendas com automação de WhatsApp, cada empresa
-  vendo só os próprios dados. Já em uso pela própria Nodum e pela Vogel
+  multiempresa de gestão de tarefas, CRM e financeiro — quadro kanban,
+  tabela e gráficos para tarefas, funil de vendas com WhatsApp, contas a
+  pagar e a receber e painel financeiro, cada empresa vendo só os próprios
+  dados. Já em uso pela própria Nodum e pela Vogel
   Assessoria Contábil. Também vendido por proposta comercial, sem plano
   público.
 

@@ -11,6 +11,8 @@
  * como se já fizesse. O que está em validação está marcado como tal.
  */
 
+import { site } from "./content";
+
 /* ------------------------------------------------------------------ */
 /* Integração com o sistema em produção                                */
 /* ------------------------------------------------------------------ */
@@ -30,7 +32,11 @@
  * pessoa para uma página sem sessão nenhuma.
  */
 const APP = "https://barber.nodumsolucoes.com";
-const WHATSAPP = "5549998097267";
+/* O mesmo WhatsApp da Nodum (lib/content.ts → site.whatsapp): é o número
+   que o próprio sistema divulga como suporte, na aba Atualizações. Esta
+   constante já foi um número à parte — ficou de fora da troca geral de
+   número e mandava o cliente para o contato errado. */
+const WHATSAPP = site.whatsapp;
 
 const zap = (texto: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
 
@@ -63,15 +69,16 @@ export const barber = {
   tagline: "O sistema que organiza a sua barbearia",
   precoBase: "R$ 79,90",
   teste: "14 dias grátis",
+  /** Data da última leva de novidades publicada em produção. */
+  atualizadoEm: "7 de outubro de 2026",
 };
 
 export const navBarber = [
-  { label: "Por que existe", href: "#porque" },
+  { label: "Agendamento online", href: "#online" },
   { label: "Agenda", href: "#agenda" },
-  { label: "Comissões", href: "#dinheiro" },
+  { label: "Caixa e planos", href: "#caixa" },
   { label: "Recursos", href: "#recursos" },
   { label: "Por dentro", href: "#pordentro" },
-  { label: "Acessos", href: "#acessos" },
   { label: "Preço", href: "#preco" },
 ];
 
@@ -81,15 +88,76 @@ export const navBarber = [
 
 export const heroBarber = {
   eyebrow: "Sistema de gestão para barbearias",
-  titulo: ["Sua barbearia inteira", "numa tela só."],
+  titulo: ["Seu cliente marca sozinho.", "Você só corta."],
   subtitulo:
-    "Agenda em grade, carteira de clientes, comissão por barbeiro, planos com crédito, estoque e caixa. O NodumBarber substitui o caderno, a planilha e os bilhetes no espelho — e mostra, no fim do dia, exatamente quanto entrou e quanto é de cada um.",
-  selos: ["Funciona no celular", "Backup 2× por dia", "Sem fidelidade"],
+    "Link de agendamento online, agenda em grade, planos com crédito, comissão que fecha sozinha, gorjeta, estoque e relatório em PDF. O NodumBarber trabalha enquanto a barbearia atende — e mostra, no fim do dia, quanto entrou e quanto é de cada um.",
+  selos: ["14 dias grátis, sem cartão", "Funciona no celular", "Sem fidelidade"],
+  /** Avisos que aparecem no mockup do herói, um depois do outro. */
+  avisos: [
+    { titulo: "Novo agendamento online", texto: "Lucas Andrade · Corte + Barba · 08:45" },
+    { titulo: "Atendimento concluído", texto: "Marcos Vinícius · R$ 55,00 · PIX" },
+    { titulo: "Lembrete enviado por e-mail", texto: "Gustavo Rocha · amanhã às 15:00" },
+    { titulo: "Crédito do plano usado", texto: "Rafael Duarte · restam 3 cortes" },
+  ],
   provas: [
-    { valor: "2", rotulo: "cortes por mês", nota: "é o que a mensalidade custa no Essencial" },
-    { valor: "0", rotulo: "planilhas para manter", nota: "a comissão do mês fica pronta sozinha" },
+    { valor: "24h", rotulo: "de agenda aberta", nota: "o link de agendamento não fecha à noite" },
+    { valor: "0", rotulo: "planilhas para manter", nota: "comissão, gorjeta e desconto já calculados" },
     { valor: "14", rotulo: "dias para decidir", nota: "com a barbearia funcionando de verdade" },
-    { valor: "4", rotulo: "níveis de acesso", nota: "cada pessoa vê só o que é dela" },
+    { valor: "2×", rotulo: "backup por dia", nota: "cada cópia conferida, todo dia" },
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+/* Novidades — o produto não para                                      */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Resumo das últimas levas publicadas em produção — a fonte é
+ * `lib/updates/changelog.ts` do próprio sistema (aba Atualizações), não
+ * promessa de roadmap. Quando sair uma leva nova, entra no topo.
+ */
+export const novidades = {
+  eyebrow: "Sempre evoluindo",
+  titulo: ["O sistema recebe novidade", "toda semana — sem custo a mais."],
+  intro:
+    "Tudo que aparece abaixo já está no ar, para todo assinante, em qualquer plano. Sugestão de cliente vira recurso.",
+  levas: [
+    {
+      data: "7 out 2026",
+      itens: [
+        "Planos com nova lógica de créditos, passo a passo",
+        "Concluir com vários serviços e quantidade",
+        "Plano acabou? Renovar, trocar ou cobrar avulso",
+        "Mais de uma barbearia no mesmo login",
+      ],
+    },
+    {
+      data: "6 out 2026",
+      itens: [
+        "Arraste o cartão para outro horário na agenda",
+        "Mudar data e hora sem cancelar",
+        "Pagamento trimestral, semestral e anual com desconto",
+        "Relatório mostra o que foi remarcado",
+      ],
+    },
+    {
+      data: "5 out 2026",
+      itens: [
+        "Agendamento online com vários serviços e quantidade",
+        "Cliente com plano usa os créditos pelo link",
+        "Agenda atualiza sozinha quando alguém marca",
+        "PDF de Vendas com o fechamento do barbeiro",
+      ],
+    },
+    {
+      data: "set 2026",
+      itens: [
+        "Exportar relatório em PDF",
+        "Aviso e lembrete automático por e-mail",
+        "Gorjeta e desconto no checkout",
+        "Desfazer cancelamento e remarcar falta",
+      ],
+    },
   ],
 };
 
@@ -104,20 +172,20 @@ export const porque = {
     "Quatro coisas que acontecem em toda barbearia sem sistema — e que custam dinheiro todo mês.",
   cenas: [
     {
-      quando: "Segunda-feira",
-      titulo: "Dois clientes no mesmo horário",
+      quando: "22h de domingo",
+      titulo: "O cliente quis marcar e ninguém respondeu",
       texto:
-        "Um marcou pelo WhatsApp, outro no caderno. Alguém espera 40 minutos ou vai embora — e não volta.",
+        "Mandou mensagem fora do horário, ficou sem resposta e marcou na barbearia da esquina, que tem link de agendamento.",
     },
     {
       quando: "Fim do mês",
       titulo: "A conta da comissão não fecha",
       texto:
-        "Você soma na calculadora, o barbeiro soma no papel, e os dois números não batem. Todo mês a mesma conversa.",
+        "Teve desconto, gorjeta, pacote de cortes. Você soma na calculadora, o barbeiro soma no papel, e os dois números não batem.",
     },
     {
       quando: "Todo dia",
-      titulo: "A cerveja sai e ninguém anota",
+      titulo: "A pomada sai e ninguém anota",
       texto:
         "O estoque some sem virar venda. No fim do mês você compra de novo sem saber para onde foi o que já tinha.",
     },
@@ -128,6 +196,63 @@ export const porque = {
         "Passou do horário, o cliente foi embora e o agendamento ficou em aberto. Não virou receita, não virou falta — sumiu.",
     },
   ],
+};
+
+/* ------------------------------------------------------------------ */
+/* Agendamento online                                                  */
+/* ------------------------------------------------------------------ */
+
+export const online = {
+  eyebrow: "Agendamento online",
+  titulo: ["Um link. O cliente escolhe,", "a agenda se preenche."],
+  intro:
+    "Cada barbearia ganha o próprio link para colocar na bio do Instagram, no status do WhatsApp ou num QR code no espelho. Sem aplicativo para baixar, sem senha, sem cadastro antes.",
+  passos: [
+    {
+      n: "1",
+      titulo: "Já é cliente ou é a primeira vez?",
+      texto:
+        "Pelo WhatsApp o sistema reconhece quem já é da casa e preenche nome e e-mail sozinho. Cliente novo vira cadastro no momento do agendamento.",
+      src: "/img/barber/v2/agendar-topo.webp",
+    },
+    {
+      n: "2",
+      titulo: "Escolhe os serviços — e a quantidade",
+      texto:
+        "Corte + barba no mesmo horário, ou três cortes para o pai e os dois filhos. O total e o tempo aparecem antes de confirmar.",
+      src: "/img/barber/v2/agendar-servicos.webp",
+    },
+    {
+      n: "3",
+      titulo: "Profissional, dia e um horário que cabe",
+      texto:
+        "Só aparecem horários em que a duração somada dos serviços cabe de verdade — respeitando expediente, almoço, folga e quem já está marcado.",
+      src: "/img/barber/v2/agendar-horario.webp",
+    },
+  ],
+  extras: [
+    {
+      titulo: "Chega na hora, sem F5",
+      texto:
+        "O pedido aparece na Agenda e no Início em poucos segundos, com o aviso “Novo agendamento online” e o botão para confirmar.",
+    },
+    {
+      titulo: "E-mail automático",
+      texto:
+        "Confirmado, cancelado, concluído ou remarcado: o cliente recebe o aviso sozinho. E um lembrete 24h e 2h antes do horário.",
+    },
+    {
+      titulo: "Plano pelo link",
+      texto:
+        "Cliente com plano ativo escolhe usar os créditos. Plano acabou? A página avisa e oferece renovar ali mesmo.",
+    },
+    {
+      titulo: "Você decide",
+      texto:
+        "Chave liga/desliga, e todo pedido entra como pendente até alguém da equipe confirmar. Nada é marcado à sua revelia.",
+    },
+  ],
+  cta: "Quero meu link de agendamento",
 };
 
 /* ------------------------------------------------------------------ */
@@ -152,13 +277,54 @@ export const agenda = {
     fecha: "17:00",
   },
   extras: [
-    "Uma coluna por barbeiro, com folga, almoço e ausência bloqueados",
-    "Cabeçalho e coluna de horas fixos — a grade rola sem perder a referência",
-    "Linha do horário atual acompanhando o dia",
-    "Cliente fixo: repete toda semana ou a cada 15 dias, sozinho",
-    "Aniversariante do dia aparece na agenda",
-    "Atendimento esquecido pode ser lançado com data passada",
+    "Arraste o cartão para outro horário — verde se cabe, vermelho se não",
+    "Mudar data e hora sem cancelar: cliente, serviços e valor continuam",
+    "Grade no intervalo que você define (15 ou 30 minutos)",
+    "Cliente fixo toda semana, quinzenal ou a cada 3, 4, 5, 6 ou 8 semanas",
+    "Não compareceu? Remarca ali mesmo ou só registra a falta",
+    "Folga, almoço e dias bloqueados respeitados — almoço pode ser desligado",
   ],
+};
+
+/* ------------------------------------------------------------------ */
+/* Caixa e planos                                                      */
+/* ------------------------------------------------------------------ */
+
+export const caixa = {
+  eyebrow: "Caixa e planos",
+  titulo: ["Fechar a conta leva", "dez segundos."],
+  intro:
+    "“Concluir atendimento” junta tudo que acontece na cadeira: os serviços que foram feitos, o produto que saiu, o desconto, a gorjeta e a forma de pagamento — dividida, se o cliente quiser. A comissão já sai certa, sobre o valor que de fato entrou.",
+  src: "/img/barber/v2/concluir.webp",
+  pontos: [
+    {
+      titulo: "Vários serviços, com quantidade",
+      texto: "1 corte + 1 barba, ou 2 cortes. O que foi feito de verdade é o que vai para agenda e relatório.",
+    },
+    {
+      titulo: "Desconto e gorjeta",
+      texto: "Percentual ou valor em reais. Gorjeta vai inteira para o barbeiro e fica fora do faturamento.",
+    },
+    {
+      titulo: "Comissão no valor final",
+      texto: "Com desconto, a comissão é calculada sobre o que o cliente pagou — sem o dono pagar a diferença.",
+    },
+    {
+      titulo: "Produto e estoque na mesma tela",
+      texto: "Vendeu a pomada junto com o corte? Entra na conta, baixa do estoque e comissiona o produto.",
+    },
+  ],
+  plano: {
+    titulo: "Planos que se pagam sozinhos",
+    texto:
+      "Venda pacotes de corte ou combos (4 cortes + 2 barbas). A cada visita o sistema pergunta se usa o crédito — sai por R$ 0,00, com pagamento “Crédito do plano” automático. Quando acaba, oferece renovar, trocar de plano ou cobrar avulso.",
+    demo: { nome: "Plano Mensal — 4 Cortes", total: 4, valor: "R$ 160,00" },
+    itens: [
+      "Comissão do barbeiro paga na venda do pacote — nunca duas vezes",
+      "Cliente fixo com plano: as próximas 8 datas ficam reservadas",
+      "Histórico de cada plano: saldo, validade e cada uso",
+    ],
+  },
 };
 
 /* ------------------------------------------------------------------ */
@@ -186,34 +352,34 @@ export const recursos = {
       nome: "Agenda e clientes",
       itens: [
         {
+          titulo: "Agendamento online",
+          texto:
+            "Link próprio da barbearia, com vários serviços, quantidade e uso de plano. Cada pedido entra como pendente para a equipe confirmar.",
+        },
+        {
           titulo: "Agenda em grade",
           texto:
-            "Uma coluna por barbeiro, no formato que barbearia usa. Dia, semana e mês, com folga e almoço respeitados.",
+            "Uma coluna por barbeiro, dia, semana e mês. Arraste para remarcar, e a tela se atualiza sozinha quando alguém marca.",
         },
         {
           titulo: "Carteira por barbeiro",
           texto:
-            "O cliente é de quem atende. Histórico completo, telefone, observações e quanto já gastou na casa.",
-        },
-        {
-          titulo: "Cliente compartilhado e avulso",
-          texto:
-            "Quem é da casa toda, qualquer barbeiro agenda. Quem passa e não volta entra como avulso, sem sujar a carteira.",
+            "O cliente é de quem atende. Histórico completo, telefone, observações e quanto já gastou na casa — ou compartilhado com a casa toda.",
         },
         {
           titulo: "Cliente fixo",
           texto:
-            "Agendamento que se repete toda semana ou a cada 15 dias. Você marca uma vez e o horário fica reservado.",
+            "Toda semana, quinzenal ou a cada 3 a 8 semanas, sempre no mesmo dia. Dá para trocar o dia de uma vez só ou da série inteira.",
         },
         {
           titulo: "Importar por planilha",
           texto:
-            "Sobe a lista de clientes em .csv, .xlsx ou .xls. Não precisa digitar nome por nome nem pedir para o suporte.",
+            "Sobe a lista de clientes em .csv, .xlsx ou .xls — o resumo diz quantos entraram, quantos já existiam e por quê.",
         },
         {
-          titulo: "Aviso de aniversário",
+          titulo: "Aviso por e-mail",
           texto:
-            "O aniversariante aparece na agenda do dia e na visão do mês. Um bom motivo para chamar no WhatsApp.",
+            "Confirmação, cancelamento, conclusão, remarcação e lembretes 24h e 2h antes — com o nome da sua barbearia, sozinho.",
         },
       ],
     },
@@ -223,32 +389,32 @@ export const recursos = {
         {
           titulo: "Comissão automática",
           texto:
-            "Percentual por barbeiro e por serviço. Cortes valem uma coisa, barba outra — e a conta sai pronta no relatório.",
+            "Percentual por barbeiro e por serviço, sobre o valor final com desconto. A conta sai pronta no relatório.",
         },
         {
-          titulo: "Comissão de produto",
+          titulo: "Gorjeta e desconto",
           texto:
-            "O produto vendido tem o próprio percentual, separado do serviço. Vender pomada passa a valer a pena para o barbeiro.",
+            "Percentual ou valor fixo, no atendimento e na venda de balcão. Gorjeta separada no relatório, inteira para o barbeiro.",
         },
         {
           titulo: "Planos com crédito",
           texto:
-            "Pacote de cortes com saldo que desconta a cada atendimento. Plano combo guarda saldo separado para cada serviço.",
+            "Pacote ou combo com saldo por serviço. Uso pelo balcão ou pelo link, renovação com um toque quando acaba.",
         },
         {
           titulo: "Pagamento dividido",
           texto:
-            "Dinheiro, PIX, débito, crédito e outros — na mesma conta, em partes. A soma tem que fechar, e o sistema confere.",
-        },
-        {
-          titulo: "Venda de balcão",
-          texto:
-            "Produto vendido sem atendimento também entra no caixa, baixa do estoque e gera comissão.",
+            "Dinheiro, PIX, cartão e outros — na mesma conta, em partes. A soma tem que fechar, e o sistema confere.",
         },
         {
           titulo: "Estoque que baixa sozinho",
           texto:
-            "Vendeu no atendimento ou no balcão, saiu do estoque. O que passou do mínimo aparece marcado.",
+            "Vendeu no atendimento ou no balcão, saiu do estoque e gerou comissão do produto. O que passou do mínimo aparece marcado.",
+        },
+        {
+          titulo: "Projeção do mês",
+          texto:
+            "Com o ritmo dos dias já realizados, o sistema projeta onde o faturamento deve terminar. Dá tempo de reagir antes do dia 30.",
         },
       ],
     },
@@ -256,29 +422,29 @@ export const recursos = {
       nome: "Controle",
       itens: [
         {
+          titulo: "Relatório em PDF",
+          texto:
+            "Bonito, separado por comissão, serviço, plano e produto, com o fechamento do barbeiro na primeira página. Abre em qualquer celular.",
+        },
+        {
+          titulo: "Relatório por papel",
+          texto:
+            "O dono vê a casa toda; o barbeiro vê só o “Meu Relatório”, com o próprio faturamento e o valor a receber.",
+        },
+        {
           titulo: "Agendamento em aberto",
           texto:
-            "Passou do horário e ninguém concluiu? O sistema avisa em toda tela e oferece resolver ali mesmo: atendeu, não veio ou cancelou.",
+            "Passou do horário e ninguém concluiu? O sistema avisa em toda tela e oferece resolver ali mesmo.",
         },
         {
-          titulo: "Relatórios de verdade",
+          titulo: "Várias barbearias, um login",
           texto:
-            "Data, cliente, serviço, barbeiro, forma de pagamento, valor e comissão — linha por linha, com filtro por período e exportação em CSV.",
+            "Tem duas unidades? Um seletor no topo troca de barbearia. Equipe, caixa e clientes continuam separados.",
         },
         {
-          titulo: "Quatro níveis de acesso",
+          titulo: "Desfazer sem chamar ninguém",
           texto:
-            "Dono, gerente, barbeiro e o suporte da Nodum. Cada um enxerga e edita só o que faz sentido para o papel.",
-        },
-        {
-          titulo: "Correção sem mexer no banco",
-          texto:
-            "Cobrou errado, lançou trocado, apagou sem querer? Dá para desfazer pelo sistema, sem chamar ninguém no banco de dados.",
-        },
-        {
-          titulo: "WhatsApp com um toque",
-          texto:
-            "Botão que abre a conversa com a mensagem pronta: confirmação, lembrete, cancelamento. Você lê antes de enviar.",
+            "Cancelou por engano? Desfaz. Lançou errado? Corrige pelo sistema, sem mexer em banco de dados.",
         },
         {
           titulo: "Backup 2× por dia",
@@ -298,80 +464,60 @@ export const pordentro = {
   eyebrow: "Por dentro",
   titulo: ["Não é maquete.", "É o sistema rodando."],
   intro:
-    "As telas abaixo são fotos do NodumBarber em funcionamento, com uma barbearia de demonstração. É exatamente o que você vê ao entrar.",
+    "As telas abaixo são fotos do NodumBarber em funcionamento hoje, com uma barbearia de demonstração. É exatamente o que você vê ao entrar.",
   telas: [
     {
       aba: "Início",
-      src: "/img/barber/dashboard.webp",
+      src: "/img/barber/v2/dashboard.webp",
       titulo: "O dono abre e vê o dia inteiro",
       texto:
-        "Quanto entrou hoje, na semana e no mês, quantos cortes e barbas, ticket médio, comissão a pagar, qual barbeiro produziu mais e por qual forma de pagamento o dinheiro entrou. Sem abrir planilha nenhuma.",
+        "Faturamento de hoje, da semana e do mês, cortes, barbas, ticket médio, planos vendidos e comissão a pagar. Agendamento em aberto aparece no topo para resolver na hora.",
     },
     {
       aba: "Agenda",
-      src: "/img/barber/agenda.webp",
+      src: "/img/barber/v2/agenda.webp",
       titulo: "Uma coluna por barbeiro, o dia inteiro na tela",
       texto:
-        "Folga, almoço e ausência aparecem bloqueados. Horário livre é livre de verdade — ninguém marca por cima de nada, e a grade rola de lado sem perder o cabeçalho.",
+        "Almoço e folga bloqueados, linha do horário atual e cartões que você arrasta para remarcar. Quando um cliente marca pelo link, a grade se atualiza sozinha.",
     },
     {
-      aba: "Clientes",
-      src: "/img/barber/clientes.webp",
-      titulo: "A carteira é de quem atende",
+      aba: "Agendamento Online",
+      src: "/img/barber/v2/agendamento-online.webp",
+      titulo: "O link da barbearia e quem marcou por ele",
       texto:
-        "Cada cliente com o barbeiro dono da relação, telefone, número de visitas e histórico completo. Quem é da casa toda aparece marcado como compartilhado.",
-    },
-    {
-      aba: "Serviços",
-      src: "/img/barber/servicos.webp",
-      titulo: "Preço, duração e comissão em cada serviço",
-      texto:
-        "Você define quanto dura, quanto custa e como a comissão é cobrada. É essa duração que a agenda usa para calcular o encaixe do próximo cliente.",
-    },
-    {
-      aba: "Planos",
-      src: "/img/barber/planos.webp",
-      titulo: "Pacote de cortes com saldo controlado",
-      texto:
-        "Quem comprou plano e quantos cortes ainda tem para usar. O sistema desconta a cada atendimento, avisa quando acaba e não deixa vender um plano em cima de outro ativo.",
+        "Liga e desliga com uma chave, copia o link e vê os pedidos pendentes — cada um com o selo de que veio pela internet.",
     },
     {
       aba: "Relatórios",
-      src: "/img/barber/relatorios.webp",
-      titulo: "Todo atendimento fica registrado",
+      src: "/img/barber/v2/relatorios.webp",
+      titulo: "Faturamento, desconto, comissão, gorjeta, a receber",
       texto:
-        "Atendimentos e vendas de balcão na mesma lista, com filtro por período, por barbeiro e por status. Exporta em CSV quando o contador pedir.",
+        "Cada número com uma frase dizendo o que entra nele. Por serviço, por produto e por plano, com total no fim de toda tabela — e exportação em PDF ou Excel.",
+    },
+    {
+      aba: "Planos",
+      src: "/img/barber/v2/planos.webp",
+      titulo: "Quem comprou plano e quanto ainda tem",
+      texto:
+        "Saldo por serviço, validade e o extrato de cada uso. O sistema avisa quando acaba e não deixa vender um plano em cima de outro ativo.",
+    },
+    {
+      aba: "Projeção",
+      src: "/img/barber/v2/projecao.webp",
+      titulo: "O mês fechado antes de fechar",
+      texto:
+        "Média de corte e barba por dia, receita por tipo de serviço e o acumulado real contra a projeção no gráfico.",
+    },
+    {
+      aba: "Assinatura",
+      src: "/img/barber/v2/assinatura.webp",
+      titulo: "Você paga como preferir",
+      texto:
+        "PIX sem taxa ou cartão com renovação automática, por mês, trimestre, semestre ou ano — quanto mais longo, maior o desconto.",
     },
   ],
   rodape:
     "Os nomes e valores acima são de uma barbearia de demonstração. Ao criar a sua conta, o sistema começa com a sua barbearia e os seus dados.",
-};
-
-/* ------------------------------------------------------------------ */
-/* Em validação                                                        */
-/* ------------------------------------------------------------------ */
-
-export const validacao = {
-  eyebrow: "Em validação",
-  titulo: ["O que está no forno", "agora."],
-  intro:
-    "Duas telas prontas e em teste no ambiente de homologação, antes de entrar em produção. Ficam disponíveis para todos os planos assim que passarem — sem cobrança nova.",
-  itens: [
-    {
-      aba: "Projeção",
-      src: "/img/barber/projecao.webp",
-      titulo: "O mês fechado antes de fechar",
-      texto:
-        "Com o ritmo dos dias já realizados, o sistema projeta onde o faturamento deve terminar. Média de corte e de barba por dia, receita por tipo de serviço, planos e produtos, com o acumulado real contra a projeção no gráfico. Dá tempo de reagir antes do dia 30.",
-    },
-    {
-      aba: "Desconto no checkout",
-      src: "/img/barber/checkout.webp",
-      titulo: "Desconto sem bagunçar a comissão",
-      texto:
-        "Uma chave em “Concluir atendimento” e em “Venda de balcão”: desligada, nada muda; ligada, você escolhe percentual ou valor em reais. O total sai já descontado e o pagamento continua podendo ser dividido — e a comissão do barbeiro segue sobre o preço cheio.",
-    },
-  ],
 };
 
 /* ------------------------------------------------------------------ */
@@ -380,7 +526,7 @@ export const validacao = {
 
 export const acessos = {
   eyebrow: "Níveis de acesso",
-  titulo: ["Quatro chaves diferentes", "para a mesma porta."],
+  titulo: ["Cada pessoa com a sua chave.", "Cada uma vê só o que é dela."],
   intro: "Escolha um perfil para ver o que a pessoa enxerga ao entrar no sistema.",
   perfis: [
     {
@@ -390,8 +536,8 @@ export const acessos = {
         "Agenda de todos os barbeiros",
         "Define a comissão de cada um, por serviço e por produto",
         "Cadastra serviços, produtos, planos e preços",
-        "Relatórios de faturamento e comissões",
-        "Controla estoque e vendas de balcão",
+        "Relatórios de faturamento, comissões e gorjetas",
+        "Liga o agendamento online e confirma os pedidos",
         "Cadastra, promove e desativa a equipe",
         "Gerencia a própria assinatura do sistema",
       ],
@@ -406,7 +552,7 @@ export const acessos = {
         "Fecha atendimento e venda de balcão",
         "Controla o estoque",
       ],
-      naoPode: ["Não vê os relatórios financeiros", "Não mexe na assinatura do sistema"],
+      naoPode: ["Não vê os relatórios financeiros da casa", "Não mexe na assinatura do sistema"],
       nota: "Para quem toca a barbearia quando o dono não está.",
     },
     {
@@ -415,22 +561,22 @@ export const acessos = {
       pode: [
         "A própria agenda do dia e da semana",
         "Os próprios clientes e o histórico deles",
-        "A própria comissão do mês",
+        "“Meu Relatório”: faturamento, comissão e gorjetas dele",
         "Fecha o atendimento e registra o pagamento",
       ],
       naoPode: ["Não vê a agenda dos colegas", "Não vê o faturamento da casa"],
     },
     {
-      aba: "Rede",
-      titulo: "Várias unidades, dados separados",
+      aba: "Várias unidades",
+      titulo: "Um login, várias barbearias",
       pode: [
-        "Cada barbearia com seus próprios barbeiros, clientes e relatórios",
-        "Nenhuma unidade enxerga os dados da outra",
-        "Suporte da Nodum entra na unidade quando você pede",
-        "Correção de lançamento errado sem mexer no banco",
+        "Seletor no topo para trocar de barbearia",
+        "“Adicionar barbearia” direto pelo sistema",
+        "Equipe, clientes, estoque e caixa separados em cada uma",
+        "Assinatura por barbearia — a nova começa com o teste grátis",
       ],
       naoPode: [],
-      nota: "Tem filial ou franquia? Fale com o suporte para montar a estrutura do jeito certo.",
+      nota: "Tem filial em outra cidade? Ela vira mais uma barbearia no mesmo login.",
     },
   ],
 };
@@ -446,7 +592,7 @@ export const seguranca = {
     {
       titulo: "Cada barbearia isolada",
       texto:
-        "O sistema é multi-inquilino: sua barbearia enxerga apenas os próprios dados, sem exceção e sem configuração da sua parte.",
+        "Sua barbearia enxerga apenas os próprios dados, sem exceção e sem configuração da sua parte — mesmo com várias no mesmo login.",
     },
     {
       titulo: "Backup conferido, 2× por dia",
@@ -471,7 +617,7 @@ export const seguranca = {
     {
       titulo: "Seus dados saem com você",
       texto:
-        "Relatórios exportam em CSV a qualquer momento. Nada fica preso aqui dentro se um dia você quiser sair.",
+        "Relatórios exportam em PDF e Excel a qualquer momento. Nada fica preso aqui dentro se um dia você quiser sair.",
     },
   ],
 };
@@ -480,59 +626,68 @@ export const seguranca = {
 /* Preço                                                               */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Mesma regra de `lib/billing/ciclos.ts` do sistema: o PIX é o preço-base;
+ * o cartão é base ÷ 0,95 arredondado para cima terminando em ",90";
+ * pagar vários meses de uma vez dá desconto sobre o mensal do mesmo meio.
+ */
 export const preco = {
   eyebrow: "Preço",
   titulo: ["Um plano para o tamanho", "da sua equipe."],
   intro:
     "Sem taxa por agendamento e sem recurso trancado atrás de plano — a única diferença entre os três é até quantos barbeiros a barbearia tem.",
+  taxaCartao: 0.05,
+  ciclos: [
+    { id: "MENSAL", label: "Mensal", meses: 1, desconto: 0 },
+    { id: "TRIMESTRAL", label: "Trimestral", meses: 3, desconto: 0.05 },
+    { id: "SEMESTRAL", label: "Semestral", meses: 6, desconto: 0.08 },
+    { id: "ANUAL", label: "Anual", meses: 12, desconto: 0.12 },
+  ],
   planos: [
     {
       nome: "Essencial",
-      valor: "79",
-      centavos: ",90",
+      pixCentavos: 7990,
       limite: "até 5 barbeiros",
       destaque: false,
       itens: [
         "Todos os recursos, sem exceção",
+        "Agendamento online incluído",
         "Clientes e agendamentos ilimitados",
-        "Backup automático 2× por dia",
         "Suporte por WhatsApp e e-mail",
       ],
       cta: "Testar 14 dias grátis",
     },
     {
       nome: "Profissional",
-      valor: "99",
-      centavos: ",90",
+      pixCentavos: 9990,
       limite: "até 10 barbeiros",
       destaque: true,
       itens: [
         "Todos os recursos, sem exceção",
+        "Agendamento online incluído",
         "Clientes e agendamentos ilimitados",
-        "Backup automático 2× por dia",
         "Suporte por WhatsApp e e-mail, sem fila",
       ],
       cta: "Criar minha barbearia",
     },
     {
       nome: "Premium",
-      valor: "149",
-      centavos: ",90",
+      pixCentavos: 14990,
       limite: "barbeiros ilimitados",
       destaque: false,
       itens: [
         "Todos os recursos, sem exceção",
+        "Agendamento online incluído",
         "Clientes e agendamentos ilimitados",
-        "Backup automático 2× por dia",
         "Suporte por WhatsApp e e-mail",
       ],
       cta: "Testar 14 dias grátis",
     },
   ],
   rodape:
-    "Todo plano sai com 14 dias grátis, atualizações incluídas e sem fidelidade. Comece por qualquer um: dá para trocar de plano dentro do sistema a qualquer momento, com um clique e sem perder histórico. Se tentar contratar o 6º barbeiro ainda no Essencial, o próprio sistema avisa e sugere a troca.",
+    "Todo plano sai com 14 dias grátis, atualizações incluídas e sem fidelidade. Dá para trocar de plano dentro do sistema a qualquer momento, com um clique e sem perder histórico. Se tentar contratar o 6º barbeiro ainda no Essencial, o próprio sistema avisa e sugere a troca.",
   pagamento:
-    "A mensalidade é paga por você, dono, dentro do sistema, via Mercado Pago. O NodumBarber não processa o pagamento dos seus clientes — eles continuam pagando na barbearia como já pagam hoje.",
+    "No PIX você paga o período de uma vez, sem taxa. No cartão a renovação é automática ao fim de cada período e o valor inclui a taxa da operadora. O NodumBarber não processa o pagamento dos seus clientes — eles continuam pagando na barbearia como já pagam hoje.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -552,7 +707,7 @@ export const suporte = {
     {
       titulo: "Configuração inicial junto",
       texto:
-        "Serviços, preços, horários e equipe. Se quiser, o suporte deixa tudo montado antes de você começar.",
+        "Serviços, preços, horários, equipe e o link de agendamento. Se quiser, o suporte deixa tudo montado antes de você começar.",
     },
     {
       titulo: "Sua lista de clientes",
@@ -565,9 +720,9 @@ export const suporte = {
         "Lançou errado, cobrou o valor trocado, apagou sem querer? Dá para desfazer sem mexer no banco.",
     },
     {
-      titulo: "Melhorias contínuas",
+      titulo: "Novidades toda semana",
       texto:
-        "O sistema recebe atualização sem você fazer nada e sem cobrança nova. Sugestão de cliente vira recurso.",
+        "O sistema recebe atualização sem você fazer nada e sem cobrança nova. Tudo aparece explicado na aba Atualizações.",
     },
     {
       titulo: "Registro aberto",
@@ -586,44 +741,44 @@ export const faq = {
   titulo: "O que perguntam antes de começar",
   itens: [
     {
-      p: "Meu cliente vai precisar baixar alguma coisa?",
-      r: "Não. O NodumBarber é para uso interno da barbearia — quem marca é você ou o barbeiro. O cliente continua chamando no WhatsApp ou aparecendo na loja, como já faz hoje.",
+      p: "Meu cliente consegue marcar sozinho?",
+      r: "Consegue. Você liga o agendamento online e ganha um link da sua barbearia para pôr no Instagram ou no WhatsApp. O cliente escolhe serviços, profissional e horário pelo navegador — sem baixar aplicativo e sem senha. Todo pedido entra como pendente até alguém da equipe confirmar, e ele recebe o aviso por e-mail.",
     },
     {
       p: "O sistema processa o pagamento dos meus clientes?",
-      r: "Não. Seu cliente continua pagando na barbearia do jeito que já paga — dinheiro, PIX, débito ou crédito na máquina da loja. O sistema registra qual foi a forma (e aceita dividir entre mais de uma), mas não movimenta esse dinheiro. O Mercado Pago aparece uma única vez dentro do NodumBarber: para você pagar a mensalidade do sistema.",
+      r: "Não. Seu cliente continua pagando na barbearia do jeito que já paga — dinheiro, PIX ou cartão na máquina da loja. O sistema registra a forma (e aceita dividir entre mais de uma), mas não movimenta esse dinheiro. O Mercado Pago aparece só para você pagar a mensalidade do sistema.",
     },
     {
       p: "Preciso de computador?",
-      r: "Não. Funciona no navegador do celular, do tablet e do computador. A maioria dos barbeiros usa direto do celular, no intervalo entre um cliente e outro.",
+      r: "Não. Funciona no navegador do celular, do tablet e do computador. A maioria dos barbeiros usa direto do celular, no intervalo entre um cliente e outro — e o relatório sai em PDF, que abre em qualquer celular.",
     },
     {
       p: "E se eu já tiver os clientes anotados?",
-      r: "Se estiverem numa planilha, você mesmo importa em .csv, .xlsx ou .xls e sobe todo mundo de uma vez. Se estiverem só na cabeça e no caderno, cadastre conforme eles aparecem — em duas semanas a carteira se monta sozinha.",
+      r: "Se estiverem numa planilha, você mesmo importa em .csv, .xlsx ou .xls e sobe todo mundo de uma vez. Se estiverem só no caderno, cadastre conforme eles aparecem — e quem marcar pelo link já entra cadastrado sozinho.",
     },
     {
-      p: "O barbeiro consegue ver quanto a barbearia fatura?",
-      r: "Não. Ele vê a própria agenda, os próprios clientes e a própria comissão. O faturamento da casa e a agenda dos colegas ficam com o dono. Se você precisa de alguém tocando a operação sem acesso ao financeiro, existe o nível de gerente.",
-    },
-    {
-      p: "Dá para deixar um horário fixo para o cliente da semana?",
-      r: "Dá. O cliente fixo repete toda semana ou a cada 15 dias sozinho, sem você remarcar. É o caso do cliente que corta sempre na sexta às 18:00.",
+      p: "Dei desconto. Como fica a comissão?",
+      r: "Fica sobre o valor que o cliente pagou de fato, não sobre o preço cheio — o dono não paga comissão de um dinheiro que não entrou. A gorjeta vai inteira para o barbeiro e aparece separada no relatório.",
     },
     {
       p: "Vendo pacote de cortes. O sistema controla?",
-      r: "Controla. O plano tem saldo de crédito que desconta a cada atendimento, avisa quando está no fim e não deixa vender outro por cima de um ativo. O plano combo guarda saldo separado para cada serviço — quatro cortes e duas barbas, por exemplo, contados um a um.",
+      r: "Controla. O plano tem saldo por serviço que desconta a cada atendimento, sai por R$ 0,00 como “Crédito do plano” e, quando acaba, o sistema oferece renovar, trocar de plano ou cobrar avulso. A comissão do pacote é paga na venda, nunca duas vezes.",
+    },
+    {
+      p: "O barbeiro consegue ver quanto a barbearia fatura?",
+      r: "Não. Ele vê a própria agenda, os próprios clientes e o “Meu Relatório”, com o que ele produziu e tem a receber. O faturamento da casa fica com o dono. Para alguém tocar a operação sem ver o financeiro, existe o nível de gerente.",
+    },
+    {
+      p: "Tenho duas unidades. Funciona?",
+      r: "Funciona, com um login só. No topo do sistema tem um seletor para trocar de barbearia e a opção “Adicionar barbearia”. Cada uma tem equipe, clientes, estoque, caixa e assinatura próprios.",
+    },
+    {
+      p: "Dá para pagar o ano de uma vez?",
+      r: "Dá. Mensal, trimestral (5% de desconto), semestral (8%) ou anual (12%). No PIX não tem taxa; no cartão a renovação é automática. E você troca de plano quando quiser, sem perder histórico.",
     },
     {
       p: "Meus dados ficam seguros?",
       r: "Cada barbearia enxerga apenas os próprios dados e cada pessoa entra com senha individual. O sistema faz cópia de segurança duas vezes por dia e confere cada cópia — se alguma falhar, o suporte é avisado no mesmo dia.",
-    },
-    {
-      p: "Contratei o Essencial e cresci. Preciso recadastrar tudo?",
-      r: "Não. Na tela de Assinatura você troca de plano com um clique — dados, agenda e histórico continuam exatamente onde estavam. Se tentar contratar o 6º barbeiro ainda no Essencial, o sistema avisa e sugere a troca na hora.",
-    },
-    {
-      p: "Tenho duas unidades. Funciona?",
-      r: "Funciona. Cada unidade tem os próprios barbeiros, clientes e relatórios, completamente separados. Fale com o suporte para montar a estrutura do jeito certo.",
     },
   ],
 };
@@ -636,5 +791,5 @@ export const fechamentoBarber = {
   eyebrow: "Comece hoje",
   titulo: ["Duas semanas para ver", "a diferença no fim do dia."],
   texto:
-    "Cria a conta, ajusta seus horários e já marca o primeiro cliente. Os serviços vêm prontos para você editar. Se não servir, é só não continuar — e nada é cobrado.",
+    "Cria a conta, ajusta seus horários, liga o link de agendamento e já marca o primeiro cliente. Os serviços vêm prontos para você editar. Se não servir, é só não continuar — e nada é cobrado.",
 };

@@ -7,12 +7,13 @@ import { sistema } from "@/lib/barber";
 export const metadata: Metadata = {
   title: "NodumBarber — sistema de gestão para barbearias",
   description:
-    "Agenda em grade por barbeiro, carteira de clientes, comissão automática, planos com crédito, estoque e caixa. A partir de R$ 79,90/mês, com 14 dias grátis e sem fidelidade.",
+    "Agendamento online para o cliente marcar sozinho, agenda em grade, planos com crédito, comissão e gorjeta automáticas, estoque e relatório em PDF. A partir de R$ 79,90/mês, com 14 dias grátis e sem fidelidade.",
   keywords: [
     "sistema para barbearia",
     "agenda para barbearia",
     "software de barbearia",
     "comissão de barbeiro",
+    "agendamento online barbearia",
     "gestão de barbearia",
     "NodumBarber",
   ],
@@ -22,9 +23,9 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: "/nodumbarber",
     siteName: "NodumBarber",
-    title: "NodumBarber — sua barbearia inteira numa tela só",
+    title: "NodumBarber — seu cliente marca sozinho, você só corta",
     description:
-      "Agenda, clientes, comissões, planos, estoque e caixa no mesmo lugar. 14 dias grátis, sem cartão.",
+      "Agendamento online, agenda, clientes, comissões, planos, estoque e caixa no mesmo lugar. 14 dias grátis, sem cartão.",
   },
 };
 
@@ -49,7 +50,7 @@ export default function BarberLayout({ children }: { children: React.ReactNode }
             operatingSystem: "Web",
             url: "https://nodumsolucoes.com/nodumbarber",
             description:
-              "Sistema de agenda e gestão para barbearias: agenda por barbeiro, clientes, comissões, planos com crédito, estoque e caixa.",
+              "Sistema de agenda e gestão para barbearias: agendamento online, agenda por barbeiro, clientes, comissões, gorjeta, planos com crédito, estoque, caixa e relatórios em PDF.",
             inLanguage: "pt-BR",
             publisher: { "@type": "Organization", name: "Nodum Soluções Integradas" },
             offers: [

@@ -174,59 +174,55 @@ export const servicos = [
  */
 export const produtosVitrine = [
   {
-    // Em destaque: primeiro na lista, com o selo e a moldura próprios
-    // que CartaoProduto desenha quando `destaque` é verdadeiro.
+    // Em destaque: o carro-chefe da Nodum vem primeiro, com o selo e a
+    // moldura próprios que CartaoProduto desenha quando `destaque` é
+    // verdadeiro.
     destaque: true,
+    eyebrow: "Nosso carro-chefe",
+    titulo: "NodumBarber",
+    selo: "Em operação",
+    chamada:
+      "O sistema que organiza a barbearia inteira — e deixa o cliente marcar horário sozinho, pelo link da barbearia.",
+    texto:
+      "Agendamento online, agenda em grade com arrastar e soltar, planos com crédito, comissão e gorjeta calculadas sozinhas, estoque e relatório em PDF. Recebe novidade toda semana, com 14 dias grátis para testar.",
+    destaques: [
+      "Agendamento online 24h",
+      "Agenda com arrastar e soltar",
+      "Planos e pacotes com crédito",
+      "Comissão, desconto e gorjeta",
+      "Relatório em PDF e Excel",
+      "Várias barbearias, um login",
+    ],
+    cta: { label: "Conhecer o NodumBarber", href: "/nodumbarber" },
+    telas: [
+      { src: "/img/barber/v2/dashboard.webp", legenda: "Painel do dono" },
+      { src: "/img/barber/v2/agenda.webp", legenda: "Agenda" },
+      { src: "/img/barber/v2/agendamento-online.webp", legenda: "Agendamento online" },
+      { src: "/img/barber/v2/relatorios.webp", legenda: "Relatórios" },
+    ],
+  },
+  {
     eyebrow: "Já roda de verdade",
     titulo: "Agenda Interna Nodum",
     selo: "Em operação",
     chamada:
-      "Gestão de tarefas e CRM num sistema só, multiempresa — feito para organizar o trabalho do dia a dia e o relacionamento com clientes ao mesmo tempo.",
+      "Tarefas, CRM e financeiro num sistema só, multiempresa — o dia a dia, o comercial e as contas da empresa no mesmo lugar.",
     texto:
-      "Quadro kanban, tabela e gráficos para as tarefas; funil de vendas, contatos e automações de WhatsApp para o comercial — com ponte direta entre negócio ganho e tarefa de execução. Já usado pela própria Nodum e pela Vogel Assessoria Contábil.",
+      "Quadro kanban, tabela e gráficos para as tarefas; funil de vendas com WhatsApp integrado; contas a pagar e a receber, cartão de crédito com fatura que soma sozinha e um painel financeiro com saldo previsto. Já usado pela própria Nodum e pela Vogel Assessoria Contábil.",
     destaques: [
       "Kanban, tabela e gráficos de tarefas",
-      "Funil de vendas configurável",
-      "WhatsApp integrado por QR code",
+      "Funil de vendas e WhatsApp",
+      "Contas a pagar e a receber",
+      "Painel financeiro com saldo previsto",
+      "Alertas com som de prazo e atraso",
       "Multiempresa, dados isolados",
-      "Recorrência automática de tarefas",
-      "Negócio ganho vira tarefa com 1 clique",
     ],
     cta: { label: "Conhecer a Agenda Interna", href: "/agendainterna" },
-    // As telas da Agenda Interna nascem ~1,68:1 — perto o bastante de
-    // 16:10 para o object-cover da vitrine não cortar feio, diferente
-    // do que acontecia com as telas mais largas do BI. A tela de
-    // Clientes/Empresas fica só na landing própria, onde o texto deixa
-    // claro que é recurso hoje exclusivo da Vogel.
     telas: [
-      { src: "/img/agenda/painel.webp", legenda: "Painel" },
-      { src: "/img/agenda/quadro.webp", legenda: "Quadro" },
-      { src: "/img/agenda/funil.webp", legenda: "Funil" },
-      { src: "/img/agenda/equipe.webp", legenda: "Equipe" },
-    ],
-  },
-  {
-    eyebrow: "Já está de pé",
-    titulo: "NodumBarber",
-    selo: "Em operação",
-    chamada:
-      "Sistema completo de gestão para barbearias — já em operação, com site e planos próprios.",
-    texto:
-      "Agenda, clientes, equipe, estoque, vendas, cobranças e relatórios em um só lugar. É o exemplo prático do que a gente faz: nasceu de um problema real de operação e virou produto.",
-    destaques: [
-      "Agenda e horários",
-      "Clientes e histórico",
-      "Estoque e vendas",
-      "Financeiro e cobranças",
-      "Relatórios gerenciais",
-      "Multiunidade",
-    ],
-    cta: { label: "Conhecer o NodumBarber", href: "/nodumbarber" },
-    telas: [
-      { src: "/img/barber/dashboard.webp", legenda: "Painel do dono" },
-      { src: "/img/barber/agenda.webp", legenda: "Agenda" },
-      { src: "/img/barber/clientes.webp", legenda: "Clientes" },
-      { src: "/img/barber/relatorios.webp", legenda: "Relatórios" },
+      { src: "/img/agenda/v2/painel.webp", legenda: "Painel" },
+      { src: "/img/agenda/v2/financeiro.webp", legenda: "Financeiro" },
+      { src: "/img/agenda/v2/quadro.webp", legenda: "Quadro" },
+      { src: "/img/agenda/v2/funil.webp", legenda: "Funil" },
     ],
   },
   {

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { AvisoAoVivo, JanelaNavegador } from "@/components/ui/molduras";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import { useRef } from "react";
@@ -119,15 +120,18 @@ export function HeroAgenda() {
               background: "radial-gradient(50% 50% at 50% 45%, rgba(29,158,117,.35), transparent 70%)",
             }}
           />
-          <Image
-            src="/img/agenda/painel.webp"
-            alt="Painel da Agenda Interna Nodum: tarefas em aberto, atrasadas, vencendo e concluídas, com gráficos por status e prioridade"
-            width={1800}
-            height={1069}
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 92vw, 1200px"
-            className="relative w-full rounded-[var(--radius-panel)]"
-          />
+          <JanelaNavegador endereco="Agenda Interna Nodum · Painel">
+            <Image
+              src="/img/agenda/v2/painel.webp"
+              alt="Painel da Agenda Interna Nodum: resumo do dia, contas em atraso, tarefas em aberto, atrasadas e vencendo, e indicadores"
+              width={1600}
+              height={1000}
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 92vw, 1200px"
+              className="w-full"
+            />
+          </JanelaNavegador>
+          <AvisoAoVivo avisos={heroAgenda.avisos} />
         </div>
       </motion.div>
 

@@ -2,6 +2,7 @@ import { HeroAgenda } from "@/components/agenda/hero";
 import { PorqueAgenda } from "@/components/agenda/porque";
 import { TarefasAgenda } from "@/components/agenda/tarefas";
 import { CrmAgenda } from "@/components/agenda/crm";
+import { FinanceiroAgenda } from "@/components/agenda/financeiro";
 import { PorDentroAgenda } from "@/components/agenda/pordentro";
 import { AcessosAgenda } from "@/components/agenda/acessos";
 import { FaqAgenda } from "@/components/agenda/faq";
@@ -14,6 +15,7 @@ export default function AgendaInternaPage() {
       <PorqueAgenda />
       <TarefasAgenda />
       <CrmAgenda />
+      <FinanceiroAgenda />
       <PorDentroAgenda />
       <AcessosAgenda />
       <FaqAgenda />
