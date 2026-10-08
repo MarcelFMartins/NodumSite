@@ -925,26 +925,26 @@ const contratoNodumBi: Documento = {
 };
 
 /* ------------------------------------------------------------------ */
-/* Contrato de Prestação de Serviço — Agenda Interna Nodum              */
+/* Contrato de Prestação de Serviço — Nodum Tarefas              */
 /* ------------------------------------------------------------------ */
 
 const contratoAgendaInterna: Documento = {
   slug: "contrato-agendainterna",
   grupo: "agendainterna",
   titulo: "Contrato de Prestação de Serviço",
-  subtitulo: "Condições da Agenda Interna Nodum",
+  subtitulo: "Condições do Nodum Tarefas",
   resumo:
-    "A Agenda Interna não é vendida em prateleira: é sistema multiempresa personalizado, e cada contratação nasce de uma conversa com a empresa interessada. Este documento traz a estrutura que vale para todo cliente; os números — valor, prazo, quantidade de usuários incluídos — vêm da proposta comercial assinada com cada contratante. Complementa os Termos de Uso e a Política de Privacidade gerais da Nodum.",
+    "O Nodum Tarefas não é vendido em prateleira: é sistema multiempresa personalizado, e cada contratação nasce de uma conversa com a empresa interessada. Este documento traz a estrutura que vale para todo cliente; os números — valor, prazo, quantidade de usuários incluídos — vêm da proposta comercial assinada com cada contratante. Complementa os Termos de Uso e a Política de Privacidade gerais da Nodum.",
   versao: "1.0",
   vigencia: "30 de agosto de 2026",
-  aplica: "Agenda Interna Nodum",
+  aplica: "Nodum Tarefas",
   cta: {
     titulo: "Este contrato é o ponto de partida, não o preço",
     texto:
-      "A Agenda Interna não tem tabela pública porque cada empresa usa o sistema de um jeito — número de pessoas, personalizações, volume de negócios no funil. Fale com a gente para receber uma proposta com o valor certo para o tamanho da sua operação.",
+      "O Nodum Tarefas não tem tabela pública porque cada empresa usa o sistema de um jeito — número de pessoas, personalizações, volume de negócios no funil. Fale com a gente para receber uma proposta com o valor certo para o tamanho da sua operação.",
     label: "Pedir uma proposta",
     href: `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(
-      "Quero uma proposta para a Agenda Interna Nodum."
+      "Quero uma proposta para o Nodum Tarefas."
     )}`,
   },
   secoes: [
@@ -980,7 +980,7 @@ const contratoAgendaInterna: Documento = {
         {
           tipo: "p",
           texto:
-            "Licença de uso, não exclusiva e intransferível, da Agenda Interna Nodum, na modalidade de software como serviço, para gestão de tarefas e relacionamento com clientes (CRM) da empresa contratante, pelo prazo definido na proposta comercial.",
+            "Licença de uso, não exclusiva e intransferível, do Nodum Tarefas, na modalidade de software como serviço, para gestão de tarefas e relacionamento com clientes (CRM) da empresa contratante, pelo prazo definido na proposta comercial.",
         },
         {
           tipo: "p",
@@ -1092,7 +1092,7 @@ const contratoAgendaInterna: Documento = {
         {
           tipo: "p",
           texto:
-            "A Agenda Interna Nodum, o código e os elementos visuais são da Nodum. A contratação dá ao contratante o direito de usar o sistema enquanto este contrato estiver em vigor, e nada além disso.",
+            "O Nodum Tarefas, o código e os elementos visuais são da Nodum. A contratação dá ao contratante o direito de usar o sistema enquanto este contrato estiver em vigor, e nada além disso.",
         },
         {
           tipo: "p",
@@ -1108,7 +1108,7 @@ const contratoAgendaInterna: Documento = {
         {
           tipo: "p",
           texto:
-            "A Agenda Interna é uma ferramenta de apoio à organização do trabalho e ao relacionamento comercial. As decisões tomadas a partir dela e o cumprimento das obrigações do contratante perante os próprios clientes são de responsabilidade do contratante.",
+            "O Nodum Tarefas é uma ferramenta de apoio à organização do trabalho e ao relacionamento comercial. As decisões tomadas a partir dela e o cumprimento das obrigações do contratante perante os próprios clientes são de responsabilidade do contratante.",
         },
         {
           tipo: "p",

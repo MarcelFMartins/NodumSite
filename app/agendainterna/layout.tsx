@@ -4,7 +4,7 @@ import { FooterAgenda } from "@/components/agenda/footer";
 import { BarraFixaAgenda } from "@/components/agenda/barra-fixa";
 
 export const metadata: Metadata = {
-  title: "Agenda Interna Nodum — tarefas, CRM e financeiro num sistema só",
+  title: "Nodum Tarefas — tarefas, CRM e financeiro num sistema só",
   description:
     "Gestão de tarefas (kanban, tabela, gráficos), CRM (funil, contatos, WhatsApp) e financeiro (contas a pagar e a receber, cartão, saldo previsto) num sistema multiempresa. Já usado pela Nodum e pela Vogel Assessoria Contábil.",
   keywords: [
@@ -13,15 +13,15 @@ export const metadata: Metadata = {
     "sistema multiempresa",
     "kanban e funil de vendas",
     "contas a pagar e a receber",
-    "Agenda Interna Nodum",
+    "Nodum Tarefas",
   ],
   alternates: { canonical: "/agendainterna" },
   openGraph: {
     type: "website",
     locale: "pt_BR",
     url: "/agendainterna",
-    siteName: "Agenda Interna Nodum",
-    title: "Agenda Interna Nodum — tarefas, CRM e financeiro da sua empresa",
+    siteName: "Nodum Tarefas",
+    title: "Nodum Tarefas — tarefas, CRM e financeiro da sua empresa",
     description:
       "Tarefas, CRM e financeiro multiempresa, com dados isolados por empresa e saldo previsto sem planilha.",
   },
@@ -36,7 +36,7 @@ export default function AgendaLayout({ children }: { children: React.ReactNode }
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "Agenda Interna Nodum",
+            name: "Nodum Tarefas",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
             url: "https://nodumsolucoes.com/agendainterna",

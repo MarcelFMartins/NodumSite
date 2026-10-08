@@ -120,10 +120,10 @@ export function HeroAgenda() {
               background: "radial-gradient(50% 50% at 50% 45%, rgba(29,158,117,.35), transparent 70%)",
             }}
           />
-          <JanelaNavegador endereco="Agenda Interna Nodum · Painel">
+          <JanelaNavegador endereco="Nodum Tarefas · Painel">
             <Image
-              src="/img/agenda/v2/painel.webp"
-              alt="Painel da Agenda Interna Nodum: resumo do dia, contas em atraso, tarefas em aberto, atrasadas e vencendo, e indicadores"
+              src="/img/agenda/v3/painel.webp"
+              alt="Painel do Nodum Tarefas: resumo do dia, contas em atraso, tarefas em aberto, atrasadas e vencendo, e indicadores"
               width={1600}
               height={1000}
               priority

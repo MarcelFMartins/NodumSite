@@ -128,7 +128,7 @@ export function HeroBarber() {
           />
           <JanelaNavegador endereco="barber.nodumsolucoes.com">
             <Image
-              src="/img/barber/v2/dashboard.webp"
+              src="/img/barber/v3/dashboard.webp"
               alt="Tela inicial do NodumBarber: agendamentos em aberto, faturamento do dia, da semana e do mês, planos vendidos e comissões"
               width={1600}
               height={1000}
@@ -141,7 +141,7 @@ export function HeroBarber() {
           <div className="absolute -bottom-10 right-0 hidden w-[24%] md:block">
             <Celular>
               <Image
-                src="/img/barber/v2/agendar-servicos.webp"
+                src="/img/barber/v3/agendar-servicos.webp"
                 alt="Página de agendamento online: o cliente escolhe corte e barba e vê o total antes de confirmar"
                 width={800}
                 height={1292}
