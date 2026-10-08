@@ -16,6 +16,41 @@ import { site } from "./content";
 
 const zap = (texto: string) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(texto)}`;
 
+/**
+ * Único lugar que sabe o endereço do sistema. O cadastro é uma página
+ * local (/nodumstudio/cadastro); só o POST final cruza para o domínio
+ * do sistema, que libera CORS com credenciais para
+ * https://nodumsolucoes.com (app/api/signup/route.ts do nodum-studio).
+ * O cookie de sessão nasce em studio.nodumsolucoes.com — mesmo site
+ * registrável que o nosso, então o SameSite=lax dele vale — e o
+ * redirecionamento final já cai logado no Início.
+ */
+const APP = "https://studio.nodumsolucoes.com";
+
+export const sistemaStudio = {
+  base: APP,
+  entrar: `${APP}/login`,
+  cadastro: "/nodumstudio/cadastro",
+  apiSignup: `${APP}/api/signup`,
+  dashboard: `${APP}/dashboard`,
+  /** Contrato de Assinatura do ramo escolhido, publicado pelo sistema. */
+  contrato: (slug: string) => `${APP}/contrato/${slug}`,
+};
+
+/**
+ * Ramos aceitos pelo cadastro — espelho de SEGMENTOS/TERMOS em
+ * lib/segmentos.ts do sistema (valor enviado, nome e slug do contrato).
+ */
+export const ramosCadastro = [
+  { valor: "MANICURE", nome: "Manicure e pedicure", slug: "manicure-e-pedicure", exemplo: "Estúdio de Unhas da Bia" },
+  { valor: "SALAO", nome: "Salão de beleza", slug: "salao-de-beleza", exemplo: "Salão da Ana" },
+  { valor: "SOBRANCELHAS", nome: "Sobrancelhas e cílios", slug: "sobrancelhas-e-cilios", exemplo: "Studio Olhar" },
+  { valor: "ESTETICA", nome: "Clínica de estética", slug: "clinica-de-estetica", exemplo: "Clínica Bem Estar" },
+  { valor: "DEPILACAO", nome: "Depilação", slug: "depilacao", exemplo: "Espaço Pele Lisa" },
+  { valor: "MAQUIAGEM", nome: "Maquiagem e penteado", slug: "maquiagem-e-penteado", exemplo: "Estúdio Make" },
+  { valor: "TATUAGEM", nome: "Tatuagem e piercing", slug: "tatuagem-e-piercing", exemplo: "Estúdio Tinta Fina" },
+] as const;
+
 export const studio = {
   nome: "NodumStudio",
   tagline: "Agenda e gestão para estúdios de beleza",
@@ -80,7 +115,7 @@ export const ramosStudio = {
     { nome: "Clínica de estética", quem: "esteticistas", exemplo: "Limpeza de pele · 60 min" },
     { nome: "Depilação", quem: "depiladoras", exemplo: "Laser — sessão · 30 min" },
     { nome: "Maquiagem e penteado", quem: "maquiadores", exemplo: "Maquiagem social · 60 min" },
-    { nome: "Tatuagem", quem: "tatuadores", exemplo: "Sessão de tatuagem" },
+    { nome: "Tatuagem e piercing", quem: "tatuadores", exemplo: "Sessão de tatuagem" },
   ],
 };
 

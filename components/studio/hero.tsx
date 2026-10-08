@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { ButtonLink } from "@/components/ui/button";
 import { Aurora, Magnetic, ScrambleText, SplitText } from "@/components/ui/fx";
 import { NodeField } from "@/components/ui/node-field";
-import { heroStudio, studio } from "@/lib/studio";
+import { heroStudio, sistemaStudio } from "@/lib/studio";
 import { useTelaPequena } from "@/lib/hooks";
 
 export function HeroStudio() {
@@ -70,13 +70,11 @@ export function HeroStudio() {
         >
           <Magnetic className="w-full sm:w-auto">
             <ButtonLink
-              href={studio.whatsapp}
+              href={sistemaStudio.cadastro}
               size="lg"
-              target="_blank"
-              rel="noopener"
               className="w-full sm:w-auto"
             >
-              Falar com a Nodum
+              Testar 14 dias grátis
               <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
             </ButtonLink>
           </Magnetic>

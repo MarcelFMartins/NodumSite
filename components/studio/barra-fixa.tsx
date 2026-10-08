@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ButtonLink } from "@/components/ui/button";
-import { studio } from "@/lib/studio";
+import { studio, sistemaStudio } from "@/lib/studio";
 
 export function BarraFixaStudio() {
   const [visivel, setVisivel] = useState(false);
@@ -45,8 +45,8 @@ export function BarraFixaStudio() {
               <p className="truncate text-sm font-semibold text-white">{studio.nome}</p>
               <p className="hidden truncate text-xs text-muted sm:block">{studio.tagline}</p>
             </div>
-            <ButtonLink href={studio.whatsapp} target="_blank" rel="noopener" className="shrink-0">
-              Falar com a Nodum
+            <ButtonLink href={sistemaStudio.cadastro} className="shrink-0">
+              Testar 14 dias grátis
             </ButtonLink>
           </div>
         </motion.div>

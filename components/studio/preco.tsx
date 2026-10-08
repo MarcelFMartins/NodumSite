@@ -4,7 +4,7 @@ import { Check } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal, ScrambleText, SplitText, Stagger, StaggerItem, TiltCard } from "@/components/ui/fx";
 import { NodeField } from "@/components/ui/node-field";
-import { precoStudio, studio } from "@/lib/studio";
+import { precoStudio, sistemaStudio } from "@/lib/studio";
 import { cn } from "@/lib/utils";
 
 export function PrecoStudio() {
@@ -61,9 +61,7 @@ export function PrecoStudio() {
                   </ul>
 
                   <ButtonLink
-                    href={studio.whatsapp}
-                    target="_blank"
-                    rel="noopener"
+                    href={sistemaStudio.cadastro}
                     variant={destaque ? "primary" : "outline"}
                     className="mt-8 w-full"
                   >

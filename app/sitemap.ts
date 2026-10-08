@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/nodumbarber/cadastro`, lastModified: agora, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/nodumbi`, lastModified: agora, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/nodumstudio`, lastModified: agora, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/nodumstudio/cadastro`, lastModified: agora, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/agendainterna`, lastModified: agora, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/legal`, lastModified: agora, changeFrequency: "monthly", priority: 0.4 },
   ];
