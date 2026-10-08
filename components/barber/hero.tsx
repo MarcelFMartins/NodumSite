@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import { useRef } from "react";
+import { AvisoAoVivo, Celular, JanelaNavegador } from "@/components/ui/molduras";
 import { ButtonLink } from "@/components/ui/button";
 import { Aurora, Magnetic, ScrambleText, SplitText } from "@/components/ui/fx";
 import { NodeField } from "@/components/ui/node-field";
@@ -107,7 +108,9 @@ export function HeroBarber() {
       </motion.div>
 
       {/* A tela real entra logo abaixo da dobra: a prova vem antes de
-          qualquer argumento de venda. */}
+          qualquer argumento de venda. Computador e celular juntos porque
+          o produto agora tem dois lados — o da equipe e o do cliente que
+          marca pelo link. */}
       <motion.div
         style={pequena ? undefined : { y: yTela }}
         initial={{ opacity: 0, y: 40 }}
@@ -115,7 +118,7 @@ export function HeroBarber() {
         transition={{ duration: 0.9, delay: 1, ease: [0.22, 0.61, 0.36, 1] }}
         className="shell relative z-10 mt-14 md:mt-20"
       >
-        <div className="relative">
+        <div className="relative md:pr-[12%]">
           <div
             aria-hidden
             className="absolute -inset-8 rounded-[2.5rem] opacity-70 blur-3xl"
@@ -123,15 +126,32 @@ export function HeroBarber() {
               background: "radial-gradient(50% 50% at 50% 45%, rgba(29,158,117,.35), transparent 70%)",
             }}
           />
-          <Image
-            src="/img/barber/3d-dashboard.webp"
-            alt="Tela inicial do NodumBarber: faturamento do dia, da semana e do mês, comissões e agendamentos de hoje"
-            width={2000}
-            height={1389}
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 92vw, 1200px"
-            className="relative w-full rounded-[var(--radius-panel)]"
-          />
+          <JanelaNavegador endereco="barber.nodumsolucoes.com">
+            <Image
+              src="/img/barber/v2/dashboard.webp"
+              alt="Tela inicial do NodumBarber: agendamentos em aberto, faturamento do dia, da semana e do mês, planos vendidos e comissões"
+              width={1600}
+              height={1000}
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1000px"
+              className="w-full"
+            />
+          </JanelaNavegador>
+
+          <div className="absolute -bottom-10 right-0 hidden w-[24%] md:block">
+            <Celular>
+              <Image
+                src="/img/barber/v2/agendar-servicos.webp"
+                alt="Página de agendamento online: o cliente escolhe corte e barba e vê o total antes de confirmar"
+                width={800}
+                height={1292}
+                sizes="260px"
+                className="w-full"
+              />
+            </Celular>
+          </div>
+
+          <AvisoAoVivo avisos={heroBarber.avisos} />
         </div>
       </motion.div>
 
@@ -156,3 +176,4 @@ export function HeroBarber() {
     </section>
   );
 }
+

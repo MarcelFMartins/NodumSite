@@ -4,14 +4,15 @@ import { FooterAgenda } from "@/components/agenda/footer";
 import { BarraFixaAgenda } from "@/components/agenda/barra-fixa";
 
 export const metadata: Metadata = {
-  title: "Agenda Interna Nodum — tarefas e CRM num sistema só",
+  title: "Agenda Interna Nodum — tarefas, CRM e financeiro num sistema só",
   description:
-    "Gestão de tarefas (kanban, tabela, gráficos) e CRM (funil, contatos, automações de WhatsApp) num sistema multiempresa, com dados isolados por empresa. Já usado pela Nodum e pela Vogel Assessoria Contábil.",
+    "Gestão de tarefas (kanban, tabela, gráficos), CRM (funil, contatos, WhatsApp) e financeiro (contas a pagar e a receber, cartão, saldo previsto) num sistema multiempresa. Já usado pela Nodum e pela Vogel Assessoria Contábil.",
   keywords: [
     "gestão de tarefas",
     "CRM para empresas",
     "sistema multiempresa",
     "kanban e funil de vendas",
+    "contas a pagar e a receber",
     "Agenda Interna Nodum",
   ],
   alternates: { canonical: "/agendainterna" },
@@ -20,9 +21,9 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: "/agendainterna",
     siteName: "Agenda Interna Nodum",
-    title: "Agenda Interna Nodum — tarefas e CRM da sua empresa, num sistema só",
+    title: "Agenda Interna Nodum — tarefas, CRM e financeiro da sua empresa",
     description:
-      "Gestão de tarefas e CRM multiempresa, com dados isolados por empresa e ponte direta entre negócio ganho e tarefa de execução.",
+      "Tarefas, CRM e financeiro multiempresa, com dados isolados por empresa e saldo previsto sem planilha.",
   },
 };
 
@@ -40,7 +41,7 @@ export default function AgendaLayout({ children }: { children: React.ReactNode }
             operatingSystem: "Web",
             url: "https://nodumsolucoes.com/agendainterna",
             description:
-              "Sistema multiempresa de gestão de tarefas e CRM: quadro kanban, tabela, gráficos, funil de vendas, contatos e automações de WhatsApp, com dados isolados por empresa.",
+              "Sistema multiempresa de gestão de tarefas, CRM e financeiro: quadro kanban, tabela, gráficos, funil de vendas, WhatsApp, contas a pagar e a receber e painel financeiro, com dados isolados por empresa.",
             inLanguage: "pt-BR",
             publisher: { "@type": "Organization", name: "Nodum Soluções Integradas" },
           }),

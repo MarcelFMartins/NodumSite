@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { Check } from "lucide-react";
-import { Reveal, ScrambleText, SplitText } from "@/components/ui/fx";
+import { Reveal, ScrambleText, SplitText, TiltCard } from "@/components/ui/fx";
+import { JanelaNavegador } from "@/components/ui/molduras";
 import { NodeField } from "@/components/ui/node-field";
 import { crmAgenda } from "@/lib/agenda";
 
@@ -36,6 +38,16 @@ export function CrmAgenda() {
             <p className="mt-6 text-lg text-body">{crmAgenda.texto}</p>
           </Reveal>
         </div>
+      </div>
+
+      <div className="shell relative mt-14">
+        <Reveal>
+          <TiltCard intensidade={3} brilho={false} className="p-0">
+            <JanelaNavegador endereco="Agenda Interna Nodum · Funil">
+              <Image src={crmAgenda.src} alt="Funil de vendas da Agenda Interna Nodum: negócios em aberto, ganhos, perdidos e taxa de conversão" width={1600} height={1000} sizes="(max-width: 1280px) 94vw, 1200px" className="w-full" />
+            </JanelaNavegador>
+          </TiltCard>
+        </Reveal>
       </div>
     </section>
   );

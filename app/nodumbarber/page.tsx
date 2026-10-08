@@ -4,7 +4,9 @@ import { AgendaDemo } from "@/components/barber/agenda-demo";
 import { Calculadora } from "@/components/barber/calculadora";
 import { Recursos } from "@/components/barber/recursos";
 import { PorDentro } from "@/components/barber/pordentro";
-import { Validacao } from "@/components/barber/validacao";
+import { Novidades } from "@/components/barber/novidades";
+import { Online } from "@/components/barber/online";
+import { Caixa } from "@/components/barber/caixa";
 import { Acessos } from "@/components/barber/acessos";
 import { Seguranca } from "@/components/barber/seguranca";
 import { Preco } from "@/components/barber/preco";
@@ -14,20 +16,23 @@ import { FechamentoBarber } from "@/components/barber/fechamento";
 
 /**
  * A ordem segue a conversa que o dono de barbearia tem na cabeça:
- * o que é → por que dói → como resolve (agenda) → quanto isso vale
- * (calculadora) → o que tem dentro → prova (telas reais) → o que ainda
- * vem → quem vê o quê → é seguro? → quanto custa → e depois? → dúvidas.
+ * o que é → está vivo (novidades) → por que dói → o cliente marca
+ * sozinho (online) → como encaixa (agenda) → fechar a conta e planos
+ * (caixa) → quanto isso vale (calculadora) → o que tem dentro → prova
+ * (telas reais) → quem vê o quê → é seguro? → quanto custa → e depois?
  */
 export default function NodumBarberPage() {
   return (
     <>
       <HeroBarber />
+      <Novidades />
       <Porque />
+      <Online />
       <AgendaDemo />
+      <Caixa />
       <Calculadora />
       <Recursos />
       <PorDentro />
-      <Validacao />
       <Acessos />
       <Seguranca />
       <Preco />

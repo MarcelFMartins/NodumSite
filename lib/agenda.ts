@@ -11,7 +11,7 @@
 export const agendaInterna = {
   nome: "Agenda Interna",
   nomeCompleto: "Agenda Interna Nodum",
-  tagline: "Tarefas e CRM da sua empresa, num sistema só",
+  tagline: "Tarefas, CRM e financeiro da sua empresa, num sistema só",
 };
 
 export function zapAgenda(whatsapp: string) {
@@ -29,6 +29,7 @@ export const navAgenda = [
   { label: "Por que existe", href: "#porque" },
   { label: "Tarefas", href: "#tarefas" },
   { label: "CRM", href: "#crm" },
+  { label: "Financeiro", href: "#financeiro" },
   { label: "Por dentro", href: "#pordentro" },
   { label: "Acessos", href: "#acessos" },
 ];
@@ -38,16 +39,22 @@ export const navAgenda = [
 /* ------------------------------------------------------------------ */
 
 export const heroAgenda = {
-  eyebrow: "Gestão de tarefas + CRM",
-  titulo: ["Tarefas e CRM da sua empresa,", "num sistema só."],
+  eyebrow: "Tarefas + CRM + Financeiro",
+  titulo: ["O trabalho, os clientes e o caixa", "da empresa — numa tela só."],
   subtitulo:
-    "Gestão de tarefas e relacionamento com clientes num sistema só, multiempresa — cada empresa enxerga só os próprios dados. Já usado pela própria Nodum e pela Vogel Assessoria Contábil, com personalizações específicas quando o time precisa.",
-  selos: ["Multiempresa, dados isolados", "Kanban + funil de vendas", "WhatsApp integrado"],
+    "Quadro de tarefas com prazo e checklist, funil de vendas com WhatsApp, e agora contas a pagar e a receber com painel financeiro e saldo previsto. Multiempresa — cada empresa enxerga só os próprios dados. Já usado todo dia pela própria Nodum e pela Vogel Assessoria Contábil.",
+  selos: ["Multiempresa, dados isolados", "Alertas com som de prazo e atraso", "Backup 2× por dia"],
+  avisos: [
+    { titulo: "Conta vence hoje", texto: "Energia elétrica · R$ 412,35" },
+    { titulo: "Tarefa atrasada", texto: "Atualizar planilha de preços · Rafael" },
+    { titulo: "Negócio ganho", texto: "Implantação — Bom Trigo · R$ 12.000" },
+    { titulo: "Recebimento confirmado", texto: "Consultoria — Ramos Moda · R$ 1.900" },
+  ],
   provas: [
-    { valor: "2", rotulo: "sistemas, um só", nota: "tarefas do dia a dia e CRM comercial" },
-    { valor: "0", rotulo: "planilha para o funil", nota: "negócio vira tarefa com um clique" },
+    { valor: "3", rotulo: "sistemas, um só", nota: "tarefas, CRM comercial e financeiro" },
+    { valor: "0", rotulo: "planilha para o caixa", nota: "saldo previsto calculado sozinho" },
     { valor: "N", rotulo: "empresas no mesmo sistema", nota: "cada uma só vê os próprios dados" },
-    { valor: "24h", rotulo: "checklist e prazo por tarefa", nota: "com recorrência automática" },
+    { valor: "15s", rotulo: "para a tela se atualizar", nota: "o que o colega muda aparece sozinho" },
   ],
 };
 
@@ -59,7 +66,7 @@ export const porqueAgenda = {
   eyebrow: "Por que existe",
   titulo: ["O trabalho do dia e o cliente novo", "vivem em lugares separados."],
   intro:
-    "Três coisas que acontecem quando a gestão de tarefas e o relacionamento comercial não moram no mesmo lugar.",
+    "Quatro coisas que acontecem quando o trabalho, o comercial e o dinheiro da empresa não moram no mesmo lugar.",
   cenas: [
     {
       quando: "Toda segunda",
@@ -72,6 +79,12 @@ export const porqueAgenda = {
       titulo: "O negócio fechou e a execução começa do zero",
       texto:
         "O funil vive numa ferramenta, o trabalho em outra. Alguém precisa copiar tudo de novo para transformar o negócio ganho em tarefa.",
+    },
+    {
+      quando: "Dia 10",
+      titulo: "A conta venceu e ninguém lembrou",
+      texto:
+        "O boleto estava no e-mail, a fatura do cartão em outro app, o recebível na cabeça de alguém. Juros pagos e dinheiro a receber esquecido.",
     },
     {
       quando: "Com mais de uma empresa",
@@ -98,6 +111,13 @@ export const tarefasAgenda = {
     "Recorrência automática — diária, semanal ou mensal",
     "Aviso de tarefa atrasada, vencendo ou concluída",
     "Carga de trabalho de cada pessoa, visível no Painel e na Equipe",
+    "Alerta com som e cartão flutuante no horário da tarefa",
+    "Tela se atualiza sozinha quando um colega cria ou mexe numa tarefa",
+  ],
+  telas: [
+    { aba: "Quadro", src: "/img/agenda/v2/quadro.webp" },
+    { aba: "Tabela", src: "/img/agenda/v2/tarefas.webp" },
+    { aba: "Gráficos", src: "/img/agenda/v2/graficos.webp" },
   ],
 };
 
@@ -115,6 +135,52 @@ export const crmAgenda = {
     "Contatos com histórico e negócios vinculados",
     "Automações de atividade, inclusive por WhatsApp",
     "Cria tarefa direto a partir de um negócio ganho",
+    "Taxa de conversão e valor em jogo por etapa, à vista",
+  ],
+  src: "/img/agenda/v2/funil.webp",
+};
+
+/* ------------------------------------------------------------------ */
+/* Financeiro                                                          */
+/* ------------------------------------------------------------------ */
+
+export const financeiroAgenda = {
+  eyebrow: "Novo · Financeiro",
+  titulo: ["O dinheiro da empresa", "no mesmo lugar que o trabalho."],
+  texto:
+    "Contas a pagar e a receber, cartão de crédito com fatura que soma sozinha e um painel que mostra o saldo disponível, o que vence nos próximos dias e o saldo previsto. Conta atrasada aparece no Painel, com alerta, até alguém resolver.",
+  numeros: [
+    { rotulo: "A pagar", valor: 4950.25, cor: "text-[#e5484d]" },
+    { rotulo: "A receber", valor: 10500, cor: "text-forest-400" },
+    { rotulo: "Saldo previsto", valor: 5549.75, cor: "text-white" },
+  ],
+  telas: [
+    {
+      aba: "Painel financeiro",
+      src: "/img/agenda/v2/financeiro.webp",
+      texto:
+        "Saldo disponível, contas a pagar e a receber, saldo previsto, atrasados e liquidez — com filtro de período e gráficos por status.",
+    },
+    {
+      aba: "Contas a pagar",
+      src: "/img/agenda/v2/contas-pagar.webp",
+      texto:
+        "Boleto, PIX ou cartão. Conta recorrente (aluguel, internet, sistema) gera a próxima sozinha quando a atual é paga.",
+    },
+    {
+      aba: "Alerta de atraso",
+      src: "/img/agenda/v2/alerta-contas.webp",
+      texto:
+        "Ao entrar no sistema, as contas vencidas sem pagamento aparecem num aviso — com a opção de não mostrar de novo.",
+    },
+  ],
+  itens: [
+    "Contas a pagar e a receber com recorrência",
+    "Cartão de crédito: data de fechamento decide em qual fatura cai",
+    "Compra recorrente no cartão renova a cada fatura paga",
+    "Anexo do boleto ou comprovante, aberto sem baixar",
+    "Cores por significado: vermelho a pagar, verde a receber, azul saldo",
+    "Fluxo por semana e próximos vencimentos no Painel",
   ],
 };
 
@@ -126,65 +192,59 @@ export const pordentroAgenda = {
   eyebrow: "Por dentro",
   titulo: ["Não é maquete.", "É o sistema em uso todo dia."],
   intro:
-    "As telas abaixo são do sistema em operação, hoje usado pela Nodum e pela Vogel Assessoria Contábil. Nomes de pessoas e alguns dados foram ocultados antes da publicação — o resto é real.",
+    "As telas abaixo são do sistema como ele está hoje, com uma empresa de demonstração (a Prisma Consultoria, fictícia) — nenhum dado de cliente real aparece aqui.",
   telas: [
     {
       aba: "Painel",
-      src: "/img/agenda/painel.webp",
-      titulo: "Indicadores, de cara",
+      src: "/img/agenda/v2/painel.webp",
+      titulo: "Tudo que importa hoje, de cara",
       texto:
-        "Tarefas em aberto, atrasadas, vencendo e concluídas, gráficos por status/prioridade/responsável e um resumo do funil — tudo clicável, direto para a lista já filtrada.",
+        "Saudação com o resumo do dia, contas em atraso, tarefas em aberto, atrasadas e vencendo, gráficos clicáveis, prioridades da semana, financeiro dos próximos 30 dias e o funil — numa página.",
     },
     {
       aba: "Quadro",
-      src: "/img/agenda/quadro.webp",
+      src: "/img/agenda/v2/quadro.webp",
       titulo: "Arrasta e solta entre etapas",
       texto:
-        "O quadro kanban do jeito que qualquer time já conhece, com prioridade, prazo e projeto visíveis em cada cartão sem abrir a tarefa.",
+        "O quadro kanban do jeito que qualquer time já conhece, com prioridade, prazo, checklist e responsáveis visíveis em cada cartão.",
     },
     {
       aba: "Tabela",
-      src: "/img/agenda/tabela.webp",
-      titulo: "A mesma lista, ordenável",
+      src: "/img/agenda/v2/tarefas.webp",
+      titulo: "A mesma lista, ordenável e filtrável",
       texto:
-        "Responsável, status, prioridade, prazo e checklist numa tabela — para quem prefere ordenar e escanear em vez de arrastar cartão.",
-    },
-    {
-      aba: "Funil",
-      src: "/img/agenda/funil.webp",
-      titulo: "Negócios em aberto, ganhos e perdidos",
-      texto:
-        "Valor em jogo por etapa, taxa de conversão e automação de WhatsApp — o funil comercial inteiro numa tela.",
-    },
-    {
-      aba: "Contatos",
-      src: "/img/agenda/contatos.webp",
-      titulo: "A base de leads e clientes",
-      texto: "Cada contato com histórico e os negócios vinculados a ele, buscável por nome, e-mail ou empresa.",
+        "Responsável, status, prioridade, prazo e checklist numa tabela, com filtros combináveis por pessoa, projeto, status, prioridade, recorrência e período.",
     },
     {
       aba: "Prazos",
-      src: "/img/agenda/prazos.webp",
+      src: "/img/agenda/v2/prazos.webp",
       titulo: "As tarefas mais urgentes, sempre à frente",
       texto:
-        "Ordenadas pela proximidade do vencimento — o que está atrasado aparece primeiro, sem precisar caçar em nenhuma outra tela.",
+        "Atrasadas, hoje, próximos 7 dias e depois — o que está atrasado aparece primeiro, sem caçar em nenhuma outra tela.",
+    },
+    {
+      aba: "Funil",
+      src: "/img/agenda/v2/funil.webp",
+      titulo: "Negócios em aberto, ganhos e perdidos",
+      texto:
+        "Valor em jogo por etapa, taxa de conversão e automações de WhatsApp — o funil comercial inteiro numa tela.",
+    },
+    {
+      aba: "Financeiro",
+      src: "/img/agenda/v2/financeiro.webp",
+      titulo: "Saldo previsto sem planilha",
+      texto:
+        "Contas a pagar e a receber consolidadas, com o que está atrasado no topo e a liquidez dos próximos 7 dias.",
     },
     {
       aba: "Equipe",
-      src: "/img/agenda/equipe.webp",
+      src: "/img/agenda/v2/equipe.webp",
       titulo: "Quem é quem, e a carga de cada um",
       texto: "Tarefas em aberto, atrasadas e concluídas por pessoa — para redistribuir antes que vire atraso.",
     },
-    {
-      aba: "Clientes/Empresas",
-      src: "/img/agenda/clientes-empresas.webp",
-      titulo: "Cadastro completo de empresas-clientes",
-      texto:
-        "CNPJ, sócios, certificado digital, CNAE e mais, preenchido sozinho quando um processo de abertura é concluído — ou importado em massa por planilha. Recurso especial, hoje exclusivo da Vogel.",
-    },
   ],
   rodape:
-    "Cada empresa que usa o sistema vê apenas os próprios dados — equipe, tarefas, clientes e funil. Personalizações específicas, como o cadastro de Clientes/Empresas acima, existem quando fazem sentido para a operação de uma empresa em particular.",
+    "Cada empresa que usa o sistema vê apenas os próprios dados — equipe, tarefas, clientes, funil e financeiro. Personalizações específicas, como o cadastro de Clientes/Empresas (hoje exclusivo da Vogel), existem quando fazem sentido para a operação de uma empresa em particular.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -246,6 +306,14 @@ export const faqAgenda = {
       r: "Sim. A conexão é por QR code, e as conversas — com histórico e mensagens agendadas — ficam dentro do sistema, tanto no CRM quanto nas automações do funil.",
     },
     {
+      p: "O financeiro substitui o meu sistema contábil?",
+      r: "Não é a ideia. Ele organiza o dia a dia do caixa — o que pagar, o que receber, quanto sobra — no mesmo lugar das tarefas e dos clientes. A contabilidade continua com o seu contador.",
+    },
+    {
+      p: "Dá para controlar a fatura do cartão da empresa?",
+      r: "Dá. O cartão é cadastrado com data de fechamento e vencimento; cada compra cai na fatura certa pela data, e compra recorrente (uma assinatura, por exemplo) renova sozinha a cada fatura paga.",
+    },
+    {
       p: "Isso é um produto pronto ou sob medida?",
       r: "As duas coisas. Tarefas, quadro, funil e contatos são a base que qualquer empresa usa. Além disso, o sistema aceita personalização por empresa quando a operação pede algo específico.",
     },
@@ -260,5 +328,5 @@ export const fechamentoAgenda = {
   eyebrow: "Ver funcionando",
   titulo: ["Mostramos o sistema", "com o seu fluxo de trabalho."],
   texto:
-    "Uma conversa para entender como sua empresa organiza tarefas e clientes hoje, e mostrar como ficaria dentro da Agenda Interna Nodum.",
+    "Uma conversa para entender como sua empresa organiza tarefas, clientes e contas hoje, e mostrar como ficaria dentro da Agenda Interna Nodum.",
 };
