@@ -42,7 +42,7 @@ export function FinanceiroAgenda() {
               <div className="card p-5">
                 <p className="font-mono text-[11px] uppercase tracking-widest text-muted">{n.rotulo}</p>
                 <p className={cn("mt-3 font-mono text-3xl font-bold tabular-nums", n.cor)}>{brl(n.valor)}</p>
-                <p className="mt-1 text-xs text-muted">empresa de demonstração · próximos 30 dias</p>
+                <p className="mt-1 text-xs text-muted">empresa de demonstração · mês atual</p>
               </div>
             </Reveal>
           ))}
