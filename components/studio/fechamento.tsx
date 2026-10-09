@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Aurora, Magnetic, Reveal, ScrambleText, SplitText } from "@/components/ui/fx";
 import { NodeField } from "@/components/ui/node-field";
-import { fechamentoStudio, studio } from "@/lib/studio";
+import { fechamentoStudio, sistemaStudio } from "@/lib/studio";
 
 export function FechamentoStudio() {
   return (
@@ -27,13 +27,11 @@ export function FechamentoStudio() {
           <div className="mt-10 flex justify-center">
             <Magnetic className="w-full sm:w-auto">
               <ButtonLink
-                href={studio.whatsapp}
+                href={sistemaStudio.cadastro}
                 size="lg"
-                target="_blank"
-                rel="noopener"
                 className="w-full sm:w-auto"
               >
-                Falar com a Nodum
+                Testar 14 dias grátis
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
               </ButtonLink>
             </Magnetic>

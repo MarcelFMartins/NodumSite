@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { StudioLogo } from "@/components/studio/logo";
-import { navStudio, studio } from "@/lib/studio";
+import { navStudio, sistemaStudio } from "@/lib/studio";
 
 export function HeaderStudio() {
   const [aberto, setAberto] = useState(false);
@@ -50,8 +50,8 @@ export function HeaderStudio() {
         </nav>
 
         <div className="hidden md:flex">
-          <ButtonLink href={studio.whatsapp} target="_blank" rel="noopener">
-            Falar com a Nodum
+          <ButtonLink href={sistemaStudio.cadastro}>
+            Testar 14 dias grátis
           </ButtonLink>
         </div>
 
@@ -88,13 +88,11 @@ export function HeaderStudio() {
               ))}
               <div className="mt-4">
                 <ButtonLink
-                  href={studio.whatsapp}
+                  href={sistemaStudio.cadastro}
                   size="lg"
-                  target="_blank"
-                  rel="noopener"
                   className="w-full"
                 >
-                  Falar com a Nodum
+                  Testar 14 dias grátis
                 </ButtonLink>
               </div>
             </nav>
